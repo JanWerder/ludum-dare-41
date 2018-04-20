@@ -1,0 +1,24 @@
+[submodule "libs/hump"]
+	path = libs/hump
+	url = https://github.com/vrld/hump
+[submodule "libs/lume"]
+	path = libs/lume
+	url = https://github.com/rxi/lume.git
+[submodule "libs/anim8"]
+	path = libs/anim8
+	url = https://github.com/kikito/anim8
+[submodule "libs/STALKER-X"]
+	path = libs/STALKER-X
+	url = https://github.com/SSYGEN/STALKER-X
+[submodule "libs/lovebird"]
+	path = libs/lovebird
+	url = https://github.com/rxi/lovebird
+[submodule "libs/lurker"]
+	path = libs/lurker
+	url = https://github.com/rxi/lurker
+[submodule "libs/bump.lua"]
+	path = libs/bump.lua
+	url = https://github.com/kikito/bump.lua
+[submodule "libs/SUIT"]
+	path = libs/SUIT
+	url = https://github.com/vrld/SUIT
