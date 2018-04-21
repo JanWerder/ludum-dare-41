@@ -6,9 +6,9 @@ TowerSalt = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self:setRange(325)
-		self:setDamage(2)
-		self:setShootCount(15)
+		self:setRange(100)
+		self:setDamage(1)
+		self:setShootCount(30)
 		
 		-- general stuff
 		self:setName('Catapult')
@@ -17,15 +17,15 @@ TowerSalt = Class{
 		self:setImageShoot(love.graphics.newImage("img/salt.png"))
 		
 		self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
-		self.dropSpeed = 300
+		self.dropSpeed = 100
 	end,
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
 	imageStill = love.graphics.newImage("img/salt_still.png")
 }	
 
 function TowerSalt:shoot(creeps)
-	if creeps[1] then		
-		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creeps[1], self.damage, self.name))
+	for _,creep in pairs(creeps) do
+		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creep, self.damage, self.name))
 	end
 end
 

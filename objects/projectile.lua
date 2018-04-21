@@ -28,5 +28,7 @@ function Projectile:update(dt)
 end
 
 function Projectile:draw()	
-	love.graphics.draw(self.image, self.position.x, self.position.y)
+	if self.image then
+		love.graphics.draw(self.image, self.position.x, self.position.y)
+	end
 end
