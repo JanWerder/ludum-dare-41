@@ -1,0 +1,1 @@
+"C:\Program Files\LOVE\love.exe" "C:\ludum dare\41\ludum-dare-41"
