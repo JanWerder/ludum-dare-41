@@ -108,7 +108,7 @@ function Tower:draw()
 	end
 
 	love.graphics.push("all")
-	love.graphics.setColor(50,255,50,50)
+	love.graphics.setColor(50,255,50,15)
 	love.graphics.circle("fill", self.worldX, self.worldY, self.range)
 	love.graphics.pop()
 	for _,projectile in pairs(self.projectiles) do
