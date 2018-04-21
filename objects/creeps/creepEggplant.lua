@@ -19,4 +19,7 @@ CreepEggplant = Class{
 		self:setImage(love.graphics.newImage("img/eggplant.png"))
 	end
 }	
-
+function CreepEggplant:setDead()
+	self:setImage(love.graphics.newImage("img/deatheggplant.png"))
+	self:setSpeed(0)
+end

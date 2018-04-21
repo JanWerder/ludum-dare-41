@@ -19,4 +19,8 @@ CreepTomato = Class{
 		self:setImage(love.graphics.newImage("img/tomato.png"))
 	end
 }	
+function CreepTomato:setDead()
+	self:setImage(love.graphics.newImage("img/deathtomato.png"))
+	self:setSpeed(0)
+end
 

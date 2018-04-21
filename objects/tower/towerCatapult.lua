@@ -16,7 +16,7 @@ TowerCatapult = Class{
 		self:setImageShootLength(3)
 		self:setImageShoot(love.graphics.newImage("img/catapult.png"))
 		
-		self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
+		self.oliveDrop = love.graphics.newImage("img/walnut.png")
 		self.dropSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/catapult_stillx64.png"),
