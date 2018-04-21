@@ -102,8 +102,7 @@ function Tower:update(dt)
 end
 
 function Tower:draw()
-
-
+	
 	if self.animationShoot.status ~= "paused" then
 		self.animationShoot:draw(self.imageShoot, self.worldX, self.worldY)
 	else
