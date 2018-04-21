@@ -7,6 +7,21 @@ Projectile = Class{
 		self.damage = damage
 		self.hasHit = false
 		self.originName = originName
+
+		if originName == "salt" then
+			local img = love.graphics.newImage('img/salt_single.png')
+
+			self.saltcloud = love.graphics.newParticleSystem(img, 32)
+			self.saltcloud:setParticleLifetime(2, 3)
+			self.saltcloud:setEmissionRate(200)
+			self.saltcloud:setSizeVariation(1)
+			self.saltcloud:setEmitterLifetime(1)
+			self.saltcloud:setLinearAcceleration(-40, -40, 40, 40)
+			self.saltcloud:setColors(255, 255, 255, 255, 255, 255, 255, 0)
+
+			Timer.after(1, function() self.target:decreaseLife(self.damage) end)
+			
+		end
 	end
 }
 
@@ -25,10 +40,22 @@ function Projectile:update(dt)
 		local flightVector = Vector.new(self.target.x - self.position.x, self.target.y - self.position.y):normalizeInplace()
 		self.position = self.position + flightVector * self.speed * dt
 	end
+
+	if self.originName == "salt" then		
+		Timer.after(3, function() self.hasHit = true end)	
+	end
+
+	if self.saltcloud then
+		self.saltcloud:update(dt)
+	end
 end
 
 function Projectile:draw()	
 	if self.image then
 		love.graphics.draw(self.image, self.position.x, self.position.y)
+	end
+	
+	if self.saltcloud then
+		love.graphics.draw(self.saltcloud, self.position.x+16, self.position.y+16)
 	end
 end

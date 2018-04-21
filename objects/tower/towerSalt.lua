@@ -11,13 +11,13 @@ TowerSalt = Class{
 		self:setShootCount(30)
 		
 		-- general stuff
-		self:setName('Catapult')
+		self:setName('salt')
 		self:setImage(love.graphics.newImage("img/salt_still.png"))
 		self:setImageShootLength(2)
 		self:setImageShoot(love.graphics.newImage("img/salt.png"))
 		
-		self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
-		self.dropSpeed = 100		
+		--self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
+		self.dropSpeed = 30		
 	end,
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
 	imageStill = love.graphics.newImage("img/salt_still.png"),
@@ -30,3 +30,10 @@ function TowerSalt:shoot(creeps)
 	end
 end
 
+function TowerSalt:update(dt)
+	Tower.update(self, dt)
+end
+
+function TowerSalt:draw()
+	Tower.draw(self)
+end
