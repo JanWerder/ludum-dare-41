@@ -35,10 +35,13 @@ utils = require 'utils'
 menu = {}
 game = {}
 game.stages = require 'objects.stages'
+gameOver = {}
+
 
 --Include the states 
 require 'states.game'
 require 'states.menu'
+require 'states.gameOver'
 
 
 --Include game-object Manager

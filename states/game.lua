@@ -34,6 +34,10 @@ end
 function game:update(dt)
     --Camera Module
     --camera:update(dt)
+    if game.lifePoints < 1 then
+        Gamestate.switch(gameOver)
+    end
+
     lovebird.update()
     map:update(dt)
 
