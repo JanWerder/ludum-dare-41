@@ -89,11 +89,15 @@ function Creep:update(dt, index)
 			self:attack()
 		end
 	else
-		if self.x < nextTileX then
+		if self.x <= nextTileX then
 			self.x = self.x  + speed * dt
 		end
 
-		if self.y < nextTileY then
+		if self.x > nextTileX then
+			self.x = self.x  - speed * dt
+		end
+
+		if self.y <= nextTileY then
 			self.y = self.y  + speed * dt
 		end
 

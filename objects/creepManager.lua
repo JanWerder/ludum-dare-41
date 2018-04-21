@@ -63,11 +63,12 @@ function CreepManager:update(dt)
 		if self.waveTime > self.waveIndexTime then
 			self.waveTime = 0
 			self.waveIndex = self.waveIndex+1
-			self.waveIndexTime = self.waveConfig[self.waveIndex][3]
-			for i=1, self.waveConfig[self.waveIndex][1] do
-				table.insert(self.creepsToSpawn, self.waveConfig[self.waveIndex][2])
-			end
-			if not self.waveConfig[self.waveIndex] then
+			if self.waveConfig[self.waveIndex] then
+				self.waveIndexTime = self.waveConfig[self.waveIndex][3]
+				for i=1, self.waveConfig[self.waveIndex][1] do
+					table.insert(self.creepsToSpawn, self.waveConfig[self.waveIndex][2])
+				end
+			else
 				self.waveConfig = nil
 			end
 		end
