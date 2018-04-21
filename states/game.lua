@@ -28,6 +28,7 @@ function game:enter()
     game.creepsManager:startWave(game.stages[game.stage][game.wave])
     game.buttonStates = {}
     game.buildMode = nil
+    game.moneyBackground = love.graphics.newImage("img/money_bg.png")
 end
 
 function game:update(dt)
@@ -66,12 +67,13 @@ function game:draw()
     for i=1,game.lifePoints do
         love.graphics.circle("fill", 10 + 15*i, 10, 5)
     end
-    suit.draw()
 
     if game.buildMode and love.mouse.getX() < game.mapSize.x and love.mouse.getY() < game.mapSize.y then
-        love.graphics.draw(game.buildMode.image,game.buildMode.posX, game.buildMode.posY)
-
         love.graphics.push("all")
+            if not game.buildMode.buildAllowed then
+                love.graphics.setColor(255,0,0)
+            end
+            love.graphics.draw(game.buildMode.image,game.buildMode.posX, game.buildMode.posY)
             love.graphics.setColor(50,255,50,50)
             love.graphics.circle("fill", game.buildMode.posX+16, game.buildMode.posY+16, game.buildMode.range)
         love.graphics.pop()
@@ -91,16 +93,52 @@ function game:draw()
         end
     end
     game:towerMenu()
+    suit.draw()
 end
 
 function game:towerMenu()
-    suit.layout:reset(640,7)
-    suit.Label("Basil: " .. game.money, {align = "center"}, suit.layout:row(64,5))
+    suit.layout:reset(640,6)
+    love.graphics.draw(game.moneyBackground,640, 0)
+    local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
+    local bgRed, bgGreen, bgBlue = 115,102,102
+    suit.Label("Basil: " .. game.money, {align = "center", color=colorBlack}, suit.layout:row(64,8))
     game.buttonStates = {}
-    table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,64)), TowerKnife})
-    table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row()), TowerCatapult})
-    table.insert(game.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row()), TowerOliveOil})
-    table.insert(game.buttonStates,{"salt", suit.ImageButton(TowerSalt.menuImage,{}, suit.layout:row()), TowerSalt})
+    suit.layout:row(64,8)
+
+    love.graphics.push("all")
+    if TowerKnife.price > game.money then
+        love.graphics.setColor(bgRed, bgGreen, bgBlue)
+    end
+    table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,44)), TowerKnife})
+    suit.Label(TowerKnife.price .. " Basil", {align = "center"}, suit.layout:row(64,18))
+    suit.layout:row(64,4)
+    love.graphics.pop()
+
+
+    love.graphics.push("all")
+    if TowerCatapult.price > game.money then
+        love.graphics.setColor(bgRed, bgGreen, bgBlue)
+    end
+    table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row(64,40)), TowerCatapult})
+    suit.Label(TowerCatapult.price .. " Basil", {align = "center"}, suit.layout:row(64,16))
+    love.graphics.pop()
+
+    love.graphics.push("all")
+    if TowerOliveOil.price > game.money then
+        love.graphics.setColor(bgRed, bgGreen, bgBlue)
+    end
+    table.insert(game.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row(64,64)), TowerOliveOil})
+    suit.Label(TowerOliveOil.price .. " Basil", {align = "center"}, suit.layout:row(64,8))
+    suit.layout:row(64,8)
+    love.graphics.pop()
+
+    love.graphics.push("all")
+    if TowerSalt.price > game.money then
+        love.graphics.setColor(bgRed, bgGreen, bgBlue)
+    end
+    table.insert(game.buttonStates,{"salt", suit.ImageButton(TowerSalt.menuImage,{}, suit.layout:row(64,64)), TowerSalt})
+    suit.Label(TowerSalt.price .. " Basil", {align = "center"}, suit.layout:row(64,14))
+    love.graphics.pop()
 end
 
 
