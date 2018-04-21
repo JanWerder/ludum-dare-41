@@ -1,6 +1,6 @@
 require "objects/Creeps/Creep"
 
-CreepBasic = Class{
+CreepTomato = Class{
 	__includes = Creep;
 	
 	init = function(self, x, y)
