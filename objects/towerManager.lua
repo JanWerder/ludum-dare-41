@@ -1,5 +1,7 @@
 require "objects/tower/tower"
 require "objects/tower/towerKnife"
+require "objects/tower/towerOliveOil"
+require "objects/tower/towerCatapult"
 require "objects/projectile"
 
 TowerManager = Class{
@@ -29,7 +31,13 @@ function TowerManager:addTower(x, y, name)
 	if name == 'knife' then
 		tower = TowerKnife(x, y)
 	end
-	
+	if name == 'oliveOil' then
+		tower = TowerOliveOil(x, y)
+	end
+	if name == 'catapult' then
+		tower = TowerCatapult(x, y)
+	end
+
 	if tower ~= nil then
 		table.insert(self.towers, tower)
 	end

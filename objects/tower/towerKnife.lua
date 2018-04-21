@@ -8,10 +8,10 @@ TowerKnife = Class{
 		-- damage Var's
 		self:setRange(250)
 		self:setDamage(1)
-		self:setShootCount(10)
+		self:setShootCount(60)
 		
 		-- general stuff
-		self:setName('Basic')
+		self:setName('Knife')
 		self:setImage(love.graphics.newImage("img/Knifestand-still.png"))
 		self:setImageShootLength(3)
 		self:setImageShoot(love.graphics.newImage("img/knifestand-Sheet.png"))
@@ -22,6 +22,8 @@ TowerKnife = Class{
 }	
 
 function TowerKnife:shoot(creeps)
-	table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.knife, self.knifeSpeed, creeps[1], self.damage))
+	if creeps[1] then
+		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.knife, self.knifeSpeed, creeps[1], self.damage))
+	end
 end
 

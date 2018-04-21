@@ -83,8 +83,8 @@ function Tower:update(dt)
 	self.cooldownTimer = self.cooldownTimer + dt
 	if self.cooldownTimer > 60 / self.shootCount then
 		-- Turm ist bereit zum schießen
-		creeps = game.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
-		if creeps ~= nil and creeps ~= {} then
+		local creeps = game.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
+		if creeps then
 			-- Ziele in der Nähe gefunden
 			self:shoot(creeps)
 			self.cooldownTimer = 0
@@ -94,7 +94,7 @@ function Tower:update(dt)
 	self.animationShoot:update(dt)
 	for i,projectile in pairs(self.projectiles) do
 		projectile:update(dt)
-		if projectile.hasHit then
+		if projectile.hasHit then			
 			table.remove(self.projectiles, i)
 		end
 	end
@@ -115,12 +115,6 @@ function Tower:draw()
 		projectile:draw()
 	end
 end
-
-function Tower:shoot(creeps)
-	print('schuss!')
-	
-end
-
 
 
 

@@ -11,6 +11,7 @@ lovebird = require "libs.lovebird.lovebird"
 lume = require "libs.lume.lume"
 Class = require "libs.hump.class"
 Vector = require "libs.hump.vector"
+Timer = require "libs.hump.Timer"
 mlib = require "libs.mlib.mlib"
 
 --Hot-Swapping
