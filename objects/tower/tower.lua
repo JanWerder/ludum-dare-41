@@ -13,6 +13,7 @@ Tower = Class{
 		self.animationShootFrames = 0
 		self.imageShootLength = nil
 		self.cooldownTimer = 0		
+		self.projectiles = {}
 	end
 }
 
@@ -91,6 +92,12 @@ function Tower:update(dt)
 		end
 	end
 	self.animationShoot:update(dt)
+	for i,projectile in pairs(self.projectiles) do
+		projectile:update(dt)
+		if projectile.hasHit then
+			table.remove(self.projectiles, i)
+		end
+	end
 end
 
 function Tower:draw()
@@ -104,6 +111,9 @@ function Tower:draw()
 	love.graphics.setColor(50,255,50,50)
 	love.graphics.circle("fill", self.worldX, self.worldY, self.range)
 	love.graphics.pop()
+	for _,projectile in pairs(self.projectiles) do
+		projectile:draw()
+	end
 end
 
 function Tower:shoot(creeps)

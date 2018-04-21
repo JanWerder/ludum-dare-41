@@ -16,43 +16,12 @@ TowerKnife = Class{
 		self:setImageShootLength(3)
 		self:setImageShoot(love.graphics.newImage("img/knifestand-Sheet.png"))
 		
-		self.knife = love.graphics.newImage("img/knifestand-Sheet.png")
-		self.knifeX, self.knifeY = nil
-		self.knifeSpeed = 50
-		self.target = nil
+		self.knife = love.graphics.newImage("img/knife_projectile.png")
+		self.knifeSpeed = 300
 	end
 }	
 
 function TowerKnife:shoot(creeps)
-	self.target = creeps[1]
+	table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.knife, self.knifeSpeed, creeps[1], self.damage))
 end
 
-function Tower:update(dt)
-	Tower.update(self, dt)
-	local knifeVector
-	if self.target ~= nil then
-		-- new knife
-		if self.knifeX == nil or self.knifeY == nil then
-			self.knifeX = self.worldX
-			self.knifeY = self.worldY
-		end
-		
-		-- calc flight
-		knifeVector = Vector.new(self.target.x - self.knifeX, self.target.y - self.knifeY)
-		
-		
-		-- hit!
-		if self.knifeX == self.target.x and self.knifeY == self.target.y then
-			self.target:decreaseLife(self.damage)
-			self.knifeX , self.knifeY, self.target = nil
-		end
-	end
-end
-
-function TowerKnife:draw()
-	Tower.draw(self)
-	
-	if self.target ~= nil then
-	
-	end
-end

@@ -1,5 +1,6 @@
 require "objects/tower/tower"
 require "objects/tower/towerKnife"
+require "objects/projectile"
 
 TowerManager = Class{
 	init = function(self)
