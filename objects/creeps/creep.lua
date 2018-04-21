@@ -9,6 +9,7 @@ Creep = Class{
 		self.name = nil
 		self.image = nil
 		self.nextStep = 2
+		self.speedMultiplier = 1
 	end
 }
 
@@ -90,19 +91,19 @@ function Creep:update(dt, index)
 		end
 	else
 		if self.x <= nextTileX then
-			self.x = self.x  + speed * dt
+			self.x = self.x  + speed * self.speedMultiplier * dt
 		end
 
 		if self.x > nextTileX then
-			self.x = self.x  - speed * dt
+			self.x = self.x  - speed * self.speedMultiplier * dt
 		end
 
 		if self.y <= nextTileY then
-			self.y = self.y  + speed * dt
+			self.y = self.y  + speed * self.speedMultiplier * dt
 		end
 
 		if self.y > nextTileY then
-			self.y = self.y  - speed * dt
+			self.y = self.y  - speed * self.speedMultiplier * dt
 		end
 	end
 
@@ -120,4 +121,14 @@ end
 
 function Creep:decreaseLife(damage)
 	self.life = self.life - damage
+	if self.life <= 0 then
+		self.life = 0
+	end
+end
+
+function Creep:setSpeedMultiplier(multiplier)
+	self.speedMultiplier = multiplier
+
+	Timer.during(3, function() self.speedMultiplier = multiplier end)
+	Timer.after(3, function() self.speedMultiplier = 1 end)	
 end

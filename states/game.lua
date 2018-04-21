@@ -21,8 +21,11 @@ function game:enter()
     game.creepsManager = CreepManager()
 	game.towerManager = TowerManager()
     local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
-    game.creepsManager:addCreep(posx, posy, "basic")
+
     game.towerManager:addTower(2, 3, "knife")
+    game.towerManager:addTower(2, 4, "oliveOil")
+    game.towerManager:addTower(2, 5, "catapult")
+
     game.lifePoints = 3
     game.stage = 1
     game.wave = 1
@@ -55,6 +58,7 @@ function game:update(dt)
             end
         end
     end
+    Timer.update(dt)
 end
 
 function game:draw()
