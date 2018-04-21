@@ -9,11 +9,13 @@ CreepBasic = Class{
 		--- Creep Customizing --- 
 		-- damage Var's
 		self:setLife(5)
-		self:setSpeed(50)
+		self:setSpeed(40)
+		self:setWidth(32)
+		self:setHeight(32)
 		
 		-- general stuff
-		self:setName('Basic')
-		self:setImage('')
+		self:setName('Tomato')
+		self:setImage(love.graphics.newImage("img/tomato.png"))
 	end
 }	
 
