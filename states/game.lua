@@ -25,6 +25,7 @@ function game:enter()
     local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
     game.creepsManager:addCreep(posx, posy, "basic")
     game.towerManager:addTower(30, 50, "knife")
+    game.lifePoints = 3
     game.stage = 1
     game.wave = 1
     game.creepsManager:startWave(game.stages[game.stage][game.wave])
@@ -49,4 +50,8 @@ function game:draw()
     map:draw()
     game.creepsManager:draw()
     game.towerManager:draw()
+
+    for i=1,game.lifePoints do
+        love.graphics.circle("fill", 10 + 15*i, 10, 5)
+    end
 end
