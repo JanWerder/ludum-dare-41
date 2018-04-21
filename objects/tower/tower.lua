@@ -70,6 +70,10 @@ function Tower:setImage()
 end
 
 -- Tower Functions
+function Tower:update(dt)
+
+end
+
 function Tower:draw()
 	
 end

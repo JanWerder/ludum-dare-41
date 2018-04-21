@@ -7,6 +7,12 @@ TowerManager = Class{
 	end
 }
 
+function Tower:update(dt)
+	for _,tower in pairs(self.towers) do
+		tower.update(dt)
+	end
+end
+
 function TowerManager:draw()
 	for _,tower in pairs(self.towers) do
 		tower.draw()
