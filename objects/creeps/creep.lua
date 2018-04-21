@@ -118,6 +118,6 @@ function Creep:draw()
 	self.animation:draw(self.image, self.x, self.y)
 end
 
-function Creep:decreaseLife()
-	self.life = self.life - 1
+function Creep:decreaseLife(damage)
+	self.life = self.life - damage
 end
