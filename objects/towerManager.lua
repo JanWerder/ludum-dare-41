@@ -2,6 +2,7 @@ require "objects/tower/tower"
 require "objects/tower/towerKnife"
 require "objects/tower/towerOliveOil"
 require "objects/tower/towerCatapult"
+require "objects/tower/towerSalt"
 require "objects/projectile"
 
 TowerManager = Class{
@@ -36,6 +37,9 @@ function TowerManager:addTower(x, y, name)
 	end
 	if name == 'catapult' then
 		tower = TowerCatapult(x, y)
+	end
+	if name == 'salt' then
+		tower = TowerSalt(x, y)
 	end
 
 	if tower ~= nil then

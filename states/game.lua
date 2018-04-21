@@ -25,6 +25,7 @@ function game:enter()
     game.towerManager:addTower(2, 3, "knife")
     game.towerManager:addTower(2, 4, "oliveOil")
     game.towerManager:addTower(2, 5, "catapult")
+    game.towerManager:addTower(2, 6, "salt")
 
     game.lifePoints = 3
     game.stage = 1
