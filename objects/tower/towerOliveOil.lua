@@ -6,7 +6,7 @@ TowerOliveOil = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self:setRange(275)
+		self:setRange(TowerOliveOil.range)
 		self:setDamage(0.5)
 		self:setShootCount(30)
 		
@@ -21,7 +21,8 @@ TowerOliveOil = Class{
 	end,
 	menuImage = love.graphics.newImage("img/oliveoil_stillx64.png"),
 	imageStill = love.graphics.newImage("img/oliveoil_still.png"),
-	price = 20
+	price = 20,
+	range = 275
 }	
 
 function TowerOliveOil:shoot(creeps)

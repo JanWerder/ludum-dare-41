@@ -21,15 +21,8 @@ function game:enter()
     game.creepsManager = CreepManager()
 	game.towerManager = TowerManager()
     local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
-    
-    game.money = 120
-    
-    game.towerManager:addTower(2, 3, "knife")
-    game.towerManager:addTower(2, 4, "oliveOil")
-    game.towerManager:addTower(2, 5, "catapult")
-    game.towerManager:addTower(2, 6, "salt")
-
     game.lifePoints = 3
+    game.money = 50
     game.stage = 1
     game.wave = 1
     game.creepsManager:startWave(game.stages[game.stage][game.wave])
@@ -60,7 +53,8 @@ function game:update(dt)
                 game.buildMode.buildAllowed = true
             end
         end
-    end
+    end   
+
     Timer.update(dt)
 end
 
@@ -76,8 +70,26 @@ function game:draw()
 
     if game.buildMode and love.mouse.getX() < game.mapSize.x and love.mouse.getY() < game.mapSize.y then
         love.graphics.draw(game.buildMode.image,game.buildMode.posX, game.buildMode.posY)
+
+        love.graphics.push("all")
+            love.graphics.setColor(50,255,50,50)
+            love.graphics.circle("fill", game.buildMode.posX+16, game.buildMode.posY+16, game.buildMode.range)
+        love.graphics.pop()
     end
 
+    local mouseX, mouseY = love.mouse.getPosition()
+    
+    for _,tower in pairs(game.towerManager.towers) do
+        local hoverRange = { tower.worldX, tower.worldY, 
+        tower.worldX+tower.image:getWidth(), tower.worldY, 
+        tower.worldX+tower.image:getWidth(), tower.worldY+tower.image:getHeight(),
+        tower.worldX, tower.worldY+tower.image:getHeight()
+        }
+
+        if mlib.polygon.checkPoint(mouseX, mouseY, hoverRange) then
+            tower:drawRange()
+        end
+    end
     game:towerMenu()
 end
 
@@ -96,7 +108,7 @@ function game:mousereleased(mx,my,button)
     if button == 1 then
         for k,v in pairs(game.buttonStates) do
             if game.buttonStates[k][2].hovered and game.money >= game.buttonStates[k][3].price then
-                game.buildMode = {towerName = game.buttonStates[k][1], image = game.buttonStates[k][3].imageStill}
+                game.buildMode = {towerName = game.buttonStates[k][1], image = game.buttonStates[k][3].imageStill, range = game.buttonStates[k][3].range}
                 break
             end
         end
