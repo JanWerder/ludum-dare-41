@@ -66,9 +66,16 @@ function Creep:setImage(image)
 	self.animation = Anim8.newAnimation(self.aniGrid('1-4',1), 0.1)
 end
 
+function Creep:die(index)
+	game.creepsManager:removeCreep(index)
+end
+
+function Creep:attack()
+	game.lifePoints =game.lifePoints -1
+end
 
 -- GENERAL --
-function Creep:update(dt)
+function Creep:update(dt, index)
 	local offset = 3
 	local speed = self:getSpeed()
 
@@ -78,7 +85,8 @@ function Creep:update(dt)
 	and self.y > nextTileY - offset and self.y < nextTileY + offset then
 		self.nextStep = self.nextStep + 1
 		if self.nextStep > utils:tableLength(game.path) then
-			self:die()
+			self:die(index)
+			self:attack()
 		end
 	else
 		if self.x < nextTileX then

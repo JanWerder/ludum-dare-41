@@ -49,9 +49,13 @@ function CreepManager:startWave(wave)
 	self.waveIndexTime = 10
 end
 
+function CreepManager:removeCreep(creep)
+	table.remove(self.creeps, creep)
+end
+
 function CreepManager:update(dt)
-	for _,creep in pairs(self.creeps) do
-		creep:update(dt)
+	for k,creep in pairs(self.creeps) do
+		creep:update(dt, k)
 	end
 
 	if self.waveConfig then
