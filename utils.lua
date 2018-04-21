@@ -33,4 +33,11 @@ function utils:convertTileToPosition(tileX, tileY)
     return positionX, positionY
 end
 
+function utils:convertPositionToTile(positionX, positionY)
+    local tileSize = 32
+    local tileX = (positionX / tileSize) -1
+    local tileY = (positionX / tileSize) -1
+    return tileX, tileY
+end
+
 return utils
