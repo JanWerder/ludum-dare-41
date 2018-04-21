@@ -29,7 +29,7 @@ suit = require 'libs.suit'
 --Tiled
 sti = require 'libs.sti'
 
-utils = require 'utils'
+utils = require 'utils' 
 
 --Gamestates
 menu = {}
@@ -41,6 +41,10 @@ require 'states.menu'
 
 --Include the objects
 require 'objects/tower/towerBasic'
+require 'objects/creeps/creepsBasic'
+
+--Include game-object Manager
+require 'objects/creepsManager'
 
 function love.load()
     lovebird.update()

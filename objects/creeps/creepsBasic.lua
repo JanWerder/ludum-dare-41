@@ -8,12 +8,12 @@ CreepsBasic = Class{
 		
 		--- Creeps Customizing --- 
 		-- damage Var's
-		self.setLive(self, 1)
+		--[[self.setLive(self, 1)
 		self.setSpeed(self, 1)
 		
 		-- general stuff
 		self.setName(self, 'Basic')
-		self.setImage(self, '')
+		self.setImage(self, '')]]
 	end;
 }	
 

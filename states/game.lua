@@ -20,6 +20,10 @@ function game:enter()
 
     utils:createPath(originDirection, currentField)
 
+    game.creepsManager = CreepsManager()
+    local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
+    game.creepsManager:addCreep(posx, posy, "basic")
+
 end
 
 function game:update(dt)

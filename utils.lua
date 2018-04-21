@@ -26,4 +26,11 @@ function utils:createPath(originDirection, currentField)
     end
 end
 
+function utils:convertTileToPosition(tileX, tileY)
+    local tileSize = 32
+    local positionX = (tileX -1) * tileSize
+    local positionY = (tileY -1) * tileSize
+    return positionX, positionY
+end
+
 return utils
