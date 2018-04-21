@@ -4,13 +4,24 @@ require "objects/tower/towerBasic"
 TowerManager = Class{
 	init = function(self)
 		self.towers = {}
-	end;
-	
-	addTower = function(self, x, y, name)
-		if name == 'basic' then
-			tower = TowerBasic(self, x, y)
-		end
-		
-		table.insert(towers, tower)
-	end;
+	end
 }
+
+function TowerManager:draw()
+	for tower in self.towers do
+		tower.draw()
+	end
+end
+
+function TowerManager:addTower(x, y, name)
+	local tower = nil
+	if name == 'basic' then
+		tower = TowerBasic(x, y)
+	end
+	
+	if tower ~= nil then
+		table.insert(self.towers, tower)
+	end
+end
+
+

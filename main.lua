@@ -45,8 +45,11 @@ require 'objects/creeps/creepsBasic'
 
 --Include game-object Manager
 require 'objects/creepsManager'
+require 'objects/towerManager'
 
 function love.load()
+	towerManager = TowerManager()
+	
     lovebird.update()
     Gamestate.registerEvents()
     Gamestate.switch(game)    
