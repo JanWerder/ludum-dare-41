@@ -2,6 +2,8 @@
 Gamestate = require "libs.hump.gamestate"
 Timer = require "libs.hump.timer"
 
+inspect = require "libs.inspect.inspect"
+
 --Web-Debug (http://localhost:8000/)
 lovebird = require "libs.lovebird.lovebird"
 
@@ -24,6 +26,9 @@ Bump = require 'libs.bump.bump'
 --GUI
 suit = require 'libs.suit'
 
+--Tiled
+sti = require 'libs.sti'
+
 --Gamestates
 menu = {}
 game = {}
@@ -35,10 +40,10 @@ require 'states.menu'
 --Include the objects
 require 'objects/tower/towerBasic'
 
-function love.load()	
-	tower = TowerBasic(1,2)
+function love.load()
+    lovebird.update()
     Gamestate.registerEvents()
-    Gamestate.switch(menu)    
+    Gamestate.switch(game)    
 end
 
 function love:update(dt)
