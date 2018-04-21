@@ -35,8 +35,8 @@ end
 
 function utils:convertPositionToTile(positionX, positionY)
     local tileSize = 32
-    local tileX = (positionX / tileSize) -1
-    local tileY = (positionX / tileSize) -1
+    local tileX = math.floor((positionX / tileSize))+1
+    local tileY = math.floor((positionY / tileSize))+1
     return tileX, tileY
 end
 
