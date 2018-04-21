@@ -31,11 +31,10 @@ sti = require 'libs.sti'
 
 utils = require 'utils' 
 
-stages = require 'objects.stages'
-
 --Gamestates
 menu = {}
 game = {}
+game.stages = require 'objects.stages'
 
 --Include the states 
 require 'states.game'

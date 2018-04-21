@@ -27,7 +27,7 @@ function game:enter()
     game.towerManager:addTower(30, 50, "basic")
     game.stage = 1
     game.wave = 1
-    game.creepsManager:startWave(stages[game.stage][game.wave])
+    game.creepsManager:startWave(game.stages[game.stage][game.wave])
 end
 
 function game:update(dt)
