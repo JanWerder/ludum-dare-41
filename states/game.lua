@@ -72,7 +72,7 @@ function game:draw()
     suit.draw()
 
     if game.buildMode and love.mouse.getX() < game.mapSize.x and love.mouse.getY() < game.mapSize.y then
-        love.graphics.draw(TowerKnife.imageStill,game.buildMode.posX, game.buildMode.posY)
+        love.graphics.draw(game.buildMode.image,game.buildMode.posX, game.buildMode.posY)
     end
 
     game:towerMenu()
@@ -81,17 +81,17 @@ end
 function game:towerMenu()
     suit.layout:reset(640,0)
     game.buttonStates = {}
-    table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,64))})
-    table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row())})
+    table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,64)), TowerKnife.imageStill})
+    table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row()), TowerCatapult.imageStill})
+    table.insert(game.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row()), TowerOliveOil.imageStill})
 end
 
 
 function game:mousereleased(mx,my,button)
     if button == 1 then
         for k,v in pairs(game.buttonStates) do
-            print(inspect(game.buttonStates[k]))
             if game.buttonStates[k][2].hovered then
-                game.buildMode = {towerName = game.buttonStates[k][1]}
+                game.buildMode = {towerName = game.buttonStates[k][1], image = game.buttonStates[k][3]}
                 break
             end
         end

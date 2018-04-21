@@ -18,7 +18,9 @@ TowerCatapult = Class{
 		
 		self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
 		self.dropSpeed = 300
-	end
+	end,
+	menuImage = love.graphics.newImage("img/catapult_stillx64.png"),
+	imageStill = love.graphics.newImage("img/catapult_still.png")
 }	
 
 function TowerCatapult:shoot(creeps)
