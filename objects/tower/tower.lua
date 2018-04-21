@@ -70,13 +70,14 @@ function Tower:setImage()
 end
 
 -- Tower Functions
-function Tower:shoot()
-
-	creeps = CreepManager:getCreeps(self.x, self.y, self.range)
+function Tower:draw()
 
 end
 
-function Tower:
+function Tower:shoot()
+	creeps = CreepManager:getCreeps(self.x, self.y, self.range)
+
+end
 
 
 
