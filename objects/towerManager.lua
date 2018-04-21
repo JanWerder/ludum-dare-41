@@ -7,7 +7,7 @@ TowerManager = Class{
 	end
 }
 
-function Tower:update(dt)
+function TowerManager:update(dt)
 	for _,tower in pairs(self.towers) do
 		tower.update(dt)
 	end

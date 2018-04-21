@@ -44,9 +44,7 @@ require 'states.menu'
 require 'objects/creepManager'
 require 'objects/towerManager'
 
-function love.load()
-	towerManager = TowerManager()
-	
+function love.load()	
     lovebird.update()
     Gamestate.registerEvents()
     Gamestate.switch(game)    
