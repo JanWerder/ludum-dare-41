@@ -91,7 +91,7 @@ function Tower:update(dt)
 	if self.cooldownTimer > 60 / self.shootCount then
 		-- Turm ist bereit zum schießen
 		creeps = game.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
-		if creeps ~= {} then
+		if creeps ~= nil and creeps ~= {} then
 			-- Ziele in der Nähe gefunden
 			self:shoot(creeps)
 			self.cooldownTimer = 0

@@ -41,7 +41,7 @@ function CreepManager:getCreepsInRange(towerX,towerY,range)--world coordinates
 
 	for _,creep in pairs(self.creeps) do
 		print(creepX)
-		if mlib.circle.checkPoint(creep.x, creep.y, towerX, towerY, range) then
+		if mlib.circle.checkPoint(creep.x+creep.width/2, creep.y+creep.height/2, towerX, towerY, range) then
 			table.insert(foundCreeps, creep)
 		end
 	end
