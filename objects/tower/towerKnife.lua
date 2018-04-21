@@ -16,9 +16,15 @@ TowerKnife = Class{
 		self:setImageShootLength(3)
 		self:setImageShoot(love.graphics.newImage("img/knifestand-Sheet.png"))
 		
+		self.knife = love.graphics.newImage("img/knifestand-Sheet.png")
+		self.knifeX, self.knifeY = nil
+		self.knifeSpeed = 50
+		self.target = nil
 		self.knife = love.graphics.newImage("img/knife_projectile.png")
 		self.knifeSpeed = 300
-	end
+	end,
+	menuImage = love.graphics.newImage("img/Knifestand-stillx64.png"),
+	imageStill = love.graphics.newImage("img/Knifestand-still.png")
 }	
 
 function TowerKnife:shoot(creeps)

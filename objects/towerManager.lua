@@ -47,4 +47,11 @@ function TowerManager:addTower(x, y, name)
 	end
 end
 
-
+function TowerManager:getTowerAtTile(tileX, tileY)
+	for _,tower in pairs(self.towers) do
+		if tower.x == tileX and tower.y == tileY then
+			return tower
+		end
+	end
+	return nil
+end
