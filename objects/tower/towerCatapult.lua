@@ -6,7 +6,7 @@ TowerCatapult = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self:setRange(325)
+		self:setRange(TowerCatapult.range)
 		self:setDamage(2)
 		self:setShootCount(15)
 		
@@ -20,7 +20,8 @@ TowerCatapult = Class{
 		self.dropSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/catapult_stillx64.png"),
-	imageStill = love.graphics.newImage("img/catapult_still.png")
+	imageStill = love.graphics.newImage("img/catapult_still.png"),
+	range = 325
 }	
 
 function TowerCatapult:shoot(creeps)

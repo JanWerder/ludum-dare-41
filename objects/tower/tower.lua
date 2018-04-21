@@ -84,7 +84,7 @@ function Tower:update(dt)
 	if self.cooldownTimer > 60 / self.shootCount then
 		-- Turm ist bereit zum schießen
 		local creeps = game.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
-		if creeps then
+		if creeps and creeps ~= {} and creeps[1] then
 			-- Ziele in der Nähe gefunden
 			self:shoot(creeps)
 			self.cooldownTimer = 0
@@ -107,13 +107,16 @@ function Tower:draw()
 		love.graphics.draw(self.image, self.worldX, self.worldY)
 	end
 
-	love.graphics.push("all")
-	love.graphics.setColor(50,255,50,15)
-	love.graphics.circle("fill", self.worldX, self.worldY, self.range)
-	love.graphics.pop()
 	for _,projectile in pairs(self.projectiles) do
 		projectile:draw()
 	end
+end
+
+function Tower:drawRange()
+	love.graphics.push("all")
+		love.graphics.setColor(50,255,50,50)
+		love.graphics.circle("fill", self.worldX, self.worldY, self.range)
+	love.graphics.pop()
 end
 
 

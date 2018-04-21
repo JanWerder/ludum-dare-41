@@ -6,7 +6,7 @@ TowerKnife = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self:setRange(250)
+		self:setRange(TowerKnife.range)
 		self:setDamage(1)
 		self:setShootCount(60)
 		
@@ -24,7 +24,8 @@ TowerKnife = Class{
 		self.knifeSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/Knifestand-stillx64.png"),
-	imageStill = love.graphics.newImage("img/Knifestand-still.png")
+	imageStill = love.graphics.newImage("img/Knifestand-still.png"),
+	range = 250
 }	
 
 function TowerKnife:shoot(creeps)

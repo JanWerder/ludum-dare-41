@@ -58,7 +58,8 @@ function game:update(dt)
                 game.buildMode.buildAllowed = true
             end
         end
-    end
+    end   
+
     Timer.update(dt)
 end
 
@@ -74,8 +75,26 @@ function game:draw()
 
     if game.buildMode and love.mouse.getX() < game.mapSize.x and love.mouse.getY() < game.mapSize.y then
         love.graphics.draw(game.buildMode.image,game.buildMode.posX, game.buildMode.posY)
+
+        love.graphics.push("all")
+            love.graphics.setColor(50,255,50,50)
+            love.graphics.circle("fill", game.buildMode.posX, game.buildMode.posY, self.range)
+        love.graphics.pop()
     end
 
+    local mouseX, mouseY = love.mouse.getPosition()
+    
+    for _,tower in pairs(game.towerManager.towers) do
+        local hoverRange = { tower.worldX, tower.worldY, 
+        tower.worldX+tower.image:getWidth(), tower.worldY, 
+        tower.worldX+tower.image:getWidth(), tower.worldY+tower.image:getHeight(),
+        tower.worldX, tower.worldY+tower.image:getHeight()
+        }
+
+        if mlib.polygon.checkPoint(mouseX, mouseY, hoverRange) then
+            tower:drawRange()
+        end
+    end
     game:towerMenu()
 end
 
@@ -98,7 +117,6 @@ function game:mousereleased(mx,my,button)
             end
         end
         if game.buildMode and game.buildMode.buildAllowed then
-            print(game.buildMode.tileX .. "/" .. game.buildMode.tileY .. "/" .. game.buildMode.towerName)
             game.towerManager:addTower(game.buildMode.tileX, game.buildMode.tileY, game.buildMode.towerName)
         end
     elseif button == 2 then
