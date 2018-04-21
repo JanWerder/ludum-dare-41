@@ -24,7 +24,7 @@ Tower = Class{
 	end;
 	
 	getDamage = function(self)
-		return self.position
+		return self.damage
 	end;
 	
 	getShootCount = function(self)

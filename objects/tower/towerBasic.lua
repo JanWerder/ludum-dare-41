@@ -1,5 +1,3 @@
-require "objects/tower/tower"
-
 TowerBasic = Class{
 	__includes = Tower;
 	
