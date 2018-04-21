@@ -13,6 +13,6 @@ TowerBasic = Class{
 		-- general stuff
 		self.setName(self, 'Basic')
 		self.setImage(self, '')
-	end;
+	end
 }	
 

@@ -40,9 +40,11 @@ require 'states.game'
 require 'states.menu'
 
 --Include the objects
-require 'objects/tower/towerBasic'
+require 'objects/towerManager'
 
 function love.load()
+	towerManager = TowerManager()
+	
     lovebird.update()
     Gamestate.registerEvents()
     Gamestate.switch(game)    
