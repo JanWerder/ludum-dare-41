@@ -10,6 +10,7 @@ lovebird = require "libs.lovebird.lovebird"
 --Helper Library
 lume = require "libs.lume.lume"
 Class = require "libs.hump.class"
+Vector = require "libs.hump.vector"
 mlib = require "libs.mlib.mlib"
 
 --Hot-Swapping

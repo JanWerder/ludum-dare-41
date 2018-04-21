@@ -15,9 +15,25 @@ TowerKnife = Class{
 		self:setImage(love.graphics.newImage("img/Knifestand-still.png"))
 		self:setImageShootLength(3)
 		self:setImageShoot(love.graphics.newImage("img/knifestand-Sheet.png"))
+		
+		self.knife = love.graphics.newImage("img/knifestand-Sheet.png")
+		self.target = nil
 	end
 }	
 
 function TowerKnife:shoot(creeps)
-	creeps[1]:decreaseLife(self.damage)
+	self.target = creeps[1]
+	self.target:decreaseLife(self.damage)
+end
+
+function Tower:update(dt)
+	Tower:update(dt)
+	
+end
+
+function TowerKnife:draw()
+	Tower:draw()
+	
+	if
+	
 end
