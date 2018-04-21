@@ -47,14 +47,6 @@ end
 
 	
 -- SETTER --
-function Tower:setPositionX(x)
-	self.x = x
-end
-
-function Tower:setPositionY(y)
-	self.y = y
-end
-
 function Tower:setRange(range)
 	self.range = range
 end
@@ -102,7 +94,6 @@ function Tower:update(dt)
 end
 
 function Tower:draw()
-	
 	if self.animationShoot.status ~= "paused" then
 		self.animationShoot:draw(self.imageShoot, self.worldX, self.worldY)
 	else
