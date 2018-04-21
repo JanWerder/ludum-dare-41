@@ -17,5 +17,4 @@ CreepCarrot = Class{
 		self:setName('Carrot')
 		self:setImage(love.graphics.newImage("img/carrot.png"))
 	end
-}	
-
+}

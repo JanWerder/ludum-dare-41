@@ -36,10 +36,13 @@ utils = require 'utils'
 menu = {}
 game = {}
 game.stages = require 'objects.stages'
+gameOver = {}
+
 
 --Include the states 
 require 'states.game'
 require 'states.menu'
+require 'states.gameOver'
 
 
 --Include game-object Manager
@@ -68,5 +71,8 @@ function love.textinput(t)
 end
 
 function love.keypressed(key)
-	suit.keypressed(key)
+    suit.keypressed(key)
+    if key == "g" then
+        Gamestate.switch(gameOver) 
+    end
 end

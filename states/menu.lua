@@ -1,6 +1,4 @@
 function menu:enter()    
-    love.graphics.print("Press Enter to continue", 10, 10)
-
     menu.input = {text = ""}
 end
 
