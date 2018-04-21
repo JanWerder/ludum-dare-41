@@ -9,6 +9,7 @@ lovebird = require "libs.lovebird.lovebird"
 
 --Helper Library
 lume = require "libs.lume.lume"
+Class = require "libs.hump.class"
 
 --Hot-Swapping
 lurker = require("libs.lurker.lurker")
@@ -37,6 +38,9 @@ game = {}
 --Include the states 
 require 'states.game'
 require 'states.menu'
+
+--Include the objects
+require 'objects/tower/towerBasic'
 
 function love.load()
     lovebird.update()
