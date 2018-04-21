@@ -6,9 +6,9 @@ TowerSalt = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self:setRange(325)
-		self:setDamage(2)
-		self:setShootCount(15)
+		self:setRange(100)
+		self:setDamage(1)
+		self:setShootCount(30)
 		
 		-- general stuff
 		self:setName('Catapult')
@@ -17,7 +17,7 @@ TowerSalt = Class{
 		self:setImageShoot(love.graphics.newImage("img/salt.png"))
 		
 		self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
-		self.dropSpeed = 300
+		self.dropSpeed = 100
 	end,
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
 	imageStill = love.graphics.newImage("img/salt_still.png")
