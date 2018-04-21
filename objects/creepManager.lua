@@ -66,7 +66,9 @@ function CreepManager:update(dt)
 		creep:update(dt, k)
 		if creep.life == 0 then
 			game.money = game.money + creep:getHeadMoney()
-			table.insert(self.deadCreeps, table.remove(self.creeps, k)) --TODO
+			creep:setDead()
+			table.insert(self.deadCreeps, creep) --TODO
+			table.remove(self.creeps, k)
 		end
 	end
 
@@ -98,6 +100,9 @@ function CreepManager:update(dt)
 end
 
 function CreepManager:draw()
+	for _,deadCreep in pairs(self.deadCreeps) do
+		deadCreep:draw()
+	end
 	for _,creep in pairs(self.creeps) do
 		creep:draw()
 	end

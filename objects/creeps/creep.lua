@@ -11,6 +11,7 @@ Creep = Class{
 		self.nextStep = 2
 		self.speedMultiplier = 1
 		self.headMoney = nil
+		self.isDead = false
 	end
 }
 
@@ -68,8 +69,13 @@ end
 
 function Creep:setImage(image)
 	self.image = image
-	self.aniGrid = Anim8.newGrid(32, 32, image:getWidth(), image:getHeight())
-	self.animation = Anim8.newAnimation(self.aniGrid('1-4',1), 0.1)
+	if self.life > 0 then
+		self.aniGrid = Anim8.newGrid(32, 32, image:getWidth(), image:getHeight())
+		self.animation = Anim8.newAnimation(self.aniGrid('1-4',1), 0.1)
+	else
+		self.isDead = true
+		self.angle = math.pi / 180 * love.math.random(0,360)
+	end
 end
 
 function Creep:attack(index)
@@ -115,12 +121,16 @@ function Creep:update(dt, index)
 end
 
 function Creep:draw()
-	love.graphics.rectangle("line", self.x+5, self.y-10, self.width-10, 6)
-	love.graphics.push("all")
-	love.graphics.setColor(255, 50,50)
-	love.graphics.rectangle("fill", self.x+6, self.y-9, (self.width-11)*(self.life/self.maxLife),5)
-	love.graphics.pop()
-	self.animation:draw(self.image, self.x, self.y)
+	if self.isDead then
+		love.graphics.draw(self.image, self.x, self.y, self.angle, 1, 1, 16, 16)
+	else
+		love.graphics.rectangle("line", self.x+5, self.y-10, self.width-10, 6)
+		love.graphics.push("all")
+		love.graphics.setColor(255, 50,50)
+		love.graphics.rectangle("fill", self.x+6, self.y-9, (self.width-11)*(self.life/self.maxLife),5) -- Lifebar
+		love.graphics.pop()
+		self.animation:draw(self.image, self.x, self.y)
+	end
 end
 
 function Creep:decreaseLife(damage)

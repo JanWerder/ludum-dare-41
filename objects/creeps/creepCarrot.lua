@@ -19,3 +19,8 @@ CreepCarrot = Class{
 		self:setImage(love.graphics.newImage("img/carrot.png"))
 	end
 }
+
+function CreepCarrot:setDead()
+	self:setImage(love.graphics.newImage("img/deathcarrot.png"))
+	self:setSpeed(0)
+end
