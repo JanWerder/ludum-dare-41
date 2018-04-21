@@ -20,7 +20,8 @@ TowerOliveOil = Class{
 		self.dropSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/oliveoil_stillx64.png"),
-	imageStill = love.graphics.newImage("img/oliveoil_still.png")
+	imageStill = love.graphics.newImage("img/oliveoil_still.png"),
+	price = 20
 }	
 
 function TowerOliveOil:shoot(creeps)

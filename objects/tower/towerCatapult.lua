@@ -20,7 +20,8 @@ TowerCatapult = Class{
 		self.dropSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/catapult_stillx64.png"),
-	imageStill = love.graphics.newImage("img/catapult_still.png")
+	imageStill = love.graphics.newImage("img/catapult_still.png"),
+	price = 20
 }	
 
 function TowerCatapult:shoot(creeps)

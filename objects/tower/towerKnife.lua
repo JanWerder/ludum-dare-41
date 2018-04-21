@@ -24,7 +24,8 @@ TowerKnife = Class{
 		self.knifeSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/Knifestand-stillx64.png"),
-	imageStill = love.graphics.newImage("img/Knifestand-still.png")
+	imageStill = love.graphics.newImage("img/Knifestand-still.png"),
+	price = 20
 }	
 
 function TowerKnife:shoot(creeps)

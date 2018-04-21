@@ -20,7 +20,8 @@ TowerSalt = Class{
 		self.dropSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
-	imageStill = love.graphics.newImage("img/salt_still.png")
+	imageStill = love.graphics.newImage("img/salt_still.png"),
+	price = 20
 }	
 
 function TowerSalt:shoot(creeps)

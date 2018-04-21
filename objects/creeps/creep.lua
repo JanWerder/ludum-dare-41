@@ -10,6 +10,7 @@ Creep = Class{
 		self.image = nil
 		self.nextStep = 2
 		self.speedMultiplier = 1
+		self.headMoney = nil
 	end
 }
 
@@ -36,6 +37,10 @@ end
 
 function Creep:getHeight()
 	return self.height
+end
+
+function Creep:getHeadMoney()
+	return self.headMoney
 end
 
 -- SETTER --
@@ -67,14 +72,14 @@ function Creep:setImage(image)
 	self.animation = Anim8.newAnimation(self.aniGrid('1-4',1), 0.1)
 end
 
-function Creep:die(index)
+function Creep:attack(index)
 	game.creepsManager:removeCreep(index)
-end
-
-function Creep:attack()
 	game.lifePoints =game.lifePoints -1
 end
 
+function Creep:setHeadMoney(headMoney)
+	self.headMoney = headMoney
+end
 -- GENERAL --
 function Creep:update(dt, index)
 	local offset = 3
@@ -86,8 +91,7 @@ function Creep:update(dt, index)
 	and self.y > nextTileY - offset and self.y < nextTileY + offset then
 		self.nextStep = self.nextStep + 1
 		if self.nextStep > utils:tableLength(game.path) then
-			self:die(index)
-			self:attack()
+			self:attack(index)
 		end
 	else
 		if self.x <= nextTileX then
