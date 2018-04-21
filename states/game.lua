@@ -20,7 +20,7 @@ function game:enter()
 
     utils:createPath(originDirection, currentField)
 
-    game.creepsManager = CreepsManager()
+    game.creepsManager = CreepManager()
     local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
     game.creepsManager:addCreep(posx, posy, "basic")
 
@@ -31,6 +31,8 @@ function game:update(dt)
     --camera:update(dt)
     lovebird.update()
     map:update(dt)
+
+    game.creepsManager:update(dt)
 end
 
 function game:draw()
@@ -40,5 +42,6 @@ function game:draw()
     --camera:draw()
 
     map:draw()
-	towerManager:draw()
+    towerManager:draw()
+    game.creepsManager:draw()
 end

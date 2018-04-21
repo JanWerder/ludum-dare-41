@@ -39,12 +39,9 @@ game = {}
 require 'states.game'
 require 'states.menu'
 
---Include the objects
-require 'objects/tower/towerBasic'
-require 'objects/creeps/creepsBasic'
 
 --Include game-object Manager
-require 'objects/creepsManager'
+require 'objects/creepManager'
 require 'objects/towerManager'
 
 function love.load()

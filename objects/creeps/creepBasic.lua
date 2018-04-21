@@ -1,12 +1,12 @@
-require "objects/creeps/creeps"
+require "objects/Creeps/Creep"
 
-CreepsBasic = Class{
-	__includes = Creeps;
+CreepBasic = Class{
+	__includes = Creep;
 	
 	init = function(self, x, y)
-		Creeps.init(self, x, y)
+		Creep.init(self, x, y)
 		
-		--- Creeps Customizing --- 
+		--- Creep Customizing --- 
 		-- damage Var's
 		--[[self.setLive(self, 1)
 		self.setSpeed(self, 1)
@@ -14,6 +14,6 @@ CreepsBasic = Class{
 		-- general stuff
 		self.setName(self, 'Basic')
 		self.setImage(self, '')]]
-	end;
+	end
 }	
 
