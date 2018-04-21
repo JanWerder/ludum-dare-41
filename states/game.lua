@@ -25,7 +25,7 @@ function game:enter()
     local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
     game.creepsManager:addCreep(posx, posy, "basic")
     game.towerManager:addTower(30, 50, "knife")
-    game.lifePoints = 3
+    game.lifePoints = 2
     game.stage = 1
     game.wave = 1
     game.creepsManager:startWave(game.stages[game.stage][game.wave])

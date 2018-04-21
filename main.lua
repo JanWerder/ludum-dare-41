@@ -70,5 +70,8 @@ function love.textinput(t)
 end
 
 function love.keypressed(key)
-	suit.keypressed(key)
+    suit.keypressed(key)
+    if key == "g" then
+        Gamestate.switch(gameOver) 
+    end
 end
