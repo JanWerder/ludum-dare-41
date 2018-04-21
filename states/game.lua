@@ -6,19 +6,22 @@ function game:enter()
 
     map = sti("maps/defense.lua")
 
-    path = {}
+    game.path = {}
 
-    for x=1,20 do
-        for y=1,12 do
-            local props = map:getTileProperties("grid", x, y)
-            --print(inspect(props))
-            if props.path then
-                table.insert(path, { x = x, y = y })
-            end
+    local originDirection = {-1,0}
+    local currentField = {}
+    for y=1,12 do
+        local props = map:getTileProperties("grid", 1, y)
+        if props.path then
+            table.insert(game.path, { x = 1, y = y })
+            currentField = { x = 1, y = y }
         end
     end
 
-    print(inspect(path))
+    local goFurther = true
+    while goFurther == true do
+        originDirection, currentField, goFurther = utils:checkPath(originDirection, currentField)
+    end
 
 end
 

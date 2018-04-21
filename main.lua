@@ -28,6 +28,8 @@ suit = require 'libs.suit'
 --Tiled
 sti = require 'libs.sti'
 
+utils = require 'utils'
+
 --Gamestates
 menu = {}
 game = {}
