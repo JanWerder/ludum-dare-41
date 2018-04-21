@@ -31,6 +31,8 @@ sti = require 'libs.sti'
 
 utils = require 'utils' 
 
+stages = require 'objects.stages'
+
 --Gamestates
 menu = {}
 game = {}
@@ -41,8 +43,8 @@ require 'states.menu'
 
 
 --Include game-object Manager
-require 'objects/creepManager'
-require 'objects/towerManager'
+require 'objects.creepManager'
+require 'objects.towerManager'
 
 function love.load()	
     lovebird.update()

@@ -21,6 +21,14 @@ function CreepManager:addCreep(x, y, name)
 	table.insert(self.creeps, creep)
 end
 
+function CreepManager:getCreepsInRange(x,y,range)
+	--TODO
+	return {}
+end
+
+function CreepManager:startWave(wave)
+
+end
 
 function CreepManager:update(dt)
 	for _,creep in pairs(self.creeps) do
