@@ -6,6 +6,7 @@ require "objects/creeps/creepCarrot"
 CreepManager = Class{
 	init = function(self)
 		self.creeps = {}
+		self.deadCreeps = {}
 		self.singleCreepDelay = 3
 		self.singleCreepTime = 0
 		self.waveIndexTime = 10
@@ -64,7 +65,8 @@ function CreepManager:update(dt)
 	for k,creep in pairs(self.creeps) do
 		creep:update(dt, k)
 		if creep.life == 0 then
-			table.remove(self.creeps, k) --TODO
+			game.money = game.money + creep:getHeadMoney()
+			table.insert(self.deadCreeps, table.remove(self.creeps, k)) --TODO
 		end
 	end
 

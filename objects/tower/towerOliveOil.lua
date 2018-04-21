@@ -21,6 +21,7 @@ TowerOliveOil = Class{
 	end,
 	menuImage = love.graphics.newImage("img/oliveoil_stillx64.png"),
 	imageStill = love.graphics.newImage("img/oliveoil_still.png"),
+	price = 20,
 	range = 275
 }	
 

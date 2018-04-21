@@ -1,5 +1,4 @@
 function gameOver:enter()
-    print("Congratz, you lost")
 end
 
 function gameOver:draw()

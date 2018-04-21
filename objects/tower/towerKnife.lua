@@ -25,6 +25,7 @@ TowerKnife = Class{
 	end,
 	menuImage = love.graphics.newImage("img/Knifestand-stillx64.png"),
 	imageStill = love.graphics.newImage("img/Knifestand-still.png"),
+	price = 20,
 	range = 250
 }	
 

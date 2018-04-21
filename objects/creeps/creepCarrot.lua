@@ -9,6 +9,7 @@ CreepCarrot = Class{
 		--- Creep Customizing --- 
 		-- damage Var's
 		self:setLife(4)
+		self:setHeadMoney(4)
 		self:setSpeed(60)
 		self:setWidth(32)
 		self:setHeight(32)
