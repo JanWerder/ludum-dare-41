@@ -24,8 +24,8 @@ TowerSalt = Class{
 }	
 
 function TowerSalt:shoot(creeps)
-	if creeps[1] then		
-		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creeps[1], self.damage, self.name))
+	for _,creep in pairs(creeps) do
+		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creep, self.damage, self.name))
 	end
 end
 
