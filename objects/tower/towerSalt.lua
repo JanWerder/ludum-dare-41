@@ -18,7 +18,9 @@ TowerSalt = Class{
 		
 		self.oliveDrop = love.graphics.newImage("img/oliveoil_drop.png")
 		self.dropSpeed = 300
-	end
+	end,
+	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
+	imageStill = love.graphics.newImage("img/salt_still.png")
 }	
 
 function TowerSalt:shoot(creeps)
