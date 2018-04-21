@@ -6,13 +6,15 @@ TowerBasic = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self.setRange(self, 1)
-		self.setDamage(self, 1)
-		self.setShootCount(self, 60)
+		self:setRange(1)
+		self:setDamage(1)
+		self:setShootCount(60)
 		
 		-- general stuff
-		self.setName(self, 'Basic')
-		self.setImage(self, '')
+		self:setName('Basic')
+		self:setImage(love.graphics.newImage("img/tomato.png"))
+		self:setImageShoot(love.graphics.newImage("img/tomato.png"))
+		self:setImageShootLength(2)
 	end
 }	
 
