@@ -71,7 +71,7 @@ end
 
 -- Tower Functions
 function Tower:draw()
-
+	
 end
 
 function Tower:shoot()

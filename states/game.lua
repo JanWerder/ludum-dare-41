@@ -40,4 +40,5 @@ function game:draw()
     --camera:draw()
 
     map:draw()
+	towerManager:draw()
 end

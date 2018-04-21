@@ -8,9 +8,13 @@ TowerManager = Class{
 }
 
 function TowerManager:draw()
-	for tower in self.towers do
+	for _,tower in pairs(self.towers) do
 		tower.draw()
 	end
+end
+
+function TowerManager:reset()
+	self.towers = {}
 end
 
 function TowerManager:addTower(x, y, name)
