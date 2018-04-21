@@ -6,7 +6,7 @@ TowerKnife = Class{
 		
 		--- Tower Customizing --- 
 		-- damage Var's
-		self:setRange(1)
+		self:setRange(250)
 		self:setDamage(1)
 		self:setShootCount(10)
 		

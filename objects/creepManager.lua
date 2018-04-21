@@ -36,9 +36,17 @@ function CreepManager:addCreep(x, y, name)
 	end
 end
 
-function CreepManager:getCreepsInRange(x,y,range)
-	--TODO
-	return {}
+function CreepManager:getCreepsInRange(towerX,towerY,range)--world coordinates
+	local foundCreeps = {}
+
+	for _,creep in pairs(self.creeps) do
+		print(creepX)
+		if mlib.circle.checkPoint(creep.x, creep.y, towerX, towerY, range) then
+			table.insert(foundCreeps, creep)
+		end
+	end
+	
+	return foundCreeps
 end
 
 function CreepManager:startWave(wave)

@@ -113,7 +113,7 @@ function Creep:draw()
 	love.graphics.rectangle("line", self.x+5, self.y-10, self.width-10, 6)
 	love.graphics.push("all")
 	love.graphics.setColor(255, 50,50)
-	love.graphics.rectangle("fill", self.x+6, self.y-9, self.width-11*(self.life/self.maxLife),5)
+	love.graphics.rectangle("fill", self.x+6, self.y-9, (self.width-11)*(self.life/self.maxLife),5)
 	love.graphics.pop()
 	self.animation:draw(self.image, self.x, self.y)
 end

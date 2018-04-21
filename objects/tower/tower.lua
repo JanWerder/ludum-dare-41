@@ -2,6 +2,7 @@ Tower = Class{
 	init = function(self, x, y)
 		self.x = x
 		self.y = y
+		self.worldX, self.worldY = utils:convertTileToPosition(x, y)
 		self.range = nil
 		self.damage = nil
 		self.shootCount = nil -- x Schüsse pro Minute
@@ -11,7 +12,7 @@ Tower = Class{
 		self.animationShoot = nil
 		self.animationShootFrames = 0
 		self.imageShootLength = nil
-		self.cooldownTimer = 0
+		self.cooldownTimer = 0		
 	end
 }
 
@@ -89,8 +90,9 @@ function Tower:update(dt)
 	self.cooldownTimer = self.cooldownTimer + dt
 	if self.cooldownTimer > 60 / self.shootCount then
 		-- Turm ist bereit zum schießen
-		creeps = game.creepsManager:getCreepsInRange(self.x, self.y, self.range)
-		if creeps ~= nil then
+		creeps = game.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
+		print(inspect(creeps))
+		if creeps ~= {} then
 			-- Ziele in der Nähe gefunden
 			self:shoot(creeps)
 			self.cooldownTimer = 0
@@ -101,11 +103,18 @@ function Tower:update(dt)
 end
 
 function Tower:draw()
+
+
 	if self.animationShoot.status ~= "paused" then
-		self.animationShoot:draw(self.imageShoot, self.x, self.y)
+		self.animationShoot:draw(self.imageShoot, self.worldX, self.worldY)
 	else
-		love.graphics.draw(self.image, self.x, self.y)
+		love.graphics.draw(self.image, self.worldX, self.worldY)
 	end
+
+	love.graphics.push("all")
+	love.graphics.setColor(50,255,50,50)
+	love.graphics.circle("fill", self.worldX, self.worldY, self.range)
+	love.graphics.pop()
 end
 
 function Tower:shoot(creeps)
