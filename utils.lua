@@ -6,7 +6,7 @@ function utils:tableLength(T)
     return count
 end
 
-function utils:checkPath(originDirection, currentField)
+function utils:createPath(originDirection, currentField)
     local directionsToCheck = {
         {1,0},
         {-1,0},
@@ -20,11 +20,10 @@ function utils:checkPath(originDirection, currentField)
             local props = map:getTileProperties("grid", checkX , checkY)
             if props.path then
                 table.insert(game.path, { x = checkX, y = checkY })
-                return { currentField.x-checkX, currentField.y-checkY },{ x = checkX, y = checkY }, true
+                utils:createPath({ currentField.x-checkX, currentField.y-checkY },{ x = checkX, y = checkY })
             end
         end
     end
-    return {},{},false
 end
 
 return utils

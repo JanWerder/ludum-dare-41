@@ -18,10 +18,7 @@ function game:enter()
         end
     end
 
-    local goFurther = true
-    while goFurther == true do
-        originDirection, currentField, goFurther = utils:checkPath(originDirection, currentField)
-    end
+    utils:createPath(originDirection, currentField)
 
 end
 
