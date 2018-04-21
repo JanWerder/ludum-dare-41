@@ -1,5 +1,5 @@
 require "objects/tower/tower"
-require "objects/tower/towerBasic"
+require "objects/tower/towerKnife"
 
 TowerManager = Class{
 	init = function(self)
@@ -25,8 +25,8 @@ end
 
 function TowerManager:addTower(x, y, name)
 	local tower = nil
-	if name == 'basic' then
-		tower = TowerBasic(x, y)
+	if name == 'knife' then
+		tower = TowerKnife(x, y)
 	end
 	
 	if tower ~= nil then

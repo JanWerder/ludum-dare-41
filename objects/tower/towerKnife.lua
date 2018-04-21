@@ -1,4 +1,4 @@
-TowerBasic = Class{
+TowerKnife = Class{
 	__includes = Tower;
 	
 	init = function(self, x, y)
@@ -8,13 +8,13 @@ TowerBasic = Class{
 		-- damage Var's
 		self:setRange(1)
 		self:setDamage(1)
-		self:setShootCount(60)
+		self:setShootCount(10)
 		
 		-- general stuff
 		self:setName('Basic')
-		self:setImage(love.graphics.newImage("img/tomato.png"))
-		self:setImageShoot(love.graphics.newImage("img/tomato.png"))
-		self:setImageShootLength(2)
+		self:setImage(love.graphics.newImage("img/Knifestand-still.png"))
+		self:setImageShootLength(3)
+		self:setImageShoot(love.graphics.newImage("img/knifeprojectile-Sheet.png"))
 	end
 }	
 

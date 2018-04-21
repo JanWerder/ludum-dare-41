@@ -8,9 +8,9 @@ Tower = Class{
 		self.shootLength = nil
 		self.name = nil
 		self.image = nil
-		self.animation = nil
 		self.imageShoot = nil
 		self.animationShoot = nil
+		self.animationShootFrames = 0
 		self.imageShootLength = nil
 		self.cooldownTimer = 0
 	end
@@ -77,14 +77,12 @@ end
 
 function Tower:setImage(image)
 	self.image = image
-	self.aniGrid = Anim8.newGrid(32, 32, image:getWidth(), image:getHeight())
-	self.animation = Anim8.newAnimation(self.aniGrid('1-4',1), 0.1)
 end
 
 function Tower:setImageShoot(imageShoot)
 	self.imageShoot = imageShoot
 	self.aniGrid = Anim8.newGrid(32, 32, imageShoot:getWidth(), imageShoot:getHeight())
-	self.animationShoot = Anim8.newAnimation(self.aniGrid('1-4',1), 0.1)
+	self.animationShoot = Anim8.newAnimation(self.aniGrid('1-'.. self.imageShootLength,1), 0.2, 'pauseAtStart')
 end
 
 function Tower:setImageShootLength(imageShootLength)
@@ -94,25 +92,24 @@ end
 -- Tower Functions
 function Tower:update(dt)
 	self.cooldownTimer = self.cooldownTimer + dt
-	if self.cooldownTimer > self.shootCount / 60 then
+	if self.cooldownTimer > 60 / self.shootCount then
 		-- Turm ist bereit zum schießen
 		creeps = game.creepsManager:getCreepsInRange(self.x, self.y, self.range)
 		if creeps ~= nil then
 			-- Ziele in der Nähe gefunden
 			self:shoot(creeps)
 			self.cooldownTimer = 0
-			self.animationShoot:gotoFrame(1)
+			self.animationShoot:resume()
 		end
 	end
-	self.animation:update(dt)
 	self.animationShoot:update(dt)
 end
 
 function Tower:draw()
-	if self.cooldownTimer < self.imageShootLength then
+	if self.animationShoot.status ~= "paused" then
 		self.animationShoot:draw(self.imageShoot, self.x, self.y)
 	else
-		self.animation:draw(self.image, self.x, self.y)
+		love.graphics.draw(self.image, self.x, self.y)
 	end
 end
 
