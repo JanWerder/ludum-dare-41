@@ -115,7 +115,7 @@ end
 function Tower:drawRange()
 	love.graphics.push("all")
 		love.graphics.setColor(50,255,50,50)
-		love.graphics.circle("fill", self.worldX, self.worldY, self.range)
+		love.graphics.circle("fill", self.worldX+16, self.worldY+16, self.range)
 	love.graphics.pop()
 end
 

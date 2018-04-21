@@ -72,7 +72,7 @@ function game:draw()
 
         love.graphics.push("all")
             love.graphics.setColor(50,255,50,50)
-            love.graphics.circle("fill", game.buildMode.posX, game.buildMode.posY, self.range)
+            love.graphics.circle("fill", game.buildMode.posX+16, game.buildMode.posY+16, game.buildMode.range)
         love.graphics.pop()
     end
 
@@ -95,10 +95,10 @@ end
 function game:towerMenu()
     suit.layout:reset(640,0)
     game.buttonStates = {}
-    table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,64)), TowerKnife.imageStill})
-    table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row()), TowerCatapult.imageStill})
-    table.insert(game.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row()), TowerOliveOil.imageStill})
-    table.insert(game.buttonStates,{"salt", suit.ImageButton(TowerSalt.menuImage,{}, suit.layout:row()), TowerSalt.imageStill})
+    table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,64)), TowerKnife.imageStill, TowerKnife.range})
+    table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row()), TowerCatapult.imageStill, TowerCatapult.range})
+    table.insert(game.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row()), TowerOliveOil.imageStill, TowerOliveOil.range})
+    table.insert(game.buttonStates,{"salt", suit.ImageButton(TowerSalt.menuImage,{}, suit.layout:row()), TowerSalt.imageStill, TowerSalt.range})
 end
 
 
@@ -106,7 +106,7 @@ function game:mousereleased(mx,my,button)
     if button == 1 then
         for k,v in pairs(game.buttonStates) do
             if game.buttonStates[k][2].hovered then
-                game.buildMode = {towerName = game.buttonStates[k][1], image = game.buttonStates[k][3]}
+                game.buildMode = {towerName = game.buttonStates[k][1], image = game.buttonStates[k][3], range = game.buttonStates[k][4]}
                 break
             end
         end
