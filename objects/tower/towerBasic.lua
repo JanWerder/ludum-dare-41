@@ -8,7 +8,7 @@ TowerBasic = Class{
 		-- damage Var's
 		self.setRange(self, 1)
 		self.setDamage(self, 1)
-		self.setShootCount(self, 1)
+		self.setShootCount(self, 60)
 		
 		-- general stuff
 		self.setName(self, 'Basic')

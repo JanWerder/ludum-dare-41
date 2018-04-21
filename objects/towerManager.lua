@@ -9,13 +9,13 @@ TowerManager = Class{
 
 function TowerManager:update(dt)
 	for _,tower in pairs(self.towers) do
-		tower.update(dt)
+		tower:update(dt)
 	end
 end
 
 function TowerManager:draw()
 	for _,tower in pairs(self.towers) do
-		tower.draw()
+		tower:draw()
 	end
 end
 

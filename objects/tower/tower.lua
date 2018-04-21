@@ -4,9 +4,10 @@ Tower = Class{
 		self.y = y
 		self.range = nil
 		self.damage = nil
-		self.shootCount = nil
+		self.shootCount = nil -- x Schüsse pro Minute
 		self.name = nil
 		self.image = nil
+		self.cooldownTimer = 0
 	end
 }
 
@@ -49,38 +50,47 @@ function Tower:setPositionY(y)
 	self.y = y
 end
 
-function Tower:setRange()
+function Tower:setRange(range)
 	self.range = range
 end
 
-function Tower:setDamage()
+function Tower:setDamage(damage)
 	self.damage = damage
 end
 
-function Tower:setShootCount()
+function Tower:setShootCount(shootCount)
 	self.shootCount = shootCount
 end
 
-function Tower:setName()
+function Tower:setName(name)
 	self.name = name
 end
 
-function Tower:setImage()
+function Tower:setImage(image)
 	self.image = image
 end
 
 -- Tower Functions
 function Tower:update(dt)
-
+	self.cooldownTimer = self.cooldownTimer + dt
+	if self.cooldownTimer > self.shootCount / 60 then
+		-- Turm ist bereit zum schießen
+		creeps = game.creepsManager:getCreepsInRange(self.x, self.y, self.range)
+		if creeps ~= nil then
+			-- Ziele in der Nähe gefunden
+			self:shoot(creeps)
+			self.cooldownTimer = 0
+		end
+	end
 end
 
 function Tower:draw()
-	
+	love.graphics.circle("fill", self:getPositionX(), self:getPositionY(), 5, 20)
 end
 
-function Tower:shoot()
-	creeps = CreepManager:getCreeps(self.x, self.y, self.range)
-
+function Tower:shoot(creeps)
+	print('schuss!')
+	
 end
 
 
