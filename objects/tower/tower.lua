@@ -5,7 +5,6 @@ Tower = Class{
 		self.range = nil
 		self.damage = nil
 		self.shootCount = nil -- x Schüsse pro Minute
-		self.shootLength = nil
 		self.name = nil
 		self.image = nil
 		self.imageShoot = nil
@@ -65,10 +64,6 @@ end
 
 function Tower:setShootCount(shootCount)
 	self.shootCount = shootCount
-end
-
-function Tower:setShootLength(shootLength)
-	self.shootLength = shootLength
 end
 
 function Tower:setName(name)
