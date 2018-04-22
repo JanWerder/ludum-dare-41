@@ -169,11 +169,11 @@ function gameAttack:creepMenu()
     local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
     local bgRed, bgGreen, bgBlue = 115,102,102 --grey
     suit.layout:push()
-        suit.layout:reset(-64,2)
-        suit.layout:row(14,8)
-        suit.ImageButton(gameAttack.imgBasil, {}, suit.layout:col(12,8))
-        suit.Label(gameAttack.money, {align = "center", color=colorBlack}, suit.layout:col(32,16))
-        gameAttack.spawnStates = {}    
+	suit.layout:reset(-64,2)
+	suit.layout:row(14,8)
+	suit.ImageButton(gameAttack.imgBasil, {}, suit.layout:col(12,8))
+	suit.Label(gameAttack.money, {align = "center", color=colorBlack}, suit.layout:col(32,16))
+	gameAttack.spawnStates = {}    
     suit.layout:pop()
 
 	
