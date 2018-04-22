@@ -62,7 +62,9 @@ function game:leave()
 end
 
 function game:waveInit()
-	game.soundAreYouReady:play()
+    if game.areYouReadyEnabled then
+        game.soundAreYouReady:play()
+    end
 	game.nextWaveTimer = 6
 	game.aniCountdown:gotoFrame(5)
 end
@@ -159,9 +161,9 @@ function game:draw()
             if not game.buildMode.buildAllowed then
                 love.graphics.setColor(255,0,0)
             end
-            love.graphics.draw(game.buildMode.image,game.buildMode.posX, game.buildMode.posY)
+            love.graphics.draw(game.buildMode.class.imageStill,game.buildMode.posX, game.buildMode.posY)
             love.graphics.setColor(50,255,50,50)
-            love.graphics.circle("fill", game.buildMode.posX+16, game.buildMode.posY+16, game.buildMode.range)
+            love.graphics.circle("fill", game.buildMode.posX+16, game.buildMode.posY+16, game.buildMode.class.range)
         love.graphics.pop()
     end
 
@@ -285,11 +287,12 @@ function game:mousereleased(mx,my,button)
     if button == 1 then
         for k,v in pairs(game.buttonStates) do
             if game.buttonStates[k][2].hovered and game.money >= game.buttonStates[k][3].price then
-                game.buildMode = {towerName = game.buttonStates[k][1], image = game.buttonStates[k][3].imageStill, range = game.buttonStates[k][3].range}
+                game.buildMode = {towerName = game.buttonStates[k][1], class = game.buttonStates[k][3]}
                 break
             end
         end
         if game.buildMode and game.buildMode.buildAllowed then
+			game.money = game.money - game.buildMode.class.price
             game.towerManager:addTower(self, game.buildMode.tileX, game.buildMode.tileY, game.buildMode.towerName)
             game.buildMode = nil
         end
