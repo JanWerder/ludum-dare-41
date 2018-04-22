@@ -254,15 +254,33 @@ function gameAttack:creepMenu()
     suit.layout:row(16,padding)
     love.graphics.pop()
 	
-	-- Pause
+	-- Pause //not really helpful
+    -- love.graphics.push("all")
+    -- if CreepTomato.price > gameAttack.money then
+    --     love.graphics.setColor(bgRed, bgGreen, bgBlue)
+    -- end
+	-- local imagePause = love.graphics.newImage("img/pause.png")
+    -- table.insert(gameAttack.spawnStates,{"pause", suit.ImageButton(imagePause,{}, suit.layout:row(64,32))})
+    -- suit.layout:push(suit.layout:nextRow())
+    -- suit.layout:row(0,8)   
+    -- suit.layout:pop()
+    -- suit.layout:row(16,padding)
+    -- love.graphics.pop()
+
+    -- Play
     love.graphics.push("all")
-    if CreepTomato.price > gameAttack.money then
-        love.graphics.setColor(bgRed, bgGreen, bgBlue)
-    end
-	local imagePause = love.graphics.newImage("img/pause.png")
-    table.insert(gameAttack.spawnStates,{"pause", suit.ImageButton(imagePause,{}, suit.layout:row(64,32))})
+    local boxfilled = false
+    for k,box in pairs(gameAttack.spawnBoxes) do
+        if utils:tableLength(box.spawns) > 0 then
+            boxfilled = true
+            break
+        end
+    end     
+    if not boxfilled then love.graphics.setColor(bgRed, bgGreen, bgBlue) end
+	local imagePlay = love.graphics.newImage("img/play.png")
+    table.insert(gameAttack.spawnStates,{"play", suit.ImageButton(imagePlay,{}, suit.layout:row(64,32))})
     suit.layout:push(suit.layout:nextRow())
-    suit.layout:row(0,8)   
+    suit.layout:row(0,8)
     suit.layout:pop()
     suit.layout:row(16,padding)
     love.graphics.pop()
@@ -274,6 +292,15 @@ function gameAttack:mousereleased(mx,my,button)
         for k,v in pairs(gameAttack.spawnStates) do
 			if gameAttack.spawnStates[k][2].hovered and gameAttack.spawnStates[k][1] == 'pause' then 
                 gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], image = "", range = 0}
+				break
+            end
+            if gameAttack.spawnStates[k][2].hovered and gameAttack.spawnStates[k][1] == 'play' then 
+                    for k,box in pairs(gameAttack.spawnBoxes) do
+                        if utils:tableLength(box.spawns) > 0 then
+                            gameAttack:waveStart()
+                            break
+                        end
+                    end                    
 				break
 			end
             if gameAttack.spawnStates[k][2].hovered and gameAttack.money >= gameAttack.spawnStates[k][3].price then
@@ -312,14 +339,5 @@ end
 function gameAttack:speak(boss, index)
     for _,message in pairs(gameAttack.messages[boss][index]) do
         Moan.speak({message.name, message.color}, message.message, {image=message.avatar})        
-    end
-end
-
-function gameAttack:keyreleased(key, code)
-    if key == "e" and love.keyboard.isDown("lctrl") then
-        gameAttack:waveStart()
-    end
-    if key == "d" and love.keyboard.isDown("lctrl") then
-        gameAttack:waveStart()
     end
 end
