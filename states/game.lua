@@ -50,10 +50,11 @@ function game:enter()
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
     game.mscBoom = love.audio.newSource("sound/boom.mp3")
     game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
-    game.music:setVolume(0)
-    game.music:play()
     game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
     game.areYouReadyEnabled = false
+    game.music:setVolume(0)
+    game.music:play()
+    print("wtf")
 end
 
 function game:leave()
@@ -96,7 +97,10 @@ function game:update(dt)
             game.creepsManager:startWave(game.stages[game.stage][game.wave])
             game.nextWaveTimer = 6
             game.aniCountdown:gotoFrame(5)  
-            game.mscWavewin:play()          
+            game.mscWavewin:play()        
+            if game.areYouReadyEnabled then
+                game.soundAreYouReady:play()
+            end
         else
             --Switch to other gamemode TODO
         end
