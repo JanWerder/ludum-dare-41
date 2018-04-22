@@ -79,9 +79,9 @@ function Creep:setImage(image)
 	end
 end
 
-function Creep:attack(index)
-	game.creepsManager:removeCreep(index)
-	game.lifePoints =game.lifePoints -1
+function Creep:attack(gameState, index)
+	gameState.creepsManager:removeCreep(index)
+	gameState.lifePoints = gameState.lifePoints -1
 end
 
 function Creep:setHeadMoney(headMoney)
@@ -92,17 +92,17 @@ function Creep:setPathIndex(pathIndex)
 	self.pathIndex = pathIndex
 end
 -- GENERAL --
-function Creep:update(dt, index)
+function Creep:update(dt, gameState, index)
 	local offset = 3
 	local speed = self:getSpeed()
 
-	local nextTileX, nextTileY = utils:convertTileToPosition(game.paths[self.pathIndex][self.nextStep].x, game.paths[self.pathIndex][self.nextStep].y)
+	local nextTileX, nextTileY = utils:convertTileToPosition(gameState.paths[self.pathIndex][self.nextStep].x, gameState.paths[self.pathIndex][self.nextStep].y)
 
 	if self.x > nextTileX - offset and self.x < nextTileX + offset
 	and self.y > nextTileY - offset and self.y < nextTileY + offset then
 		self.nextStep = self.nextStep + 1
-		if self.nextStep > utils:tableLength(game.paths[self.pathIndex]) then
-			self:attack(index)
+		if self.nextStep > utils:tableLength(gameState.paths[self.pathIndex]) then
+			self:attack(gameState, index)
 		end
 	else
 		if self.x <= nextTileX then

@@ -53,8 +53,8 @@ function game:update(dt)
     lovebird.update()
     map:update(dt)
 
-    game.creepsManager:update(dt)
-    game.towerManager:update(dt)
+    game.creepsManager:update(dt, self)
+    game.towerManager:update(dt, self)
 
     if game.buildMode then
         local x = love.mouse.getX()
@@ -172,7 +172,7 @@ function game:mousereleased(mx,my,button)
             end
         end
         if game.buildMode and game.buildMode.buildAllowed then
-            game.towerManager:addTower(game.buildMode.tileX, game.buildMode.tileY, game.buildMode.towerName)
+            game.towerManager:addTower(self, game.buildMode.tileX, game.buildMode.tileY, game.buildMode.towerName)
             game.buildMode = nil
         end
     elseif button == 2 then
