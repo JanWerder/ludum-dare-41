@@ -64,11 +64,11 @@ function CreepManager:removeCreep(creep)
 	table.remove(self.creeps, creep)
 end
 
-function CreepManager:update(dt)
+function CreepManager:update(dt, gameState)
 	for k,creep in pairs(self.creeps) do
-		creep:update(dt, k)
+		creep:update(dt, gameState, k)
 		if creep.life == 0 then
-			game.money = game.money + creep:getHeadMoney()
+			gameState.money = gameState.money + creep:getHeadMoney()
 			creep:setDead()
 			table.insert(self.deadCreeps, creep) --TODO
 			table.remove(self.creeps, k)
@@ -95,9 +95,9 @@ function CreepManager:update(dt)
 		self.singleCreepTime = self.singleCreepTime+dt
 		if self.singleCreepTime > self.singleCreepDelay then
 			self.singleCreepTime = 0
-			local randomIndex = love.math.random(1, utils:tableLength(game.paths))
-			local posx, posy = utils:convertTileToPosition(game.paths[randomIndex][1].x,game.paths[randomIndex][1].y)
-			game.creepsManager:addCreep(posx, posy, self.creepsToSpawn[1], randomIndex)
+			local randomIndex = love.math.random(1, utils:tableLength(gameState.paths))
+			local posx, posy = utils:convertTileToPosition(gameState.paths[randomIndex][1].x,gameState.paths[randomIndex][1].y)
+			gameState.creepsManager:addCreep(posx, posy, self.creepsToSpawn[1], randomIndex)
 			table.remove(self.creepsToSpawn,1)
 		end
 	end

@@ -27,7 +27,7 @@ function TowerManager:reset()
 	self.towers = {}
 end
 
-function TowerManager:addTower(x, y, name)
+function TowerManager:addTower(gameState, x, y, name)
 	local tower = nil
 	if name == 'knife' then
 		tower = TowerKnife(x, y)
@@ -44,7 +44,7 @@ function TowerManager:addTower(x, y, name)
 
 	if tower ~= nil then
 		table.insert(self.towers, tower)
-		game.money = game.money - tower.price
+		gameState.money = gameState.money - tower.price
 	end
 end
 
