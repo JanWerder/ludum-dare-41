@@ -73,22 +73,19 @@ function SpawnBox:draw()
 		local boxPosition = {x = 0, y = 0}
 		for i,spawn in pairs(self.spawns) do
 			boxPosition.x = 16 * ((i - 1) % 4)
-			print('x:'..boxPosition.x )
 			boxPosition.y = 16 * (math.floor((i-1) / 4) - 1)
-			print('y:'..boxPosition.y )
-			
-		
 			if spawn.type == 'tomato' then
-				love.graphics.draw(CreepTomato.imageStill, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
+				love.graphics.draw(CreepTomato.menuImage, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end
 			if spawn.type == 'carrot' then
-				love.graphics.draw(CreepCarrot.imageStill, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
+				love.graphics.draw(CreepCarrot.menuImage, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end
 			if spawn.type == 'eggplant' then
-				love.graphics.draw(CreepEggplant.imageStill, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
+				love.graphics.draw(CreepEggplant.menuImage, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end
 			if spawn.type == 'pause' then
-			
+				local imagePause = love.graphics.newImage("img/pause.png"),
+				love.graphics.draw(imagePause, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end		
 		end
     end
