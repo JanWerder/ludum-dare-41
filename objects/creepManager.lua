@@ -2,6 +2,9 @@ require "objects/creeps/creep"
 require "objects/creeps/creepTomato"
 require "objects/creeps/creepEggplant"
 require "objects/creeps/creepCarrot"
+require "objects/creeps/creepGordon"
+require "objects/creeps/creepJamie"
+require "objects/creeps/creepNigella"
 
 CreepManager = Class{
 	init = function(self)
@@ -30,6 +33,18 @@ function CreepManager:addCreep(x, y, name, pathIndex)
 
 	if name == 'eggplant' then
 	    creep = CreepEggplant(x, y)
+	end	
+
+	if name == 'gordon' then
+	    creep = CreepGordon(x, y)
+	end	
+
+	if name == 'jamie' then
+	    creep = CreepJamie(x, y)
+	end	
+
+	if name == 'nigella' then
+	    creep = CreepNigella(x, y)
 	end	
 		
 	if creep then
