@@ -200,6 +200,9 @@ function gameAttack:draw()
             creepImg = CreepCarrot.menuImage
         elseif gameAttack.spawnMode.creepName == "eggplant" then
             creepImg = CreepEggplant.menuImage
+        elseif gameAttack.spawnMode.creepName == "pause" then
+            local imagePause = love.graphics.newImage("img/pause.png")
+            creepImg = imagePause
         end
         love.graphics.draw(creepImg, gameAttack.camera.mx, gameAttack.camera.my, 0, 0.5,0.5)
     end
