@@ -53,6 +53,7 @@ function gameAttack:enter()
     gameAttack.spawnBoxes = {}
 
     gameAttack.wave = 1
+    -- gameAttack.lifePoints = 1 + (math.floor(1.5 * gameAttack.stage) % 3)
     -- gameAttack.lifePoints = math.floor(1.5 * gameAttack.stage)
     -- gameAttack.lifePoints = gameAttack.stage
     gameAttack.lifePoints = 1
