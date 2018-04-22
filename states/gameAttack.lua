@@ -244,6 +244,10 @@ end
 function gameAttack:mousereleased(mx,my,button)
     if button == 1 then
         for k,v in pairs(gameAttack.spawnStates) do
+			if gameAttack.spawnStates[k][2].hovered and gameAttack.spawnStates[k][1] == 'pause' then 
+                gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], image = "", range = 0}
+				break
+			end
             if gameAttack.spawnStates[k][2].hovered and gameAttack.money >= gameAttack.spawnStates[k][3].price then
                 gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], image = gameAttack.spawnStates[k][3].imageStill, range = gameAttack.spawnStates[k][3].range}
                 break

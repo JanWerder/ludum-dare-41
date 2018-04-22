@@ -84,7 +84,7 @@ function SpawnBox:draw()
 				love.graphics.draw(CreepEggplant.menuImage, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end
 			if spawn.type == 'pause' then
-				local imagePause = love.graphics.newImage("img/pause.png"),
+				imagePause = love.graphics.newImage("img/pause.png")
 				love.graphics.draw(imagePause, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end		
 		end
