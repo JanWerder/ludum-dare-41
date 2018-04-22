@@ -9,7 +9,7 @@ function game:enter()
     game.imgWavedone = love.graphics.newImage("img/wavedone.png")
     game.imgCountdown = love.graphics.newImage("img/countdown.png")
     game.aniGridCountdown = Anim8.newGrid(100, 100, game.imgCountdown:getWidth(), game.imgCountdown:getHeight())
-	game.aniCountdown = Anim8.newAnimation(game.aniGridCountdown('1-5',1), 1)
+    game.aniCountdown = Anim8.newAnimation(game.aniGridCountdown('1-5',1), 1)
 
     game.camera = Camera()
     game.cameraCenter = { x = 350, y = 200}
@@ -50,6 +50,8 @@ function game:enter()
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
     game.music:setVolume(0)
     game.music:play()
+    game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
+    game.areYouReadyEnabled = false
 end
 
 function game:leave()
@@ -258,5 +260,14 @@ function game:mousereleased(mx,my,button)
         end
     elseif button == 2 then
         game.buildMode = nil
+    end
+end
+
+function game:keyreleased(key, code)
+    if key == "e" and love.keyboard.isDown("lctrl") then
+        game.areYouReadyEnabled = true
+    end
+    if key == "d" and love.keyboard.isDown("lctrl") then
+        game.areYouReadyEnabled = false
     end
 end
