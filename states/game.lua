@@ -4,7 +4,6 @@ function game:enter()
     map = sti("maps/defense.lua")
 	
     game.mapSize = {x = 640, y = 384}
-	tileOffset = {x = 0, y = 0}
     game.imgHeart = love.graphics.newImage("img/celeriac.png")
     game.imgBasil = love.graphics.newImage("img/basil.png")
 
