@@ -30,6 +30,7 @@ function game:enter()
     game.money = 50
     game.stage = 1
     game.wave = 1
+	
     game.creepsManager:startWave(game.stages[game.stage][game.wave])
     game.buttonStates = {}
     game.buildMode = nil
