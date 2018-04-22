@@ -79,11 +79,11 @@ function Tower:setImageShootLength(imageShootLength)
 end
 
 -- Tower Functions
-function Tower:update(dt)
+function Tower:update(dt, gameState)
 	self.cooldownTimer = self.cooldownTimer + dt
 	if self.cooldownTimer > 60 / self.shootCount then
 		-- Turm ist bereit zum schießen
-		local creeps = game.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
+		local creeps = gameState.creepsManager:getCreepsInRange(self.worldX, self.worldY, self.range)
 		if creeps and creeps ~= {} and creeps[1] then
 			-- Ziele in der Nähe gefunden
 			self:shoot(creeps)

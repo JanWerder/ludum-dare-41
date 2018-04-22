@@ -81,35 +81,6 @@ function CreepManager:update(dt, gameState)
 			table.remove(self.creeps, k)
 		end
 	end
---[[
-	if self.waveConfig then
-		self.waveTime = self.waveTime+dt
-		if self.waveTime > self.waveIndexTime then
-			self.waveTime = 0
-			self.waveIndex = self.waveIndex+1
-			if self.waveConfig[self.waveIndex] then
-				self.waveIndexTime = self.waveConfig[self.waveIndex][3]
-				for i=1, self.waveConfig[self.waveIndex][1] do
-					table.insert(self.creepsToSpawn, self.waveConfig[self.waveIndex][2])
-				end
-			else
-				self.waveConfig = nil
-			end
-		end
-	end
-
-	if self.creepsToSpawn and self.creepsToSpawn ~= {} then
-		self.singleCreepTime = self.singleCreepTime+dt
-		if self.singleCreepTime > self.singleCreepDelay then
-			self.singleCreepTime = 0
-			local randomIndex = love.math.random(1, utils:tableLength(gameState.paths))
-			local posx, posy = utils:convertTileToPosition(gameState.paths[randomIndex][1].x,gameState.paths[randomIndex][1].y)
-			gameState.creepsManager:addCreep(posx, posy, self.creepsToSpawn[1], randomIndex)
-			table.remove(self.creepsToSpawn,1)
-		end
-	end
-
-	]]
 end
 
 function CreepManager:draw()
