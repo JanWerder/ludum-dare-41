@@ -62,7 +62,9 @@ function game:leave()
 end
 
 function game:waveInit()
-	game.soundAreYouReady:play()
+    if game.areYouReadyEnabled then
+        game.soundAreYouReady:play()
+    end
 	game.nextWaveTimer = 6
 	game.aniCountdown:gotoFrame(5)
 end
