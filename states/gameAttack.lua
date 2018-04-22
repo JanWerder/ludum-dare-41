@@ -1,6 +1,4 @@
 function gameAttack:enter()
-    game.stage = game.stage+1
-    Gamestate.switch(game)
     love.physics.setMeter(32)
 
     gameAttack.map = sti("maps/attack.lua", "", 0, 0)
