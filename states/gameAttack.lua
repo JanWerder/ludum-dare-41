@@ -46,7 +46,7 @@ function gameAttack:enter()
     gameAttack.towerManager = TowerManager()
 	
     gameAttack.spawnBoxes = {}
-    
+
     gameAttack.lifePoints = 3
     gameAttack.money = 50
     gameAttack.stage = 1
@@ -57,6 +57,12 @@ function gameAttack:enter()
     gameAttack.music = love.audio.newSource("sound/template_soundtrack.mp3")
     gameAttack.music:setVolume(0.2)
     gameAttack.music:play()
+    
+    
+    towerAttack = require('objects/stagesAttack')
+    for _,tower in pairs(towerAttack[gameAttack.stage]) do
+        gameAttack.towerManager:addTower(self, tower[2], tower[3], tower[1])
+    end
 end
 
 function gameAttack:leave()
