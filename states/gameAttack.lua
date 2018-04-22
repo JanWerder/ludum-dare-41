@@ -168,7 +168,7 @@ function gameAttack:draw()
     
     love.graphics.push("all")
     love.graphics.setColor( 0, 0, 0)
-    love.graphics.rectangle("fill", game.camera.x-game.camera.screen_x, game.camera.y+game.camera.screen_y/2+50,800,100)
+    love.graphics.rectangle("fill", game.camera.x-game.camera.screen_x, game.camera.y+game.camera.screen_y/2+50,1200,300)
     love.graphics.pop()
 
     gameAttack.creepsManager:draw()
