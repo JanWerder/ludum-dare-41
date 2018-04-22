@@ -48,7 +48,7 @@ function gameAttack:enter()
     gameAttack.towerManager = TowerManager()
 	
     gameAttack.spawnBoxes = {}
-    
+
     gameAttack.lifePoints = 3
     gameAttack.money = 50
     gameAttack.stage = 1
@@ -59,6 +59,13 @@ function gameAttack:enter()
     gameAttack.music = love.audio.newSource("sound/template_soundtrack.mp3")
     gameAttack.music:setVolume(0.2)
     gameAttack.music:play()
+    
+    
+    towerAttack = require('objects/stagesAttack')
+    for _,tower in pairs(towerAttack[gameAttack.stage]) do
+        gameAttack.towerManager:addTower(self, tower[2], tower[3], tower[1])
+    end
+	gameAttack:stageInit()
 end
 
 function gameAttack:leave()
@@ -67,11 +74,16 @@ function gameAttack:leave()
     end
 end
 
-function gameAttack:waveStart()
+function gameAttack:stageInit()
 	--generate Spawnboxes
 	for i,path in pairs(gameAttack.paths) do
 		table.insert(gameAttack.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
+	end
+end
 
+function gameAttack:waveStart()
+	for _,spawnBox in pairs(gameAttack.spawnBoxes) do
+		spawnBox:startStage()
 	end
 end
 
@@ -263,10 +275,18 @@ function gameAttack:mousereleased(mx,my,button)
 			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
         else
-            print("dwadf")
             for k,spawnBox in pairs(gameAttack.spawnBoxes) do
                 if spawnBox:isPointInBox(gameAttack.camera.mx, gameAttack.camera.my) then
-                    gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)
+                    local deletionType = gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)
+
+                    if deletionType == 'tomato' then
+                        gameAttack.money = gameAttack.money + CreepTomato.price
+                    elseif deletionType == 'carrot' then
+                        gameAttack.money = gameAttack.money + CreepCarrot.price
+                    elseif deletionType == 'eggplant' then
+                        gameAttack.money = gameAttack.money + CreepEggplant.price
+                    end	
+
                     break
                 end
             end
