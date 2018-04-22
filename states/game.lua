@@ -57,7 +57,7 @@ function game:enter()
     game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
     game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
     game.areYouReadyEnabled = false
-    game.music:setVolume(0)
+    game.music:setVolume(0.2)
     game.music:play()
     game:waveInit()
 end

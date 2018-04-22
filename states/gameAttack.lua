@@ -96,20 +96,11 @@ function gameAttack:update(dt)
         Gamestate.switch(game)
     end
 
-    if utils:tableLength(gameAttack.creepsManager.creeps) < 1 then
-        local moreCreepsToSpawn = false
-        for _,spawnBox in pairs(gameAttack.spawnBoxes) do
-            if spawnBox:isStageStarted() == false or utils:tableLength(spawnBox.spawns) > 0 then
-                moreCreepsToSpawn = true
-            else
-                break
-            end
-        end
-        if noMoreCreepsToSpawn then
-            gameAttack.camera:fade(1, {0, 0, 0, 255})
-            Timer.after(1, function() Gamestate.switch(gameOver) end)
-        end
-    end
+	-- GameOver setzen
+	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 then
+		gameAttack.camera:fade(1, {0, 0, 0, 255})
+        Timer.after(1, function() Gamestate.switch(gameOver) end)
+	end
 
     Moan.update(dt)
 
@@ -174,6 +165,11 @@ function gameAttack:draw()
     gameAttack.camera:attach()
 
     gameAttack.map:draw(gameAttack.camera.screen_x - gameAttack.camera.x,gameAttack.camera.screen_y - gameAttack.camera.y)
+    
+    love.graphics.push("all")
+    love.graphics.setColor( 0, 0, 0)
+    love.graphics.rectangle("fill", game.camera.x-game.camera.screen_x, game.camera.y+game.camera.screen_y/2+50,800,100)
+    love.graphics.pop()
 
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
