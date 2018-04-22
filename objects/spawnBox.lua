@@ -47,9 +47,7 @@ function SpawnBox:update(dt, gameState)
         self.timer = self.timer + dt
         if self.timer >= self.spawns[1].delay then
             self.timer = self.timer - self.spawns[1].delay
-            print("before" .. self.spawns[1].type)
             if self.spawns[1].type ~= "pause" then
-                print("in" .. self.spawns[1].type)
                 gameState.creepsManager:addCreep(self.tilePosition.x, self.tilePosition.y, self.spawns[1].type, self.pathIndex)
             end
             table.remove(self.spawns, 1)

@@ -73,7 +73,6 @@ function game:waveStart()
 		table.insert(game.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
 		game.spawnBoxes[utils:tableLength(game.spawnBoxes)]:readSpawnConfig(game.stage, game.wave)
 	end
-	game.nextWaveTimer = 0
 end
 
 function game:update(dt)
@@ -100,13 +99,14 @@ function game:update(dt)
 	end	
 	
 	-- Check Wave & Wins
-	if utils:tableLength(game.spawnBoxes) <= 0 and utils:tableLength(game.creepsManager.creeps) <= 0 and utils:tableLength(game.creepsManager.deadCreeps) > 0 then
+	if utils:tableLength(game.spawnBoxes) <= 0 and utils:tableLength(game.creepsManager.creeps) <= 0 and utils:tableLength(game.creepsManager.deadCreeps) > 0 and game.nextWaveTimer == 0 then
 		game.mscWavewin:play() 
 		game.wave = game.wave + 1
         if game.stages[game.stage][game.wave] then
-			game:waveStart()
+			game.nextWaveTimer = 6
+			game.aniCountdown:gotoFrame(5)
         else
-            --Switch to other gamemode TODO
+			Gamestate.switch(gameAttack)
         end
 	end
 	
@@ -135,6 +135,7 @@ function game:update(dt)
     elseif game.nextWaveTimer < 0 then
         game.mscBoom:play()
 		game:waveStart()
+		game.nextWaveTimer = 0
     end
 
     game.camera:update(dt)
