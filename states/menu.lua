@@ -26,7 +26,7 @@ function menu:draw()
 	suit.Label("and become the master of chefs?", {align = "left"}, suit.layout:row())
 	suit.layout:row(400,5)
 	-- Start Button
-	if suit.Button("Start", suit.layout:row(350,40)).hit then
+	if suit.Button("Yes, I do!", suit.layout:row(350,40)).hit then
 		menu:start()
 	end
     suit.draw()
