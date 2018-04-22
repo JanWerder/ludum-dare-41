@@ -33,10 +33,6 @@ function TowerSalt:shoot(creeps)
 	end	
 end
 
-function TowerSalt:update(dt)
-	Tower.update(self, dt)
-end
-
 function TowerSalt:draw()
 	Tower.draw(self)
 end

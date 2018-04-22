@@ -87,6 +87,13 @@ end
 
 function gameAttack:update(dt)
 
+    if gameAttack.lifePoints < 1 then
+        -- gameAttack.camera:fade(1, {0, 0, 0, 255})
+        -- Timer.after(1, function() Gamestate.switch(gameOver) end)
+        game.stage = game.stage+1
+        Gamestate.switch(game)
+    end
+
     Moan.update(dt)
 
     if Moan.printedText == Moan.currentMessage or Moan.paused == true then
@@ -153,7 +160,11 @@ function gameAttack:draw()
 
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
-	
+    
+    for i=1,game.lifePoints do
+        love.graphics.draw(game.imgHeart, 10 + 15*i)
+    end
+
 	local mouseX, mouseY = gameAttack.camera.mx, gameAttack.camera.my
     
     for _,tower in pairs(gameAttack.towerManager.towers) do
