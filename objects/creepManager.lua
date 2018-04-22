@@ -17,7 +17,7 @@ CreepManager = Class{
 	end
 }
 
-function CreepManager:addCreep(x, y, name)
+function CreepManager:addCreep(x, y, name, pathIndex)
     local creep = nil
 
 	if name == 'tomato' then
@@ -30,9 +30,10 @@ function CreepManager:addCreep(x, y, name)
 
 	if name == 'eggplant' then
 	    creep = CreepEggplant(x, y)
-	end
+	end	
 		
 	if creep then
+		creep:setPathIndex(pathIndex)
 		table.insert(self.creeps, creep)
 	end
 end
@@ -92,8 +93,9 @@ function CreepManager:update(dt)
 		self.singleCreepTime = self.singleCreepTime+dt
 		if self.singleCreepTime > self.singleCreepDelay then
 			self.singleCreepTime = 0
-			local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
-			game.creepsManager:addCreep(posx, posy, self.creepsToSpawn[1])
+			local randomIndex = love.math.random(1, utils:tableLength(game.paths))
+			local posx, posy = utils:convertTileToPosition(game.paths[randomIndex][1].x,game.paths[randomIndex][1].y)
+			game.creepsManager:addCreep(posx, posy, self.creepsToSpawn[1], randomIndex)
 			table.remove(self.creepsToSpawn,1)
 		end
 	end

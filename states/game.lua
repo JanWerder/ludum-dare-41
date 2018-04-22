@@ -2,25 +2,30 @@ function game:enter()
     love.physics.setMeter(32)
 
     map = sti("maps/defense.lua")
+    game.imgHeart = love.graphics.newImage("img/celeriac.png")
 
-    game.path = {}
+    game.paths = {}
 
     local originDirection = {-1,0}
     local currentField = {}
     for y=1,12 do
         local props = map:getTileProperties("grid", 1, y)
         if props.path then
-            table.insert(game.path, { x = 1, y = y })
-            currentField = { x = 1, y = y }
-        end
-    end
+            local calcPath = {}
 
-    utils:createPath(originDirection, currentField)
+            table.insert(calcPath, { x = 1, y = y })
+            currentField = { x = 1, y = y }
+            
+            
+            calcPath = utils:createPath(originDirection, currentField, calcPath)
+            table.insert(game.paths, calcPath)
+        end
+    end    
 
     game.mapSize = {x = 640, y = 384}
     game.creepsManager = CreepManager()
-	game.towerManager = TowerManager()
-    local posx, posy = utils:convertTileToPosition(game.path[1].x,game.path[1].y)
+    game.towerManager = TowerManager()
+    
     game.lifePoints = 3
     game.money = 50
     game.stage = 1
@@ -72,7 +77,7 @@ function game:draw()
     game.towerManager:draw()
 
     for i=1,game.lifePoints do
-        love.graphics.circle("fill", 10 + 15*i, 10, 5)
+        love.graphics.draw(game.imgHeart, 10 + 15*i)
     end
 
     if game.buildMode and love.mouse.getX() < game.mapSize.x and love.mouse.getY() < game.mapSize.y then

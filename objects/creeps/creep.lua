@@ -12,6 +12,7 @@ Creep = Class{
 		self.speedMultiplier = 1
 		self.headMoney = nil
 		self.isDead = false
+		self.pathIndex = nil
 	end
 }
 
@@ -86,17 +87,21 @@ end
 function Creep:setHeadMoney(headMoney)
 	self.headMoney = headMoney
 end
+
+function Creep:setPathIndex(pathIndex)
+	self.pathIndex = pathIndex
+end
 -- GENERAL --
 function Creep:update(dt, index)
 	local offset = 3
 	local speed = self:getSpeed()
 
-	local nextTileX, nextTileY = utils:convertTileToPosition(game.path[self.nextStep].x, game.path[self.nextStep].y)
+	local nextTileX, nextTileY = utils:convertTileToPosition(game.paths[self.pathIndex][self.nextStep].x, game.paths[self.pathIndex][self.nextStep].y)
 
 	if self.x > nextTileX - offset and self.x < nextTileX + offset
 	and self.y > nextTileY - offset and self.y < nextTileY + offset then
 		self.nextStep = self.nextStep + 1
-		if self.nextStep > utils:tableLength(game.path) then
+		if self.nextStep > utils:tableLength(game.paths[self.pathIndex]) then
 			self:attack(index)
 		end
 	else

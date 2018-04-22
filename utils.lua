@@ -6,7 +6,9 @@ function utils:tableLength(T)
     return count
 end
 
-function utils:createPath(originDirection, currentField)
+function utils:createPath(originDirection, currentField, calcPath)
+    
+
     local directionsToCheck = {
         {1,0},
         {-1,0},
@@ -19,11 +21,13 @@ function utils:createPath(originDirection, currentField)
             local checkY = currentField.y+directionsToCheck[k][2]
             local props = map:getTileProperties("grid", checkX , checkY)
             if props.path then
-                table.insert(game.path, { x = checkX, y = checkY })
-                utils:createPath({ currentField.x-checkX, currentField.y-checkY },{ x = checkX, y = checkY })
+                table.insert(calcPath, { x = checkX, y = checkY })
+                utils:createPath({ currentField.x-checkX, currentField.y-checkY },{ x = checkX, y = checkY }, calcPath)
             end
         end
     end
+
+    return calcPath
 end
 
 function utils:convertTileToPosition(tileX, tileY)
