@@ -7,8 +7,8 @@ TowerSalt = Class{
 		--- Tower Customizing --- 
 		-- damage Var's
 		self:setRange(TowerSalt.range)
-		self:setDamage(0.5)
-		self:setShootCount(30)
+		self:setDamage(0.3)
+		self:setShootCount(50)
 		
 		-- general stuff
 		self:setName('salt')
@@ -22,8 +22,8 @@ TowerSalt = Class{
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
 	imageStill = love.graphics.newImage("img/salt_still.png"),
 	shootsound = love.audio.newSource("sound/salt-shaker.mp3", "static"),
-	price = 30,
-	range = 100
+	price = 50,
+	range = 70
 }	
 
 function TowerSalt:shoot(creeps)

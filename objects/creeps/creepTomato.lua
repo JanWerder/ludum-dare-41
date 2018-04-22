@@ -8,7 +8,7 @@ CreepTomato = Class{
 		
 		--- Creep Customizing --- 
 		-- damage Var's
-		self:setLife(5)
+		self:setLife(4)
 		self:setHeadMoney(4)
 		self:setSpeed(40)
 		self:setWidth(32)

@@ -1,7 +1,9 @@
 function gameAttack:enter()
+    game.stage = game.stage+1
+    Gamestate.switch(game)
     love.physics.setMeter(32)
 
-    map = sti("maps/attack.lua", "", 0, 0)
+    gameAttack.map = sti("maps/attack.lua", "", 0, 0)
 	
     gameAttack.mapSize = {x = 640, y = 384}
     gameAttack.imgHeart = love.graphics.newImage("img/celeriac.png")
@@ -29,7 +31,7 @@ function gameAttack:enter()
     local originDirection = {-1,0}
     local currentField = {}
     for y=1,12 do
-        local props = map:getTileProperties("grid", 1, y)
+        local props = gameAttack.map:getTileProperties("grid", 1, y)
         if props.path then
             local calcPath = {}
 
@@ -37,7 +39,7 @@ function gameAttack:enter()
             currentField = { x = 1, y = y }
             
             
-            calcPath = utils:createPath(originDirection, currentField, calcPath)
+            calcPath = utils:createPath(originDirection, currentField, calcPath, gameAttack.map)
             table.insert(gameAttack.paths, calcPath)
         end
     end    
@@ -60,7 +62,9 @@ function gameAttack:enter()
 end
 
 function gameAttack:leave()
-    gameAttack.music:stop()
+    if gameAttack.music then
+        gameAttack.music:stop()
+    end
 end
 
 function gameAttack:waveStart()
@@ -85,7 +89,7 @@ function gameAttack:update(dt)
     suit.updateMouse(gameAttack.camera.mx, gameAttack.camera.my)
 
     lovebird.update()
-    map:update(dt)
+    gameAttack.map:update(dt)
 
     gameAttack.creepsManager:update(dt, self)
     gameAttack.towerManager:update(dt, self)
@@ -135,7 +139,7 @@ function gameAttack:draw()
 
     gameAttack.camera:attach()
 
-    map:draw(gameAttack.camera.screen_x - gameAttack.camera.x,gameAttack.camera.screen_y - gameAttack.camera.y)
+    gameAttack.map:draw(gameAttack.camera.screen_x - gameAttack.camera.x,gameAttack.camera.screen_y - gameAttack.camera.y)
 
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
