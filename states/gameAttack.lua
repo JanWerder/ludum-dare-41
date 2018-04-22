@@ -193,6 +193,16 @@ function gameAttack:draw()
     
     suit.draw()
 
+    if gameAttack.spawnMode then
+        local creepImg = CreepTomato.menuImage
+        if gameAttack.spawnMode.creepName == "carrot" then
+            creepImg = CreepCarrot.menuImage
+        elseif gameAttack.spawnMode.creepName == "eggplant" then
+            creepImg = CreepEggplant.menuImage
+        end
+        love.graphics.draw(creepImg, gameAttack.camera.mx, gameAttack.camera.my, 0, 0.5,0.5)
+    end
+
     gameAttack.camera:detach()
     gameAttack.camera:draw()
 
