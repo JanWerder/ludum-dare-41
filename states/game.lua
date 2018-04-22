@@ -29,6 +29,12 @@ function game:enter()
     game.buttonStates = {}
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
+    game.music = love.audio.newSource("sound/template_soundtrack.mp3")
+    game.music:play()
+end
+
+function game:leave()
+    game.music:stop()
 end
 
 function game:update(dt)
