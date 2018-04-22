@@ -17,8 +17,8 @@ function gameAttack:enter()
     gameAttack.messages = require 'objects/conversations'
 
     Timer.after(1, function() gameAttack:speak(game.stage, 1) end)
-    Timer.after(10, function() gameAttack:speak(game.stage, 1) end)
-    Timer.after(20, function() gameAttack:speak(game.stage, 1) end)
+    Timer.after(10, function() gameAttack:speak(game.stage, 2) end)
+    Timer.after(20, function() gameAttack:speak(game.stage, 3) end)
     Timer.after(30, function() Timer.clear() end)
 
     gameAttack.paths = {}
@@ -64,6 +64,13 @@ end
 function gameAttack:update(dt)
 
     Moan.update(dt)
+
+    if Moan.printedText == Moan.currentMessage or Moan.paused == true then
+        if not Moan.timerStarted then
+            Moan.timerStarted = true
+            Timer.after(3, function() Moan.keyreleased("space") Moan.timerStarted = false end)
+        end
+    end
 
     suit.updateMouse(gameAttack.camera.mx, gameAttack.camera.my)
 
@@ -142,7 +149,7 @@ function gameAttack:draw()
     gameAttack.camera:detach()
     gameAttack.camera:draw()
 
-    --Moan.draw()
+    Moan.draw()
 end
 
 function gameAttack:creepMenu()
@@ -225,8 +232,7 @@ function gameAttack:mousereleased(mx,my,button)
 end
 
 function gameAttack:speak(boss, index)
-    for _,message in pairs(gameAttack.messages[boss]) do
-        print(inspect(message))
-        Moan.speak({message.name, message.color}, {message.message}, {image=message.avatar})        
+    for _,message in pairs(gameAttack.messages[boss][index]) do
+        Moan.speak({message.name, message.color}, message.message, {image=message.avatar})        
     end--
 end

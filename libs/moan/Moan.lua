@@ -178,6 +178,7 @@ end
 -- end
 -------------------------------------------------
 function Moan.update(dt)
+  Moan.printedText = printedText
   -- Check if the output string is equal to final string, else we must be still typing it
   if printedText == Moan.currentMessage then
     typing = false else typing = true
