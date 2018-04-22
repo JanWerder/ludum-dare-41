@@ -21,6 +21,7 @@ TowerSalt = Class{
 	end,
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
 	imageStill = love.graphics.newImage("img/salt_still.png"),
+	shootsound = love.audio.newSource("sound/salt-shaker.mp3", "static"),
 	price = 30,
 	range = 100
 }	
@@ -28,7 +29,8 @@ TowerSalt = Class{
 function TowerSalt:shoot(creeps)
 	for _,creep in pairs(creeps) do
 		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creep, self.damage, self.name))
-	end
+		self.shootsound:play()
+	end	
 end
 
 function TowerSalt:update(dt)

@@ -48,6 +48,8 @@ function game:enter()
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
+    game.mscBoom = love.audio.newSource("sound/boom.mp3")
+    game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
     game.music:setVolume(0)
     game.music:play()
 end
@@ -91,7 +93,8 @@ function game:update(dt)
         if game.stages[game.stage][game.wave] then
             game.creepsManager:startWave(game.stages[game.stage][game.wave])
             game.nextWaveTimer = 6
-            game.aniCountdown:gotoFrame(5)
+            game.aniCountdown:gotoFrame(5)  
+            game.mscWavewin:play()          
         else
             --Switch to other gamemode TODO
         end
@@ -102,8 +105,9 @@ function game:update(dt)
 
     if game.nextWaveTimer > 0 then
         game.nextWaveTimer = game.nextWaveTimer - dt
-    elseif game.nextWaveTimer <= 0 then
+    elseif game.nextWaveTimer < 0 then
         game.nextWaveTimer = 0
+        game.mscBoom:play()
     end
 
     game.camera:update(dt)

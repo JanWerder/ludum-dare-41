@@ -7,6 +7,8 @@ Projectile = Class{
 		self.damage = damage
 		self.hasHit = false
 		self.originName = originName
+		self.hitsound = love.audio.newSource("sound/squish.mp3", "static")
+		self.hitsound:setVolume(0.5)		
 
 		if originName == "salt" then
 			local img = love.graphics.newImage('img/salt_single.png')
@@ -30,6 +32,7 @@ function Projectile:update(dt)
 	if self.position.x > self.target.x - offset and self.position.x < self.target.x + offset
 	and self.position.y > self.target.y - offset and self.position.y < self.target.y + offset then
 		-- hit!		
+		self.hitsound:play()
 		self.target:decreaseLife(self.damage)
 		self.hasHit = true
 		if self.originName == "Oliveoil" then

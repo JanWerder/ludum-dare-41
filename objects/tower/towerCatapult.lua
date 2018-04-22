@@ -21,6 +21,7 @@ TowerCatapult = Class{
 	end,
 	menuImage = love.graphics.newImage("img/catapult_stillx64.png"),
 	imageStill = love.graphics.newImage("img/catapult_still.png"),
+	shootsound = love.audio.newSource("sound/catapult.mp3", "static"),
 	price = 20,
 	range = 325
 }	
@@ -28,6 +29,7 @@ TowerCatapult = Class{
 function TowerCatapult:shoot(creeps)
 	if creeps[1] then		
 		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creeps[1], self.damage, self.name))
-	end
+		self.shootsound:play()
+	end	
 end
 
