@@ -94,7 +94,7 @@ function gameAttack:update(dt)
         game.stage = game.stage+1
         Gamestate.switch(game)
     end
-
+    
     Moan.update(dt)
 
     if Moan.printedText == Moan.currentMessage or Moan.paused == true then
