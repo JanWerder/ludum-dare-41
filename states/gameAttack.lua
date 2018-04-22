@@ -101,6 +101,7 @@ function gameAttack:update(dt)
         for _,spawnBox in pairs(gameAttack.spawnBoxes) do
             if spawnBox:isStageStarted() == false or utils:tableLength(spawnBox.spawns) > 1 then
                 noMoreCreepsToSpawn = false
+            else
                 break
             end
         end
