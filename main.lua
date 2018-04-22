@@ -64,8 +64,8 @@ function love.load()
 
     lovebird.update()
     Gamestate.registerEvents()
-    --Gamestate.switch(game)  
-    Gamestate.switch(gameAttack)    
+    Gamestate.switch(game)  
+    --Gamestate.switch(gameAttack)    
 end
 
 function love:update(dt)

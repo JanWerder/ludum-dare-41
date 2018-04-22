@@ -44,7 +44,6 @@ function TowerManager:addTower(gameState, x, y, name)
 
 	if tower ~= nil then
 		table.insert(self.towers, tower)
-		gameState.money = gameState.money - tower.price
 	end
 end
 

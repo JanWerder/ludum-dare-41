@@ -1,7 +1,7 @@
 function gameAttack:enter()
     love.physics.setMeter(32)
 
-    map = sti("maps/defense.lua", "", 0, 0)
+    map = sti("maps/attack.lua", "", 0, 0)
 	
     gameAttack.mapSize = {x = 640, y = 384}
     gameAttack.imgHeart = love.graphics.newImage("img/celeriac.png")
@@ -247,11 +247,12 @@ function gameAttack:mousereleased(mx,my,button)
 				break
 			end
             if gameAttack.spawnStates[k][2].hovered and gameAttack.money >= gameAttack.spawnStates[k][3].price then
-                gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], image = gameAttack.spawnStates[k][3].imageStill, range = gameAttack.spawnStates[k][3].range}
+                gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], class = gameAttack.spawnStates[k][3]}
                 break
             end
         end
         if gameAttack.spawnMode and gameAttack.spawnMode.spawnBoxIndex ~= nil then
+			gameAttack.money = gameAttack.money - gameAttack.spawnMode.class.price
 			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
         end
