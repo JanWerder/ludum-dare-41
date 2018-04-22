@@ -7,7 +7,7 @@ TowerSalt = Class{
 		--- Tower Customizing --- 
 		-- damage Var's
 		self:setRange(TowerSalt.range)
-		self:setDamage(0.3)
+		self:setDamage(0.2)
 		self:setShootCount(50)
 		
 		-- general stuff

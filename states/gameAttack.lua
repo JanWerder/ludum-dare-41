@@ -58,23 +58,13 @@ function gameAttack:enter()
     gameAttack.money = 100 * gameAttack.stage
     gameAttack.spawnStates = {}
     gameAttack.spawnMode = nil
-    gameAttack.moneyBackground = love.graphics.newImage("img/money_bg.png")
-    gameAttack.music = love.audio.newSource("sound/template_soundtrack.mp3")
-    gameAttack.music:setVolume(0.2)
-    gameAttack.music:play()
-    
+    gameAttack.moneyBackground = love.graphics.newImage("img/money_bg.png")    
     
     towerAttack = require('objects/stagesAttack')
     for _,tower in pairs(towerAttack[gameAttack.stage]) do
         gameAttack.towerManager:addTower(self, tower[2], tower[3], tower[1])
     end
 	gameAttack:stageInit()
-end
-
-function gameAttack:leave()
-    if gameAttack.music then
-        gameAttack.music:stop()
-    end
 end
 
 function gameAttack:stageInit()
@@ -169,7 +159,7 @@ function gameAttack:draw()
     
     love.graphics.push("all")
     love.graphics.setColor( 0, 0, 0)
-    love.graphics.rectangle("fill", game.camera.x-game.camera.screen_x, game.camera.y+game.camera.screen_y/2+50,800,100)
+    love.graphics.rectangle("fill", game.camera.x-game.camera.screen_x, game.camera.y+game.camera.screen_y/2+50,1200,300)
     love.graphics.pop()
 
     gameAttack.creepsManager:draw()
