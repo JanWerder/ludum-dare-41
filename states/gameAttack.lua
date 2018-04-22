@@ -90,7 +90,7 @@ function gameAttack:update(dt)
     end
 
 	-- GameOver setzen
-	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 then
+	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 and gameAttack.lifePoints < 1 then
 		gameAttack.camera:fade(1, {0, 0, 0, 255})
         Timer.after(1, function() Gamestate.switch(gameOver) end)
 	end
