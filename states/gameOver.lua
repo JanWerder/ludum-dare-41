@@ -1,4 +1,5 @@
 function gameOver:enter()
+    Timer.clear()
 end
 
 function gameOver:draw()

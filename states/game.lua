@@ -8,6 +8,10 @@ function game:enter()
     game.imgHeart = love.graphics.newImage("img/celeriac.png")
     game.imgBasil = love.graphics.newImage("img/basil.png")
 
+    game.camera = Camera()
+    game.cameraCenter = { x = 350, y = 200}
+    game.camera:fade(1, {0, 0, 0, 0})
+
     game.paths = {}
 
     local originDirection = {-1,0}
@@ -48,8 +52,12 @@ function game:leave()
 end
 
 function game:update(dt)
+
+    suit.updateMouse(game.camera.mx, game.camera.my)
+
     if game.lifePoints < 1 then
-        Gamestate.switch(gameOver)
+        game.camera:fade(1, {0, 0, 0, 255})
+        Timer.after(1, function() Gamestate.switch(gameOver) end)
     end
 
     lovebird.update()
@@ -59,10 +67,10 @@ function game:update(dt)
     game.towerManager:update(dt, self)
 
     if game.buildMode then
-        local x = love.mouse.getX()
-        local y = love.mouse.getY()
+        local x = game.camera.mx
+        local y = game.camera.my
         game.buildMode.buildAllowed = false
-        if x < game.mapSize.x and y < game.mapSize.y then
+        if x > 0 and y > 0 and x < game.mapSize.x and y < game.mapSize.y then
             game.buildMode.tileX, game.buildMode.tileY = utils:convertPositionToTile(x, y)
             game.buildMode.posX, game.buildMode.posY = utils:convertTileToPosition(game.buildMode.tileX, game.buildMode.tileY)
             local props = map:getTileProperties("grid", game.buildMode.tileX , game.buildMode.tileY)
@@ -73,10 +81,19 @@ function game:update(dt)
     end   
 
     Timer.update(dt)
+
+    -- game.camera:setFollowLerp(0.2)
+    game.camera:update(dt)
+    if utils:tableLength(game.camera.vertical_shakes) == 0 then
+        game.camera.x, game.camera.y =  game.cameraCenter.x, game.cameraCenter.y
+    end    
 end
 
 function game:draw()
-    map:draw()
+
+    game.camera:attach()
+
+    map:draw(game.camera.screen_x - game.camera.x,game.camera.screen_y - game.camera.y)
     game.creepsManager:draw()
     game.towerManager:draw()
 
@@ -84,7 +101,7 @@ function game:draw()
         love.graphics.draw(game.imgHeart, 10 + 15*i)
     end
 
-    if game.buildMode and love.mouse.getX() < game.mapSize.x and love.mouse.getY() < game.mapSize.y then
+    if game.buildMode and game.buildMode.posX and game.camera.mx < game.mapSize.x and game.camera.my < game.mapSize.y then
         love.graphics.push("all")
             if not game.buildMode.buildAllowed then
                 love.graphics.setColor(255,0,0)
@@ -95,7 +112,7 @@ function game:draw()
         love.graphics.pop()
     end
 
-    local mouseX, mouseY = love.mouse.getPosition()
+    local mouseX, mouseY = game.camera.mx, game.camera.my
     
     for _,tower in pairs(game.towerManager.towers) do
         local hoverRange = { tower.worldX, tower.worldY, 
@@ -110,6 +127,9 @@ function game:draw()
     end
     game:towerMenu()
     suit.draw()
+
+    game.camera:detach()
+    game.camera:draw()
 end
 
 function game:towerMenu()
