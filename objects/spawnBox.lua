@@ -42,7 +42,8 @@ function SpawnBox:handleBoxClick(x,y)
     print(x .. " and " .. y)
 
     local position = (y -1) * 4 + x
-    if utils:tableLength(self.spawns) > 0 and utils:tableLength(self.spawns) <= position then
+    print(position)
+    if utils:tableLength(self.spawns) <= position and self.spawns[position]~= nil then
         local localType = self.spawns[position].type
         table.remove(self.spawns, position)
         return localType

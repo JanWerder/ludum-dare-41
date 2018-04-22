@@ -57,17 +57,23 @@ function gameAttack:enter()
     gameAttack.music = love.audio.newSource("sound/template_soundtrack.mp3")
     gameAttack.music:setVolume(0.2)
     gameAttack.music:play()
+	gameAttack:stageInit()
 end
 
 function gameAttack:leave()
     gameAttack.music:stop()
 end
 
-function gameAttack:waveStart()
+function gameAttack:stageInit()
 	--generate Spawnboxes
 	for i,path in pairs(gameAttack.paths) do
 		table.insert(gameAttack.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
+	end
+end
 
+function gameAttack:waveStart()
+	for _,spawnBox in pairs(gameAttack.spawnBoxes) do
+		spawnBox:startStage()
 	end
 end
 
