@@ -157,6 +157,11 @@ function gameAttack:draw()
     gameAttack.camera:attach()
 
     gameAttack.map:draw(gameAttack.camera.screen_x - gameAttack.camera.x,gameAttack.camera.screen_y - gameAttack.camera.y)
+    
+    love.graphics.push("all")
+    love.graphics.setColor( 0, 0, 0)
+    love.graphics.rectangle("fill", game.camera.x-game.camera.screen_x, game.camera.y+game.camera.screen_y/2+50,800,100)
+    love.graphics.pop()
 
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
