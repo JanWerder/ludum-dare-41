@@ -268,17 +268,17 @@ function gameAttack:creepMenu()
     love.graphics.pop()
 	
 	-- Pause //not really helpful
-    -- love.graphics.push("all")
-    -- if CreepTomato.price > gameAttack.money then
-    --     love.graphics.setColor(bgRed, bgGreen, bgBlue)
-    -- end
-	-- local imagePause = love.graphics.newImage("img/pause.png")
-    -- table.insert(gameAttack.spawnStates,{"pause", suit.ImageButton(imagePause,{}, suit.layout:row(64,32))})
-    -- suit.layout:push(suit.layout:nextRow())
-    -- suit.layout:row(0,8)   
-    -- suit.layout:pop()
-    -- suit.layout:row(16,padding)
-    -- love.graphics.pop()
+    love.graphics.push("all")
+    if CreepTomato.price > gameAttack.money then
+        love.graphics.setColor(bgRed, bgGreen, bgBlue)
+    end
+	local imagePause = love.graphics.newImage("img/pause.png")
+    table.insert(gameAttack.spawnStates,{"pause", suit.ImageButton(imagePause,{}, suit.layout:row(64,32))})
+    suit.layout:push(suit.layout:nextRow())
+    suit.layout:row(0,8)   
+    suit.layout:pop()
+    suit.layout:row(16,padding)
+    love.graphics.pop()
 
     -- Play
     love.graphics.push("all")
