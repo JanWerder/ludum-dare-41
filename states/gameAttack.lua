@@ -1,7 +1,7 @@
 function gameAttack:enter()
     love.physics.setMeter(32)
 
-    map = sti("maps/defense.lua", "", 0, 0)
+    map = sti("maps/attack.lua", "", 0, 0)
 	
     gameAttack.mapSize = {x = 640, y = 384}
     gameAttack.imgHeart = love.graphics.newImage("img/celeriac.png")
@@ -117,7 +117,8 @@ function gameAttack:update(dt)
         gameAttack.spawnMode.spawnBoxIndex = nil
 		for k,spawnBox in pairs(gameAttack.spawnBoxes) do
 			if spawnBox:isPointInBox(x,y) then
-				gameAttack.spawnMode.spawnBoxIndex = k
+                gameAttack.spawnMode.spawnBoxIndex = k
+                break
 			end
 		end
 	end
@@ -232,9 +233,7 @@ function gameAttack:creepMenu()
 	local imagePause = love.graphics.newImage("img/pause.png")
     table.insert(gameAttack.spawnStates,{"pause", suit.ImageButton(imagePause,{}, suit.layout:row(64,32))})
     suit.layout:push(suit.layout:nextRow())
-    suit.layout:row(0,8)
-    suit.ImageButton(gameAttack.imgBasil, {}, suit.layout:col(16,8))
-    suit.Label(CreepTomato.price, {align = "left"}, suit.layout:col(26,16))    
+    suit.layout:row(0,8)   
     suit.layout:pop()
     suit.layout:row(16,padding)
     love.graphics.pop()
@@ -249,13 +248,24 @@ function gameAttack:mousereleased(mx,my,button)
 				break
 			end
             if gameAttack.spawnStates[k][2].hovered and gameAttack.money >= gameAttack.spawnStates[k][3].price then
-                gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], image = gameAttack.spawnStates[k][3].imageStill, range = gameAttack.spawnStates[k][3].range}
+                gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], class = gameAttack.spawnStates[k][3]}
                 break
             end
         end
         if gameAttack.spawnMode and gameAttack.spawnMode.spawnBoxIndex ~= nil then
+			if gameAttack.spawnMode.creepName ~= 'pause' then
+				gameAttack.money = gameAttack.money - gameAttack.spawnMode.class.price
+			end
 			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
+        else
+            print("dwadf")
+            for k,spawnBox in pairs(gameAttack.spawnBoxes) do
+                if spawnBox:isPointInBox(gameAttack.camera.mx, gameAttack.camera.my) then
+                    gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)
+                    break
+                end
+            end
         end
     elseif button == 2 then
         gameAttack.spawnMode = nil
