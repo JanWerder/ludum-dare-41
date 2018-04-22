@@ -46,6 +46,8 @@ function CreepManager:getCreepsInRange(towerX,towerY,range)--world coordinates
 			table.insert(foundCreeps, creep)
 		end
 	end
+
+	table.sort(foundCreeps, function(a,b) return a.nextStep > b.nextStep end)
 	
 	return foundCreeps
 end

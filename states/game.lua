@@ -111,6 +111,7 @@ end
 
 function game:towerMenu()
     
+    local padding = 40
     
     love.graphics.draw(game.moneyBackground,640, 0)
     local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
@@ -130,8 +131,15 @@ function game:towerMenu()
         love.graphics.setColor(bgRed, bgGreen, bgBlue)
     end
     table.insert(game.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,44)), TowerKnife})
-    suit.Label(TowerKnife.price .. " Basil", {align = "center"}, suit.layout:row(64,18))
-    suit.layout:row(64,4)
+    -- suit.Label(TowerKnife.price .. " Basil", {align = "center"}, suit.layout:row(64,18))
+    -- suit.layout:row(64,4)
+
+    suit.layout:push(suit.layout:nextRow())
+    suit.layout:row(16,8)
+    suit.ImageButton(game.imgBasil, {}, suit.layout:col(16,8))
+    suit.Label(TowerKnife.price, {align = "left"}, suit.layout:col(26,16))    
+    suit.layout:pop()
+    suit.layout:row(16,padding)
     love.graphics.pop()
 
 
@@ -140,7 +148,14 @@ function game:towerMenu()
         love.graphics.setColor(bgRed, bgGreen, bgBlue)
     end
     table.insert(game.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row(64,40)), TowerCatapult})
-    suit.Label(TowerCatapult.price .. " Basil", {align = "center"}, suit.layout:row(64,16))
+        
+    suit.layout:push(suit.layout:nextRow())
+    suit.layout:row(16,8)
+    suit.ImageButton(game.imgBasil, {}, suit.layout:col(16,8))
+    suit.Label(TowerCatapult.price, {align = "left"}, suit.layout:col(26,16))    
+    suit.layout:pop()
+    suit.layout:row(16,padding)
+
     love.graphics.pop()
 
     love.graphics.push("all")
@@ -148,8 +163,16 @@ function game:towerMenu()
         love.graphics.setColor(bgRed, bgGreen, bgBlue)
     end
     table.insert(game.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row(64,64)), TowerOliveOil})
-    suit.Label(TowerOliveOil.price .. " Basil", {align = "center"}, suit.layout:row(64,8))
-    suit.layout:row(64,8)
+    -- suit.Label(TowerOliveOil.price .. " Basil", {align = "center"}, suit.layout:row(64,8))
+    -- suit.layout:row(64,8)
+
+    suit.layout:push(suit.layout:nextRow())
+    suit.layout:row(16,8)
+    suit.ImageButton(game.imgBasil, {}, suit.layout:col(16,8))
+    suit.Label(TowerOliveOil.price, {align = "left"}, suit.layout:col(26,16))    
+    suit.layout:pop()
+    suit.layout:row(16,padding)
+
     love.graphics.pop()
 
     love.graphics.push("all")
@@ -157,7 +180,15 @@ function game:towerMenu()
         love.graphics.setColor(bgRed, bgGreen, bgBlue)
     end
     table.insert(game.buttonStates,{"salt", suit.ImageButton(TowerSalt.menuImage,{}, suit.layout:row(64,64)), TowerSalt})
-    suit.Label(TowerSalt.price .. " Basil", {align = "center"}, suit.layout:row(64,14))
+    -- suit.Label(TowerSalt.price .. " Basil", {align = "center"}, suit.layout:row(64,14))
+
+    suit.layout:push(suit.layout:nextRow())
+    suit.layout:row(16,8)
+    suit.ImageButton(game.imgBasil, {}, suit.layout:col(16,8))
+    suit.Label(TowerSalt.price, {align = "left"}, suit.layout:col(26,16))    
+    suit.layout:pop()
+    suit.layout:row(16,padding)
+
     love.graphics.pop()
 end
 
