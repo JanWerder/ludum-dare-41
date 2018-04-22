@@ -53,12 +53,13 @@ require 'states.gameOver'
 --Include game-object Manager
 require 'objects.creepManager'
 require 'objects.towerManager'
+require 'objects.spawnBox'
 
 function love.load()	
     lovebird.update()
     Gamestate.registerEvents()
-    --Gamestate.switch(game)  
-    Gamestate.switch(gameAttack)    
+    Gamestate.switch(game)  
+    -- Gamestate.switch(gameAttack)    
 end
 
 function love:update(dt)

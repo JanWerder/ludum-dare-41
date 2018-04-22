@@ -14,6 +14,7 @@ CreepManager = Class{
 		self.waveTime = nil
 		self.waveConfig = nil
 		self.creepsToSpawn = {}
+		self.spawnBoxes = nil
 	end
 }
 
@@ -53,11 +54,12 @@ function CreepManager:getCreepsInRange(towerX,towerY,range)--world coordinates
 end
 
 function CreepManager:startWave(wave)
-	self.waveIndex = 0
-	self.waveTime = 5
-	self.waveConfig = wave
-	self.singleCreepTime = self.singleCreepDelay
-	self.waveIndexTime = 10
+	-- self.waveIndex = 0
+	-- self.waveTime = 5
+	-- self.waveConfig = wave
+	-- self.singleCreepTime = self.singleCreepDelay
+	-- self.waveIndexTime = 10 
+	self.spawnBoxes = wave
 end
 
 function CreepManager:removeCreep(creep)
@@ -74,7 +76,7 @@ function CreepManager:update(dt, gameState)
 			table.remove(self.creeps, k)
 		end
 	end
-
+--[[
 	if self.waveConfig then
 		self.waveTime = self.waveTime+dt
 		if self.waveTime > self.waveIndexTime then
@@ -101,6 +103,8 @@ function CreepManager:update(dt, gameState)
 			table.remove(self.creepsToSpawn,1)
 		end
 	end
+
+	]]
 end
 
 function CreepManager:draw()

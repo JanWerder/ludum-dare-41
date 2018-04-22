@@ -115,13 +115,17 @@ function gameAttack:draw()
     end
     gameAttack:creepMenu()
 	
-	-- spawning boxes
-	gameAttack.spawnBoxes = {{x = 100, y = 100, width = 132, height = 132}} -- ins customizing!
-	love.graphics.push("all")
-	love.graphics.setColor(50,255,50,0)
-	love.graphics.rectangle("fill", gameAttack.spawnBoxes[1].x, gameAttack.spawnBoxes[1].y, gameAttack.spawnBoxes[1].width, gameAttack.spawnBoxes[1].height)
-	love.graphics.pop()
-	
+    -- spawning boxes
+
+    for _,path in pairs(gameAttack.paths) do
+        -- gameAttack.spawnBoxes = {{x = 100, y = 100, width = 132, height = 132}} -- ins customizing!
+        love.graphics.push("all")
+        local x,y = utils:convertTileToPosition(path[1].x, path[1].y)
+        love.graphics.setColor(70,70,70,200)
+	    love.graphics.rectangle("fill", x, y-16, 64, 64)
+	    love.graphics.pop()
+    end
+    
     suit.draw()
 
     gameAttack.camera:detach()

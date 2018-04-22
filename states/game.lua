@@ -41,8 +41,15 @@ function game:enter()
     game.stage = 1
     game.wave = 1
     game.nextWaveTimer = 0
-	
-    game.creepsManager:startWave(game.stages[game.stage][game.wave])
+    
+    game.spawnBoxes = {}
+
+    for i,path in pairs(game.paths) do
+        table.insert(game.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
+        game.spawnBoxes[utils:tableLength(game.spawnBoxes)]:readSpawnConfig(game.stage, game.wave)
+    end
+
+    game.creepsManager:startWave()
 
     game.buttonStates = {}
     game.buildMode = nil
@@ -74,6 +81,12 @@ function game:update(dt)
     map:update(dt)
 
     game.creepsManager:update(dt, self)
+
+    print(inspect(game.spawnBoxes))
+    for _,spawnBox in pairs(game.spawnBoxes) do
+        print(inspect(spawnBox))
+        spawnBox:update(dt, self)
+	end
     game.towerManager:update(dt, self)
 
     if game.buildMode then
@@ -94,7 +107,7 @@ function game:update(dt)
     if not game.creepsManager.waveConfig and utils:tableLength(game.creepsManager.creepsToSpawn) == 0 and utils:tableLength(game.creepsManager.creeps) == 0 then
         game.wave = game.wave + 1
         if game.stages[game.stage][game.wave] then
-            game.creepsManager:startWave(game.stages[game.stage][game.wave])
+            --game.creepsManager:startWave(game.stages[game.stage][game.wave])
             game.nextWaveTimer = 6
             game.aniCountdown:gotoFrame(5)  
             game.mscWavewin:play()        

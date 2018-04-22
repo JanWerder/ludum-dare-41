@@ -83,7 +83,7 @@ function Creep:attack(gameState, index)
 	gameState.creepsManager:removeCreep(index)
 	gameState.lifePoints = gameState.lifePoints -1
 
-	game.camera:shake(6, 1, 60)	
+	gameState.camera:shake(6, 1, 60)	
 end
 
 function Creep:setHeadMoney(headMoney)
