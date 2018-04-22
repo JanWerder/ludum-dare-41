@@ -16,9 +16,9 @@ function gameAttack:enter()
 
     gameAttack.messages = require 'objects/conversations'
 
-    Timer.after(1, function() gameAttack:speak(game.stage, 1) end)
-    Timer.after(10, function() gameAttack:speak(game.stage, 2) end)
-    Timer.after(20, function() gameAttack:speak(game.stage, 3) end)
+    Timer.after(1, function() gameAttack:speak(gameAttack.stage, 1) end)
+    Timer.after(10, function() gameAttack:speak(gameAttack.stage, 2) end)
+    Timer.after(20, function() gameAttack:speak(gameAttack.stage, 3) end)
     Timer.after(30, function() Timer.clear() end)
 
     gameAttack.paths = {}
@@ -256,7 +256,7 @@ end
 function gameAttack:speak(boss, index)
     for _,message in pairs(gameAttack.messages[boss][index]) do
         Moan.speak({message.name, message.color}, message.message, {image=message.avatar})        
-    end--
+    end
 end
 
 function game:keyreleased(key, code)
