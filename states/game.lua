@@ -1,6 +1,5 @@
 function game:enter()
     love.physics.setMeter(32)
-
     map = sti("maps/defense.lua")
 	
     game.mapSize = {x = 640, y = 384}
@@ -62,14 +61,15 @@ function game:leave()
 end
 
 function game:waveInit()
-    if game.areYouReadyEnabled then
-        game.soundAreYouReady:play()
-    end
 	game.nextWaveTimer = 6
-	game.aniCountdown:gotoFrame(5)
+    game.aniCountdown:gotoFrame(5)
+    game.firstWave = true
 end
 
 function game:waveStart()
+    if game.areYouReadyEnabled then
+        game.soundAreYouReady:play()
+    end
 	--generate Spawnboxes
 	for i,path in pairs(game.paths) do
 		table.insert(game.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
@@ -106,7 +106,8 @@ function game:update(dt)
 		game.mscWavewin:play() 
 		game.wave = game.wave + 1
         if game.stages[game.stage][game.wave] then
-			game.nextWaveTimer = 6
+            game.nextWaveTimer = 6
+            game.firstWave = false
 			game.aniCountdown:gotoFrame(5)
         else
 			Gamestate.switch(gameAttack)
@@ -190,7 +191,7 @@ function game:draw()
     game:towerMenu()
     suit.draw()
 
-    if game.nextWaveTimer > 0 and game.nextWaveTimer < 5 then
+    if game.nextWaveTimer > 0 and game.nextWaveTimer < 5 and not game.firstWave then
         love.graphics.draw(game.imgWavedone, game.camera.x-game.imgWavedone:getWidth()/2, game.camera.y-game.imgWavedone:getHeight()/2)
         game.aniCountdown:draw(game.imgCountdown, game.camera.x-game.imgCountdown:getWidth()/10, game.camera.y-game.imgWavedone:getHeight()/2+150)
     end

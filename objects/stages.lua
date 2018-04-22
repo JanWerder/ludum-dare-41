@@ -1,6 +1,7 @@
 return { 
     {--stage 1
         {--wave 1
+        {1,"nigella",1},
 			{1,"pause",1},
             {3,"tomato",1}
         },
@@ -13,7 +14,8 @@ return {
         {--wave 3
 			{1,"pause",5},
             {5,"tomato",1},
-            {3,"carrot",1}
+            {3,"carrot",1},
+            {1,"gordon",1}
         }
     }
 }
