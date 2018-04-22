@@ -72,8 +72,8 @@ function gameAttack:update(dt)
             gameAttack.spawnMode.posX, gameAttack.spawnMode.posY = utils:convertTileToPosition(gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY)
             local props = map:getTileProperties("grid", gameAttack.spawnMode.tileX , gameAttack.spawnMode.tileY)
 			
-            if not props.path and not gameAttack.towerManager:getTowerAtTile(gameAttack.buildMode.tileX, gameAttack.buildMode.tileY) then
-                gameAttack.buildMode.buildAllowed = true
+            if not props.path and not gameAttack.towerManager:getTowerAtTile(gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY) then
+                gameAttack.spawnMode.spawnAllowed = true
             end
         end
 	end
@@ -196,7 +196,7 @@ function gameAttack:mousereleased(mx,my,button)
                 break
             end
         end
-        if gameAttack.spawnMode and gameAttack.spawnMode.buildAllowed then
+        if gameAttack.spawnMode and gameAttack.spawnMode.spawnAllowed then
 			--TODO Creep merken
 			print("neuer Creep!")
 			
