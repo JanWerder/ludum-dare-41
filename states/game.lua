@@ -3,6 +3,7 @@ function game:enter()
 
     map = sti("maps/defense.lua")
     game.imgHeart = love.graphics.newImage("img/celeriac.png")
+    game.imgBasil = love.graphics.newImage("img/basil.png")
 
     game.paths = {}
 
@@ -35,7 +36,7 @@ function game:enter()
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
-    game.music:setVolume(0.2)
+    game.music:setVolume(0)
     game.music:play()
 end
 
@@ -109,13 +110,20 @@ function game:draw()
 end
 
 function game:towerMenu()
-    suit.layout:reset(640,6)
+    
+    
     love.graphics.draw(game.moneyBackground,640, 0)
     local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
     local bgRed, bgGreen, bgBlue = 115,102,102
-    suit.Label("Basil: " .. game.money, {align = "center", color=colorBlack}, suit.layout:row(64,8))
-    game.buttonStates = {}
-    suit.layout:row(64,8)
+    suit.layout:push()
+        suit.layout:reset(640,2)
+        suit.layout:row(14,8)
+        suit.ImageButton(game.imgBasil, {}, suit.layout:col(12,8))
+        suit.Label(game.money, {align = "center", color=colorBlack}, suit.layout:col(32,16))
+        game.buttonStates = {}    
+    suit.layout:pop()
+
+    suit.layout:reset(640,32)
 
     love.graphics.push("all")
     if TowerKnife.price > game.money then
