@@ -48,8 +48,8 @@ function gameAttack:update(dt)
     lovebird.update()
     map:update(dt)
 
-    gameAttack.creepsManager:update(self, dt)
-    gameAttack.towerManager:update(self, dt)
+    gameAttack.creepsManager:update(dt, self)
+    gameAttack.towerManager:update(dt, self)
 
 
 
