@@ -1,12 +1,15 @@
 function gameAttack:enter()
     love.physics.setMeter(32)
 
-    map = sti("maps/defense.lua", "", 128, 0)
+    map = sti("maps/defense.lua", "", 0, 0)
 	
     gameAttack.mapSize = {x = 640, y = 384}
-	tileOffset = {x = 128, y = 0}
     gameAttack.imgHeart = love.graphics.newImage("img/celeriac.png")
     gameAttack.imgBasil = love.graphics.newImage("img/basil.png")
+
+    gameAttack.camera = Camera()
+    gameAttack.cameraCenter = { x = 300, y = 200}
+    gameAttack.camera:fade(1, {0, 0, 0, 0})
 
     gameAttack.paths = {}
 
@@ -49,6 +52,9 @@ function gameAttack:leave()
 end
 
 function gameAttack:update(dt)
+
+    suit.updateMouse(gameAttack.camera.mx, gameAttack.camera.my) -- TODO: Check if necessary
+
     lovebird.update()
     map:update(dt)
 
@@ -57,26 +63,36 @@ function gameAttack:update(dt)
 
 	
 
-	if gameAttack.spawnMode then
-        local x = love.mouse.getX()
-        local y = love.mouse.getY()
+    if gameAttack.spawnMode then
+        local x = gameAttack.camera.mx
+        local y = gameAttack.camera.my
         gameAttack.spawnMode.spawnAllowed = false
 		if x < gameAttack.mapSize.x and y < gameAttack.mapSize.y then
             gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY = utils:convertPositionToTile(x, y)
             gameAttack.spawnMode.posX, gameAttack.spawnMode.posY = utils:convertTileToPosition(gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY)
             local props = map:getTileProperties("grid", gameAttack.spawnMode.tileX , gameAttack.spawnMode.tileY)
 			
-            if not props.path and not game.towerManager:getTowerAtTile(game.buildMode.tileX, game.buildMode.tileY) then
-                game.buildMode.buildAllowed = true
+            if not props.path and not gameAttack.towerManager:getTowerAtTile(gameAttack.buildMode.tileX, gameAttack.buildMode.tileY) then
+                gameAttack.buildMode.buildAllowed = true
             end
         end
 	end
 
     Timer.update(dt)
+
+    -- gameAttack.camera:setFollowLerp(0.2)
+    gameAttack.camera:update(dt)
+    if utils:tableLength(gameAttack.camera.vertical_shakes) == 0 then
+        gameAttack.camera.x, gameAttack.camera.y =  gameAttack.cameraCenter.x, gameAttack.cameraCenter.y
+    end   
 end
 
 function gameAttack:draw()
-    map:draw()
+
+    gameAttack.camera:attach()
+
+    map:draw(gameAttack.camera.screen_x - gameAttack.camera.x,gameAttack.camera.screen_y - gameAttack.camera.y)
+
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
 
@@ -84,7 +100,8 @@ function gameAttack:draw()
 	
 	
 	
-	-- Hover over tower
+	local mouseX, mouseY = gameAttack.camera.mx, gameAttack.camera.my
+    
     for _,tower in pairs(gameAttack.towerManager.towers) do
         local hoverRange = { tower.worldX, tower.worldY, 
         tower.worldX+tower.image:getWidth(), tower.worldY, 
@@ -106,14 +123,17 @@ function gameAttack:draw()
 	love.graphics.pop()
 	
     suit.draw()
+
+    gameAttack.camera:detach()
+    gameAttack.camera:draw()
 end
 
 function gameAttack:creepMenu()
-	love.graphics.draw(gameAttack.moneyBackground, 64, 0)
+	love.graphics.draw(gameAttack.moneyBackground, -64, 0)
     local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
     local bgRed, bgGreen, bgBlue = 115,102,102 --grey
     suit.layout:push()
-        suit.layout:reset(64,2)
+        suit.layout:reset(-64,2)
         suit.layout:row(14,8)
         suit.ImageButton(gameAttack.imgBasil, {}, suit.layout:col(12,8))
         suit.Label(gameAttack.money, {align = "center", color=colorBlack}, suit.layout:col(32,16))
@@ -121,7 +141,7 @@ function gameAttack:creepMenu()
     suit.layout:pop()
 
 	
-	suit.layout:reset(80,32)
+	suit.layout:reset(-48,32)
 	
 	-- Carrot
     love.graphics.push("all")
