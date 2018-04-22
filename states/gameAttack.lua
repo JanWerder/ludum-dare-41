@@ -13,6 +13,9 @@ function gameAttack:enter()
 
     Moan.setCamera(gameAttack.camera)
     gameAttack.gordon = love.graphics.newImage("img/avatar.png")
+    gameAttack.jamie = love.graphics.newImage("img/avatar.png")
+    gameAttack.nigella = love.graphics.newImage("img/avatar.png")
+    gameAttack.avatar = love.graphics.newImage("img/avatar.png")
 
     gameAttack.messages = require 'objects/conversations'
 
