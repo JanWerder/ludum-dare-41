@@ -47,7 +47,7 @@ function gameAttack:enter()
 	
     gameAttack.spawnBoxes = {}
 
-    gameAttack.lifePoints = 3
+    gameAttack.lifePoints = 1
     gameAttack.money = 50
     gameAttack.stage = 1
     gameAttack.wave = 1
@@ -109,7 +109,7 @@ function gameAttack:update(dt)
 		elseif utils:tableLength(spawnBox.spawns) <= 0 and spawnBox:isStageStarted() then
 			table.remove(gameAttack.spawnBoxes, k)
 		end
-	end	
+	end
 	
 	-- Check Wave & Wins
 	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 and utils:tableLength(gameAttack.creepsManager.deadCreeps) > 0 and gameAttack.nextWaveTimer == 0 then

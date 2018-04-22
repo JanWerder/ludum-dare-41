@@ -11,9 +11,9 @@ TowerManager = Class{
 	end
 }
 
-function TowerManager:update(dt)
+function TowerManager:update(dt, gameState)
 	for _,tower in pairs(self.towers) do
-		tower:update(dt)
+		tower:update(dt, gameState)
 	end
 end
 
