@@ -36,6 +36,10 @@ function SpawnBox:isPointInBox(x,y)
 	end
 end
 
+function SpawnBox:handleBoxClick(x,y)
+    print(x .. " and " .. y)
+end
+
 function SpawnBox:readSpawnConfig(stage, wave)
     self.defenseMode = true
     stages = require 'objects.stages'
@@ -68,7 +72,8 @@ function SpawnBox:draw()
 		love.graphics.push("all")
 		love.graphics.setColor(70,70,70,200)
 		love.graphics.polygon("fill", self.polygon)
-		love.graphics.pop()
+        love.graphics.pop()
+        imagePause = love.graphics.newImage("img/pause.png")
 		
 		local boxPosition = {x = 0, y = 0}
 		for i,spawn in pairs(self.spawns) do
@@ -84,7 +89,6 @@ function SpawnBox:draw()
 				love.graphics.draw(CreepEggplant.menuImage, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end
 			if spawn.type == 'pause' then
-				imagePause = love.graphics.newImage("img/pause.png")
 				love.graphics.draw(imagePause, boxPosition.x+self.position.x, boxPosition.y+self.position.y, 0, 0.5,0.5)
 			end		
 		end

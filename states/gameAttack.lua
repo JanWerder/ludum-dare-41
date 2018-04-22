@@ -1,7 +1,7 @@
 function gameAttack:enter()
     love.physics.setMeter(32)
 
-    map = sti("maps/defense.lua", "", 0, 0)
+    map = sti("maps/attack.lua", "", 0, 0)
 	
     gameAttack.mapSize = {x = 640, y = 384}
     gameAttack.imgHeart = love.graphics.newImage("img/celeriac.png")
@@ -117,7 +117,8 @@ function gameAttack:update(dt)
         gameAttack.spawnMode.spawnBoxIndex = nil
 		for k,spawnBox in pairs(gameAttack.spawnBoxes) do
 			if spawnBox:isPointInBox(x,y) then
-				gameAttack.spawnMode.spawnBoxIndex = k
+                gameAttack.spawnMode.spawnBoxIndex = k
+                break
 			end
 		end
 	end
@@ -256,6 +257,14 @@ function gameAttack:mousereleased(mx,my,button)
         if gameAttack.spawnMode and gameAttack.spawnMode.spawnBoxIndex ~= nil then
 			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
+        else
+            print("dwadf")
+            for k,spawnBox in pairs(gameAttack.spawnBoxes) do
+                if spawnBox:isPointInBox(gameAttack.camera.mx, gameAttack.camera.my) then
+                    gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)
+                    break
+                end
+            end
         end
     elseif button == 2 then
         gameAttack.spawnMode = nil
