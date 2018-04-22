@@ -1,7 +1,5 @@
 function gameOver:enter()
     Timer.clear()
-    game:init()
-    gameAttack:init()
 end
 
 function gameOver:draw()
@@ -13,6 +11,8 @@ function gameOver:update()
     suit.Label("Congratz, you lost", {align = "center"}, suit.layout:row(200,30))
     suit.layout:row()
 	if suit.Button("Retry", suit.layout:row()).hit then
+		game:init()
+		gameAttack:init()
 		Gamestate.switch(game) 
     end
     suit.layout:row()
