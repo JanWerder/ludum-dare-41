@@ -2,6 +2,8 @@ function game:init()
     game.stage = 1
     game.money = 80
     game.towerManager = TowerManager()
+    game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
+	game.soundAreYouReady:play()
 end
 
 function game:enter()
@@ -55,8 +57,6 @@ function game:enter()
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
     game.mscBoom = love.audio.newSource("sound/boom.mp3")
     game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
-    game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
-    game.areYouReadyEnabled = false
     game.music:setVolume(0.2)
     game.music:play()
     game:waveInit()
@@ -75,9 +75,6 @@ function game:waveInit()
 end
 
 function game:waveStart()
-    if game.areYouReadyEnabled then
-        game.soundAreYouReady:play()
-    end
 	--generate Spawnboxes
 	for i,path in pairs(game.paths) do
 		table.insert(game.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
@@ -118,6 +115,7 @@ function game:update(dt)
             game.firstWave = false
 			game.aniCountdown:gotoFrame(5)
         else
+            gameAttack.stage = gameAttack.stage + 1
 			Gamestate.switch(gameAttack)
         end
 	end
@@ -307,14 +305,5 @@ function game:mousereleased(mx,my,button)
         end
     elseif button == 2 then
         game.buildMode = nil
-    end
-end
-
-function game:keyreleased(key, code)
-    if key == "e" and love.keyboard.isDown("lctrl") then
-        game.areYouReadyEnabled = true
-    end
-    if key == "d" and love.keyboard.isDown("lctrl") then
-        game.areYouReadyEnabled = false
     end
 end
