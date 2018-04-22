@@ -2,6 +2,9 @@ function game:enter()
     love.physics.setMeter(32)
 
     map = sti("maps/defense.lua")
+	
+    game.mapSize = {x = 640, y = 384}
+	tileOffset = {x = 0, y = 0}
     game.imgHeart = love.graphics.newImage("img/celeriac.png")
     game.imgBasil = love.graphics.newImage("img/basil.png")
 
@@ -23,7 +26,6 @@ function game:enter()
         end
     end    
 
-    game.mapSize = {x = 640, y = 384}
     game.creepsManager = CreepManager()
     game.towerManager = TowerManager()
     

@@ -1,7 +1,10 @@
 function gameAttack:enter()
     love.physics.setMeter(32)
 
-    map = sti("maps/defense.lua")
+    map = sti("maps/defense.lua", "", 128, 0)
+	
+    gameAttack.mapSize = {x = 640, y = 384}
+	tileOffset = {x = 128, y = 0}
 
     gameAttack.paths = {}
 
@@ -21,7 +24,6 @@ function gameAttack:enter()
         end
     end    
 
-    gameAttack.mapSize = {x = 640, y = 384}
     gameAttack.creepsManager = CreepManager()
     gameAttack.towerManager = TowerManager()
     
@@ -83,48 +85,23 @@ function gameAttack:draw()
 end
 
 function gameAttack:creepMenu()
-    suit.layout:reset(640,6)
-    love.graphics.draw(gameAttack.moneyBackground,640, 0)
+	love.graphics.draw(gameAttack.moneyBackground, 64, 0)
     local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
-    local bgRed, bgGreen, bgBlue = 115,102,102
-    suit.Label("Basil: " .. gameAttack.money, {align = "center", color=colorBlack}, suit.layout:row(64,8))
-    gameAttack.buttonStates = {}
-    suit.layout:row(64,8)
+    local bgRed, bgGreen, bgBlue = 115,102,102 --grey
+    suit.layout:push()
+        suit.layout:reset(64,2)
+        suit.layout:row(14,8)
+        --suit.ImageButton(gameAttack.imgBasil, {}, suit.layout:col(12,8))
+        suit.Label(gameAttack.money, {align = "center", color=colorBlack}, suit.layout:col(32,16))
+        gameAttack.buttonStates = {}    
+    suit.layout:pop()
 
-    love.graphics.push("all")
-    if TowerKnife.price > gameAttack.money then
-        love.graphics.setColor(bgRed, bgGreen, bgBlue)
-    end
-    table.insert(gameAttack.buttonStates,{"knife", suit.ImageButton(TowerKnife.menuImage,{}, suit.layout:row(64,44)), TowerKnife})
-    suit.Label(TowerKnife.price .. " Basil", {align = "center"}, suit.layout:row(64,18))
-    suit.layout:row(64,4)
-    love.graphics.pop()
+	
+	suit.layout:reset(0,32)
 
 
-    love.graphics.push("all")
-    if TowerCatapult.price > gameAttack.money then
-        love.graphics.setColor(bgRed, bgGreen, bgBlue)
-    end
-    table.insert(gameAttack.buttonStates,{"catapult", suit.ImageButton(TowerCatapult.menuImage,{}, suit.layout:row(64,40)), TowerCatapult})
-    suit.Label(TowerCatapult.price .. " Basil", {align = "center"}, suit.layout:row(64,16))
-    love.graphics.pop()
 
-    love.graphics.push("all")
-    if TowerOliveOil.price > gameAttack.money then
-        love.graphics.setColor(bgRed, bgGreen, bgBlue)
-    end
-    table.insert(gameAttack.buttonStates,{"oliveOil", suit.ImageButton(TowerOliveOil.menuImage,{}, suit.layout:row(64,64)), TowerOliveOil})
-    suit.Label(TowerOliveOil.price .. " Basil", {align = "center"}, suit.layout:row(64,8))
-    suit.layout:row(64,8)
-    love.graphics.pop()
 
-    love.graphics.push("all")
-    if TowerSalt.price > gameAttack.money then
-        love.graphics.setColor(bgRed, bgGreen, bgBlue)
-    end
-    table.insert(gameAttack.buttonStates,{"salt", suit.ImageButton(TowerSalt.menuImage,{}, suit.layout:row(64,64)), TowerSalt})
-    suit.Label(TowerSalt.price .. " Basil", {align = "center"}, suit.layout:row(64,14))
-    love.graphics.pop()
 end
 
 

@@ -31,9 +31,10 @@ function utils:createPath(originDirection, currentField, calcPath)
 end
 
 function utils:convertTileToPosition(tileX, tileY)
+	-- tileOffset -> global in Gamestates
     local tileSize = 32
-    local positionX = (tileX -1) * tileSize
-    local positionY = (tileY -1) * tileSize
+    local positionX = (tileX -1) * tileSize + tileOffset.x
+    local positionY = (tileY -1) * tileSize + tileOffset.y
     return positionX, positionY
 end
 
