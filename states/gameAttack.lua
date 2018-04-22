@@ -1,5 +1,4 @@
 function gameAttack:enter()
-    
     love.physics.setMeter(32)
 
     gameAttack.map = sti("maps/attack.lua", "", 0, 0)
@@ -94,7 +93,7 @@ function gameAttack:update(dt)
         game.stage = game.stage+1
         Gamestate.switch(game)
     end
-    
+
     Moan.update(dt)
 
     if Moan.printedText == Moan.currentMessage or Moan.paused == true then
