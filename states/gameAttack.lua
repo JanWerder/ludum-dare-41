@@ -41,24 +41,31 @@ function gameAttack:enter()
 
     gameAttack.creepsManager = CreepManager()
     gameAttack.towerManager = TowerManager()
+	
+    gameAttack.spawnBoxes = {}
     
     gameAttack.lifePoints = 3
     gameAttack.money = 50
     gameAttack.stage = 1
     gameAttack.wave = 1
-
-    gameAttack.creepsManager:startWave(gameAttack.stages[gameAttack.stage][gameAttack.wave])
     gameAttack.spawnStates = {}
     gameAttack.spawnMode = nil
     gameAttack.moneyBackground = love.graphics.newImage("img/money_bg.png")
     gameAttack.music = love.audio.newSource("sound/template_soundtrack.mp3")
     gameAttack.music:setVolume(0.2)
     gameAttack.music:play()
-
 end
 
 function gameAttack:leave()
     gameAttack.music:stop()
+end
+
+function gameAttack:waveStart()
+	--generate Spawnboxes
+	for i,path in pairs(gameAttack.paths) do
+		table.insert(gameAttack.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
+		gameAttack.spawnBoxes[utils:tableLength(gameAttack.spawnBoxes)]:readSpawnConfig(gameAttack.stage, gameAttack.wave)
+	end
 end
 
 function gameAttack:update(dt)
@@ -80,7 +87,26 @@ function gameAttack:update(dt)
     gameAttack.creepsManager:update(dt, self)
     gameAttack.towerManager:update(dt, self)
 
+	-- Check SpawnBoxes
+    for k,spawnBox in pairs(gameAttack.spawnBoxes) do
+		if utils:tableLength(spawnBox.spawns) > 0 then
+			spawnBox:update(dt, self)
+		else
+			table.remove(gameAttack.spawnBoxes, k)
+		end
+	end	
 	
+	-- Check Wave & Wins
+	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 and utils:tableLength(gameAttack.creepsManager.deadCreeps) > 0 and gameAttack.nextWaveTimer == 0 then
+		gameAttack.mscWavewin:play() 
+		gameAttack.wave = gameAttack.wave + 1
+        if gameAttack.stages[gameAttack.stage][gameAttack.wave] then
+			gameAttack.nextWaveTimer = 6
+			gameAttack.aniCountdown:gotoFrame(5)
+        else
+			Gamestate.switch(gameAttack)
+        end
+	end	
 
     if gameAttack.spawnMode then
         local x = gameAttack.camera.mx
@@ -113,10 +139,6 @@ function gameAttack:draw()
 
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
-
-	
-	
-	
 	
 	local mouseX, mouseY = gameAttack.camera.mx, gameAttack.camera.my
     
@@ -235,4 +257,13 @@ function gameAttack:speak(boss, index)
     for _,message in pairs(gameAttack.messages[boss][index]) do
         Moan.speak({message.name, message.color}, message.message, {image=message.avatar})        
     end--
+end
+
+function game:keyreleased(key, code)
+    if key == "e" and love.keyboard.isDown("lctrl") then
+        game.areYouReadyEnabled = true
+    end
+    if key == "d" and love.keyboard.isDown("lctrl") then
+        game.areYouReadyEnabled = false
+    end
 end
