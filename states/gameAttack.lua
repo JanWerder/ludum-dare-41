@@ -97,10 +97,10 @@ function gameAttack:update(dt)
     end
 
     if utils:tableLength(gameAttack.creepsManager.creeps) < 1 then
-        local noMoreCreepsToSpawn = true
+        local moreCreepsToSpawn = false
         for _,spawnBox in pairs(gameAttack.spawnBoxes) do
-            if spawnBox:isStageStarted() == false or utils:tableLength(spawnBox.spawns) > 1 then
-                noMoreCreepsToSpawn = false
+            if spawnBox:isStageStarted() == false or utils:tableLength(spawnBox.spawns) > 0 then
+                moreCreepsToSpawn = true
             else
                 break
             end

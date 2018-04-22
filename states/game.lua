@@ -118,6 +118,7 @@ function game:update(dt)
             game.firstWave = false
 			game.aniCountdown:gotoFrame(5)
         else
+            gameAttack.stage = gameAttack.stage + 1
 			Gamestate.switch(gameAttack)
         end
 	end
