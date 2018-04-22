@@ -1,6 +1,7 @@
 function gameOver:enter()
     Timer.clear()
     game:init()
+    gameAttack:init()
 end
 
 function gameOver:draw()
