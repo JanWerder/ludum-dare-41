@@ -259,7 +259,6 @@ function gameAttack:mousereleased(mx,my,button)
 			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
         else
-            print("dwadf")
             for k,spawnBox in pairs(gameAttack.spawnBoxes) do
                 if spawnBox:isPointInBox(gameAttack.camera.mx, gameAttack.camera.my) then
                     gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)

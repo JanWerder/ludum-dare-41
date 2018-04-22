@@ -37,7 +37,14 @@ function SpawnBox:isPointInBox(x,y)
 end
 
 function SpawnBox:handleBoxClick(x,y)
+    local x = math.ceil((x - self.polygon[1]) / 16)
+    local y = math.ceil((y - self.polygon[2]) / 16)
     print(x .. " and " .. y)
+
+    local position = (y -1) * 4 + x
+    if utils:tableLength(self.spawns) <= position then
+        table.remove(self.spawns, position)
+    end
 end
 
 function SpawnBox:readSpawnConfig(stage, wave)
