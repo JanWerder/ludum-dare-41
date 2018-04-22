@@ -261,7 +261,16 @@ function gameAttack:mousereleased(mx,my,button)
         else
             for k,spawnBox in pairs(gameAttack.spawnBoxes) do
                 if spawnBox:isPointInBox(gameAttack.camera.mx, gameAttack.camera.my) then
-                    gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)
+                    local deletionType = gameAttack.spawnBoxes[k]:handleBoxClick(gameAttack.camera.mx, gameAttack.camera.my)
+
+                    if deletionType == 'tomato' then
+                        gameAttack.money = gameAttack.money + CreepTomato.price
+                    elseif deletionType == 'carrot' then
+                        gameAttack.money = gameAttack.money + CreepCarrot.price
+                    elseif deletionType == 'eggplant' then
+                        gameAttack.money = gameAttack.money + CreepEggplant.price
+                    end	
+
                     break
                 end
             end
