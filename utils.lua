@@ -41,8 +41,8 @@ end
 function utils:convertPositionToTile(positionX, positionY)
 	-- tileOffset -> global in Gamestates
     local tileSize = 32
-    local tileX = math.floor((positionX / tileSize))+1 - tileOffset.X
-    local tileY = math.floor((positionY / tileSize))+1 - tileOffset.Y
+    local tileX = math.floor((positionX / tileSize))+1 - tileOffset.x
+    local tileY = math.floor((positionY / tileSize))+1 - tileOffset.y
     return tileX, tileY
 end
 
