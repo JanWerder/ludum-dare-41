@@ -10,7 +10,7 @@ SpawnBox = Class{
 }
 
 function SpawnBox:isStageStarted()
-    return stageStarted
+    return self.stageStarted
 end
 
 function SpawnBox:startStage()
@@ -37,14 +37,15 @@ function SpawnBox:readSpawnConfig(stage, wave)
             i=i+1
         until i > spawn[1] -- amount
     end
-    
+    self:startStage()
 end
 
 function SpawnBox:update(dt, gameState)	
-    if self:isStageStarted() then
+    print(self:isStageStarted())
+    if self:isStageStarted() and self.spawns ~= {} and self.spawns ~= nil then
         self.timer = self.timer + dt
         if self.timer >= self.spawns[1].delay then
-            self.timer = self.timer - spawns[1].delay
+            self.timer = self.timer - self.spawns[1].delay
             if not self.spawns[1].type == "pause" then
                 gameState.creepManager:addCreep(self.position.x, self.position.y, self.spawns[1].type, self.pathIndex)
             end

@@ -82,9 +82,7 @@ function game:update(dt)
 
     game.creepsManager:update(dt, self)
 
-    print(inspect(game.spawnBoxes))
     for _,spawnBox in pairs(game.spawnBoxes) do
-        print(inspect(spawnBox))
         spawnBox:update(dt, self)
 	end
     game.towerManager:update(dt, self)
