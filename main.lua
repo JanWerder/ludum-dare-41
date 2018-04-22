@@ -15,7 +15,7 @@ Timer = require "libs.hump.Timer"
 mlib = require "libs.mlib.mlib"
 
 --Hot-Swapping
-lurker = require("libs.lurker.lurker")
+lurker = require "libs.lurker.lurker"
 
 --Camera
 Camera = require 'libs.STALKER-X.camera'
@@ -31,6 +31,9 @@ suit = require 'libs.suit'
 
 --Tiled
 sti = require 'libs.sti'
+
+--VN Library
+Moan = require "libs.moan.moan"
 
 utils = require 'utils' 
 
@@ -56,6 +59,9 @@ require 'objects.towerManager'
 require 'objects.spawnBox'
 
 function love.load()	
+    Moan.font = love.graphics.newFont("font/JinxedWizards.ttf", 32)
+    Moan.typeSound = love.audio.newSource("sound/typeSound.wav", "static")
+
     lovebird.update()
     Gamestate.registerEvents()
     Gamestate.switch(game)  
@@ -90,4 +96,6 @@ function love.keypressed(key)
     if key == "s" then
         Gamestate.switch(game) 
     end
+
+    Moan.keyreleased(key)
 end

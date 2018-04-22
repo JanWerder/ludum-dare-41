@@ -11,6 +11,16 @@ function gameAttack:enter()
     gameAttack.cameraCenter = { x = 300, y = 200}
     gameAttack.camera:fade(1, {0, 0, 0, 0})
 
+    Moan.setCamera(gameAttack.camera)
+    gameAttack.gordon = love.graphics.newImage("img/avatar.png")
+
+    gameAttack.messages = require 'objects/conversations'
+
+    Timer.after(1, function() gameAttack:speak(game.stage, 1) end)
+    Timer.after(10, function() gameAttack:speak(game.stage, 1) end)
+    Timer.after(20, function() gameAttack:speak(game.stage, 1) end)
+    Timer.after(30, function() Timer.clear() end)
+
     gameAttack.paths = {}
 
     local originDirection = {-1,0}
@@ -48,12 +58,14 @@ function gameAttack:enter()
 end
 
 function gameAttack:leave()
-
+    gameAttack.music:stop()
 end
 
 function gameAttack:update(dt)
 
-    suit.updateMouse(gameAttack.camera.mx, gameAttack.camera.my) -- TODO: Check if necessary
+    Moan.update(dt)
+
+    suit.updateMouse(gameAttack.camera.mx, gameAttack.camera.my)
 
     lovebird.update()
     map:update(dt)
@@ -80,7 +92,6 @@ function gameAttack:update(dt)
 
     Timer.update(dt)
 
-    -- gameAttack.camera:setFollowLerp(0.2)
     gameAttack.camera:update(dt)
     if utils:tableLength(gameAttack.camera.vertical_shakes) == 0 then
         gameAttack.camera.x, gameAttack.camera.y =  gameAttack.cameraCenter.x, gameAttack.cameraCenter.y
@@ -130,6 +141,8 @@ function gameAttack:draw()
 
     gameAttack.camera:detach()
     gameAttack.camera:draw()
+
+    --Moan.draw()
 end
 
 function gameAttack:creepMenu()
@@ -209,4 +222,11 @@ function gameAttack:mousereleased(mx,my,button)
     elseif button == 2 then
         gameAttack.spawnMode = nil
     end
+end
+
+function gameAttack:speak(boss, index)
+    for _,message in pairs(gameAttack.messages[boss]) do
+        print(inspect(message))
+        Moan.speak({message.name, message.color}, {message.message}, {image=message.avatar})        
+    end--
 end

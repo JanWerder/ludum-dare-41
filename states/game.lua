@@ -61,7 +61,6 @@ function game:enter()
     game.areYouReadyEnabled = false
     game.music:setVolume(0)
     game.music:play()
-    print("wtf")
 end
 
 function game:leave()
