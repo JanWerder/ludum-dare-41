@@ -88,6 +88,7 @@ function game:update(dt)
     map:update(dt)
 
     game.creepsManager:update(dt, self)
+    game.towerManager:update(dt, self)
 
 	-- Check SpawnBoxes
     for k,spawnBox in pairs(game.spawnBoxes) do
@@ -110,9 +111,6 @@ function game:update(dt)
         end
 	end
 	
-	
-    game.towerManager:update(dt, self)
-
     if game.buildMode then
         local x = game.camera.mx
         local y = game.camera.my
