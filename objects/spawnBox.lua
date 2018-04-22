@@ -41,13 +41,14 @@ function SpawnBox:readSpawnConfig(stage, wave)
 end
 
 function SpawnBox:update(dt, gameState)	
-    print(self:isStageStarted())
-    if self:isStageStarted() and self.spawns ~= {} and self.spawns ~= nil then
+    if self:isStageStarted() and utils:tableLength(self.spawns) > 0 and self.spawns ~= {} and self.spawns ~= nil then
         self.timer = self.timer + dt
         if self.timer >= self.spawns[1].delay then
             self.timer = self.timer - self.spawns[1].delay
-            if not self.spawns[1].type == "pause" then
-                gameState.creepManager:addCreep(self.position.x, self.position.y, self.spawns[1].type, self.pathIndex)
+            print("before" .. self.spawns[1].type)
+            if self.spawns[1].type ~= "pause" then
+                print("in" .. self.spawns[1].type)
+                gameState.creepsManager:addCreep(self.position.x, self.position.y, self.spawns[1].type, self.pathIndex)
             end
             table.remove(self.spawns, 1)
         end
