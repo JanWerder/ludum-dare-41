@@ -12,10 +12,10 @@ function gameAttack:enter()
     gameAttack.camera:fade(1, {0, 0, 0, 0})
 
     Moan.setCamera(gameAttack.camera)
-    gameAttack.gordon = love.graphics.newImage("img/avatar.png")
-    gameAttack.jamie = love.graphics.newImage("img/avatar.png")
-    gameAttack.nigella = love.graphics.newImage("img/avatar.png")
-    gameAttack.avatar = love.graphics.newImage("img/avatar.png")
+    gameAttack.gordon = love.graphics.newImage("img/cook_gordon.png")
+    gameAttack.jamie = love.graphics.newImage("img/cook_jamie.png")
+    gameAttack.nigella = love.graphics.newImage("img/cook_nigella.png")
+    gameAttack.avatar = love.graphics.newImage("img/cook_sarah.png")
 
     gameAttack.messages = require 'objects/conversations'
 
