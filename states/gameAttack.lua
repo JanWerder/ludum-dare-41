@@ -252,7 +252,9 @@ function gameAttack:mousereleased(mx,my,button)
             end
         end
         if gameAttack.spawnMode and gameAttack.spawnMode.spawnBoxIndex ~= nil then
-			gameAttack.money = gameAttack.money - gameAttack.spawnMode.class.price
+			if gameAttack.spawnMode.creepName ~= 'pause' then
+				gameAttack.money = gameAttack.money - gameAttack.spawnMode.class.price
+			end
 			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
         end
