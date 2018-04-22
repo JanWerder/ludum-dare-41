@@ -343,3 +343,8 @@ function gameAttack:speak(boss, index)
         Moan.speak({message.name, message.color}, message.message, {image=message.avatar})        
     end
 end
+
+function gameAttack:leave()
+    Moan.clearMessages()
+    Timer.clear()
+end
