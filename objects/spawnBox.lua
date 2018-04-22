@@ -1,6 +1,8 @@
 SpawnBox = Class{
 	init = function(self, x, y, pathIndex)
         self.position = {x = x, y = y}
+		self.tilePosition = {}
+		self.tilePosition.x, self.tilePosition.y = utils:convertTileToPosition(x, y)
         self.pathIndex = pathIndex
         self.spawns = {}
         self.timer = 0
@@ -48,15 +50,18 @@ function SpawnBox:update(dt, gameState)
             print("before" .. self.spawns[1].type)
             if self.spawns[1].type ~= "pause" then
                 print("in" .. self.spawns[1].type)
-                gameState.creepsManager:addCreep(self.position.x, self.position.y, self.spawns[1].type, self.pathIndex)
+                gameState.creepsManager:addCreep(self.tilePosition.x, self.tilePosition.y, self.spawns[1].type, self.pathIndex)
             end
             table.remove(self.spawns, 1)
         end
     end
 end
 
-function SpawnBox:draw()	
+function SpawnBox:draw()
     if not self.defenseMode then
-
+		love.graphics.push("all")
+		love.graphics.setColor(70,70,70,200)
+		love.graphics.rectangle("fill", self.tilePosition.x, self.tilePosition.y-16, 64, 64)
+		love.graphics.pop()
     end
 end
