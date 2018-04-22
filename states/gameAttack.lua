@@ -1,3 +1,8 @@
+function gameAttack:init()
+    gameAttack.stage = 1
+    -- gameAttack.money = 80
+end
+
 function gameAttack:enter()
     love.physics.setMeter(32)
 
@@ -47,10 +52,9 @@ function gameAttack:enter()
 	
     gameAttack.spawnBoxes = {}
 
-    gameAttack.lifePoints = 1
-    gameAttack.money = 50
-    gameAttack.stage = 1
     gameAttack.wave = 1
+    gameAttack.lifePoints = gameAttack.stage
+    gameAttack.money = 50
     gameAttack.spawnStates = {}
     gameAttack.spawnMode = nil
     gameAttack.moneyBackground = love.graphics.newImage("img/money_bg.png")
@@ -88,11 +92,15 @@ end
 function gameAttack:update(dt)
 
     if gameAttack.lifePoints < 1 then
-        -- gameAttack.camera:fade(1, {0, 0, 0, 255})
-        -- Timer.after(1, function() Gamestate.switch(gameOver) end)
         game.stage = game.stage+1
         Gamestate.switch(game)
     end
+
+	-- GameOver setzen
+	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 then
+		gameAttack.camera:fade(1, {0, 0, 0, 255})
+        Timer.after(1, function() Gamestate.switch(gameOver) end)
+	end
 
     Moan.update(dt)
 
@@ -166,8 +174,8 @@ function gameAttack:draw()
     gameAttack.creepsManager:draw()
     gameAttack.towerManager:draw()
     
-    for i=1,game.lifePoints do
-        love.graphics.draw(game.imgHeart, 10 + 15*i)
+    for i=1,gameAttack.lifePoints do
+        love.graphics.draw(gameAttack.imgHeart, 10 + 15*i)
     end
 
 	local mouseX, mouseY = gameAttack.camera.mx, gameAttack.camera.my
