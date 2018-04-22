@@ -17,7 +17,10 @@ CreepTomato = Class{
 		-- general stuff
 		self:setName('Tomato')
 		self:setImage(love.graphics.newImage("img/tomato.png"))
-	end
+	end,
+	menuImage = love.graphics.newImage("img/deathtomato.png"),
+	imageStill = love.graphics.newImage("img/deathtomato.png"),
+	price = 20
 }	
 function CreepTomato:setDead()
 	self:setImage(love.graphics.newImage("img/deathtomato.png"))

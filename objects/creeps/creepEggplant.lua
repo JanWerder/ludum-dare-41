@@ -17,7 +17,10 @@ CreepEggplant = Class{
 		-- general stuff
 		self:setName('Eggplant')
 		self:setImage(love.graphics.newImage("img/eggplant.png"))
-	end
+	end,
+	menuImage = love.graphics.newImage("img/deatheggplant.png"),
+	imageStill = love.graphics.newImage("img/deatheggplant.png"),
+	price = 20
 }	
 function CreepEggplant:setDead()
 	self:setImage(love.graphics.newImage("img/deatheggplant.png"))
