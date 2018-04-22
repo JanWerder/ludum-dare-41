@@ -1,18 +1,19 @@
 SpawnBox = Class{
 	init = function(self, x, y, pathIndex)
-        self.position = {x = x, y = y}
-		self.tilePosition = {}
-		self.tilePosition.x, self.tilePosition.y = utils:convertTileToPosition(x, y)
+        self.tilePosition = {x = x, y = y}
+		self.position = {}
+		self.position.x, self.position.y = utils:convertTileToPosition(x, y)
         self.pathIndex = pathIndex
         self.spawns = {}
         self.timer = 0
+		self.polygon = {self.position.x, self.position.y-16, self.position.x+64, self.position.y-16, self.position.x+64, self.position.y+48, self.position.x, self.position.y+48}
         self.stageStarted = false
         self.defenseMode = false
     end
 }
 
 function SpawnBox:isStageStarted()
-    return self.stageStarted
+	return self.stageStarted
 end
 
 function SpawnBox:startStage()
@@ -27,6 +28,13 @@ function SpawnBox:removeSpawn(index)
     table.remove(self.spawns, index)
 end
 
+function SpawnBox:isPointInBox(x,y)
+	if mlib.polygon.checkPoint(x, y, self.polygon) then
+		return true
+	else
+		return false
+	end
+end
 
 function SpawnBox:readSpawnConfig(stage, wave)
     self.defenseMode = true
@@ -48,7 +56,7 @@ function SpawnBox:update(dt, gameState)
         if self.timer >= self.spawns[1].delay then
             self.timer = self.timer - self.spawns[1].delay
             if self.spawns[1].type ~= "pause" then
-                gameState.creepsManager:addCreep(self.tilePosition.x, self.tilePosition.y, self.spawns[1].type, self.pathIndex)
+                gameState.creepsManager:addCreep(self.position.x, self.position.y, self.spawns[1].type, self.pathIndex)
             end
             table.remove(self.spawns, 1)
         end
@@ -59,7 +67,11 @@ function SpawnBox:draw()
     if not self.defenseMode then
 		love.graphics.push("all")
 		love.graphics.setColor(70,70,70,200)
-		love.graphics.rectangle("fill", self.tilePosition.x, self.tilePosition.y-16, 64, 64)
+		love.graphics.polygon("fill", self.polygon)
 		love.graphics.pop()
+		
+		for _,spawn in pairs(self.spawns) do
+			
+		end
     end
 end
