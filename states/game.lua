@@ -9,7 +9,7 @@ function game:enter()
     game.imgWavedone = love.graphics.newImage("img/wavedone.png")
     game.imgCountdown = love.graphics.newImage("img/countdown.png")
     game.aniGridCountdown = Anim8.newGrid(100, 100, game.imgCountdown:getWidth(), game.imgCountdown:getHeight())
-	game.aniCountdown = Anim8.newAnimation(game.aniGridCountdown('1-5',1), 1)
+    game.aniCountdown = Anim8.newAnimation(game.aniGridCountdown('1-5',1), 1)
 
     game.camera = Camera()
     game.cameraCenter = { x = 350, y = 200}
@@ -55,8 +55,13 @@ function game:enter()
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
+    game.mscBoom = love.audio.newSource("sound/boom.mp3")
+    game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
+    game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
+    game.areYouReadyEnabled = false
     game.music:setVolume(0)
     game.music:play()
+    print("wtf")
 end
 
 function game:leave()
@@ -104,7 +109,11 @@ function game:update(dt)
         if game.stages[game.stage][game.wave] then
             --game.creepsManager:startWave(game.stages[game.stage][game.wave])
             game.nextWaveTimer = 6
-            game.aniCountdown:gotoFrame(5)
+            game.aniCountdown:gotoFrame(5)  
+            game.mscWavewin:play()        
+            if game.areYouReadyEnabled then
+                game.soundAreYouReady:play()
+            end
         else
             --Switch to other gamemode TODO
         end
@@ -115,8 +124,9 @@ function game:update(dt)
 
     if game.nextWaveTimer > 0 then
         game.nextWaveTimer = game.nextWaveTimer - dt
-    elseif game.nextWaveTimer <= 0 then
+    elseif game.nextWaveTimer < 0 then
         game.nextWaveTimer = 0
+        game.mscBoom:play()
     end
 
     game.camera:update(dt)
@@ -271,5 +281,14 @@ function game:mousereleased(mx,my,button)
         end
     elseif button == 2 then
         game.buildMode = nil
+    end
+end
+
+function game:keyreleased(key, code)
+    if key == "e" and love.keyboard.isDown("lctrl") then
+        game.areYouReadyEnabled = true
+    end
+    if key == "d" and love.keyboard.isDown("lctrl") then
+        game.areYouReadyEnabled = false
     end
 end
