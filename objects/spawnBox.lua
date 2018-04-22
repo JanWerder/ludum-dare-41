@@ -71,7 +71,19 @@ function SpawnBox:draw()
 		love.graphics.pop()
 		
 		for _,spawn in pairs(self.spawns) do
+			if spawn.type == 'pause' then
 			
+			end
+			if spawn.type == 'tomato' then
+			
+			end
+			if spawn.type == 'carrot' then
+			
+			end
+			if spawn.type == 'eggplant' then
+			
+			end
+		
 		end
     end
 end
