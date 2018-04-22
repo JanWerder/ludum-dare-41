@@ -7,7 +7,7 @@ TowerSalt = Class{
 		--- Tower Customizing --- 
 		-- damage Var's
 		self:setRange(TowerSalt.range)
-		self:setDamage(1)
+		self:setDamage(0.5)
 		self:setShootCount(30)
 		
 		-- general stuff
@@ -21,7 +21,7 @@ TowerSalt = Class{
 	end,
 	menuImage = love.graphics.newImage("img/salt_stillx64.png"),
 	imageStill = love.graphics.newImage("img/salt_still.png"),
-	price = 20,
+	price = 30,
 	range = 100
 }	
 

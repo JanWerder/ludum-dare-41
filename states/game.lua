@@ -4,9 +4,12 @@ function game:enter()
     map = sti("maps/defense.lua")
 	
     game.mapSize = {x = 640, y = 384}
-	tileOffset = {x = 0, y = 0}
     game.imgHeart = love.graphics.newImage("img/celeriac.png")
     game.imgBasil = love.graphics.newImage("img/basil.png")
+    game.imgWavedone = love.graphics.newImage("img/wavedone.png")
+    game.imgCountdown = love.graphics.newImage("img/countdown.png")
+    game.aniGridCountdown = Anim8.newGrid(100, 100, game.imgCountdown:getWidth(), game.imgCountdown:getHeight())
+	game.aniCountdown = Anim8.newAnimation(game.aniGridCountdown('1-5',1), 1)
 
     game.camera = Camera()
     game.cameraCenter = { x = 350, y = 200}
@@ -37,8 +40,10 @@ function game:enter()
     game.money = 50
     game.stage = 1
     game.wave = 1
+    game.nextWaveTimer = 0
 	
     game.creepsManager:startWave(game.stages[game.stage][game.wave])
+
     game.buttonStates = {}
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
@@ -80,9 +85,27 @@ function game:update(dt)
         end
     end   
 
+    --Wave is over
+    if not game.creepsManager.waveConfig and utils:tableLength(game.creepsManager.creepsToSpawn) == 0 and utils:tableLength(game.creepsManager.creeps) == 0 then
+        game.wave = game.wave + 1
+        if game.stages[game.stage][game.wave] then
+            game.creepsManager:startWave(game.stages[game.stage][game.wave])
+            game.nextWaveTimer = 6
+            game.aniCountdown:gotoFrame(5)
+        else
+            --Switch to other gamemode TODO
+        end
+    end
+
+    game.aniCountdown:update(dt)
     Timer.update(dt)
 
-    -- game.camera:setFollowLerp(0.2)
+    if game.nextWaveTimer > 0 then
+        game.nextWaveTimer = game.nextWaveTimer - dt
+    elseif game.nextWaveTimer <= 0 then
+        game.nextWaveTimer = 0
+    end
+
     game.camera:update(dt)
     if utils:tableLength(game.camera.vertical_shakes) == 0 then
         game.camera.x, game.camera.y =  game.cameraCenter.x, game.cameraCenter.y
@@ -127,6 +150,11 @@ function game:draw()
     end
     game:towerMenu()
     suit.draw()
+
+    if game.nextWaveTimer > 0 and game.nextWaveTimer < 5 then
+        love.graphics.draw(game.imgWavedone, game.camera.x-game.imgWavedone:getWidth()/2, game.camera.y-game.imgWavedone:getHeight()/2)
+        game.aniCountdown:draw(game.imgCountdown, game.camera.x-game.imgCountdown:getWidth()/10, game.camera.y-game.imgWavedone:getHeight()/2+150)
+    end
 
     game.camera:detach()
     game.camera:draw()

@@ -38,11 +38,14 @@ utils = require 'utils'
 menu = {}
 game = {}
 game.stages = require 'objects.stages'
+gameAttack = {}
+gameAttack.stages = require 'objects.stagesAttack'
 gameOver = {}
 
 
 --Include the states 
 require 'states.game'
+require 'states.gameAttack'
 require 'states.menu'
 require 'states.gameOver'
 
@@ -54,7 +57,8 @@ require 'objects.towerManager'
 function love.load()	
     lovebird.update()
     Gamestate.registerEvents()
-    Gamestate.switch(game)    
+    --Gamestate.switch(game)  
+    Gamestate.switch(gameAttack)    
 end
 
 function love:update(dt)
@@ -76,5 +80,13 @@ function love.keypressed(key)
     suit.keypressed(key)
     if key == "g" then
         Gamestate.switch(gameOver) 
+    end
+    
+    if key == "a" then
+        Gamestate.switch(gameAttack) 
+    end
+
+    if key == "s" then
+        Gamestate.switch(game) 
     end
 end
