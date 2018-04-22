@@ -3,7 +3,10 @@ function game:init()
     game.money = 80
     game.towerManager = TowerManager()
     game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
-	game.soundAreYouReady:play()
+    game.soundAreYouReady:play()
+    music = love.audio.newSource("sound/template_soundtrack.mp3")
+    music:setVolume(0.2)
+    music:play()
 end
 
 function game:enter()
@@ -54,18 +57,9 @@ function game:enter()
     game.buttonStates = {}
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
-    game.music = love.audio.newSource("sound/template_soundtrack.mp3")
     game.mscBoom = love.audio.newSource("sound/boom.mp3")
     game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
-    game.music:setVolume(0.2)
-    game.music:play()
     game:waveInit()
-end
-
-function game:leave()
-    if game.music then
-        game.music:stop()
-    end
 end
 
 function game:waveInit()

@@ -1,5 +1,6 @@
 function gameOver:enter()
     Timer.clear()
+    music:stop()
 end
 
 function gameOver:draw()
