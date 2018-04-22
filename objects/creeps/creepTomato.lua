@@ -20,7 +20,7 @@ CreepTomato = Class{
 	end,
 	menuImage = love.graphics.newImage("img/deathtomato.png"),
 	imageStill = love.graphics.newImage("img/deathtomato.png"),
-	price = 20
+	price = 15
 }	
 function CreepTomato:setDead()
 	self:setImage(love.graphics.newImage("img/deathtomato.png"))

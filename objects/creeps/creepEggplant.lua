@@ -20,7 +20,7 @@ CreepEggplant = Class{
 	end,
 	menuImage = love.graphics.newImage("img/deatheggplant.png"),
 	imageStill = love.graphics.newImage("img/deatheggplant.png"),
-	price = 20
+	price = 30
 }	
 function CreepEggplant:setDead()
 	self:setImage(love.graphics.newImage("img/deatheggplant.png"))

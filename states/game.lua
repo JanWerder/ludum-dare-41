@@ -118,7 +118,9 @@ function game:update(dt)
             game.firstWave = false
 			game.aniCountdown:gotoFrame(5)
         else
-            gameAttack.stage = gameAttack.stage + 1
+            if gameAttack.stage ~= nil then
+                gameAttack.stage = gameAttack.stage + 1
+            end
 			Gamestate.switch(gameAttack)
         end
 	end

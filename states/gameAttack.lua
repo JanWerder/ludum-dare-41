@@ -54,7 +54,8 @@ function gameAttack:enter()
 
     gameAttack.wave = 1
     gameAttack.lifePoints = gameAttack.stage
-    gameAttack.money = 50
+    -- gameAttack.money = 50 * gameAttack.stage
+    gameAttack.money = 100 * gameAttack.stage
     gameAttack.spawnStates = {}
     gameAttack.spawnMode = nil
     gameAttack.moneyBackground = love.graphics.newImage("img/money_bg.png")
