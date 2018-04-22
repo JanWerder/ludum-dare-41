@@ -20,11 +20,12 @@ TowerKnife = Class{
 		self.knifeX, self.knifeY = nil
 		self.knifeSpeed = 50
 		self.target = nil
-		self.knife = love.graphics.newImage("img/knife_projectile.png")
+		self.knife = love.graphics.newImage("img/knife_projectile.png")		
 		self.knifeSpeed = 300
 	end,
 	menuImage = love.graphics.newImage("img/Knifestand-stillx64.png"),
 	imageStill = love.graphics.newImage("img/Knifestand-still.png"),
+	shootsound = love.audio.newSource("sound/knife_throw.mp3", "static"),
 	price = 20,
 	range = 250
 }	
@@ -32,6 +33,7 @@ TowerKnife = Class{
 function TowerKnife:shoot(creeps)
 	if creeps[1] then
 		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.knife, self.knifeSpeed, creeps[1], self.damage))
-	end
+		self.shootsound:play()
+	end	
 end
 

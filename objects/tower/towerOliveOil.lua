@@ -21,6 +21,7 @@ TowerOliveOil = Class{
 	end,
 	menuImage = love.graphics.newImage("img/oliveoil_stillx64.png"),
 	imageStill = love.graphics.newImage("img/oliveoil_still.png"),
+	shootsound = love.audio.newSource("sound/olive-oil.mp3", "static"),
 	price = 20,
 	range = 275
 }	
@@ -28,6 +29,7 @@ TowerOliveOil = Class{
 function TowerOliveOil:shoot(creeps)
 	if creeps[1] then		
 		table.insert(self.projectiles, Projectile( self.worldX, self.worldY, self.oliveDrop, self.dropSpeed, creeps[1], self.damage, self.name))
-	end
+		self.shootsound:play()
+	end	
 end
 
