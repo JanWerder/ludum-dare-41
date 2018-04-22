@@ -1,6 +1,15 @@
+function game:init()
+    game.stage = 1
+    game.money = 80
+    game.towerManager = TowerManager()
+end
+
 function game:enter()
+    if game.stage == 4 then
+        Gamestate.switch(loveyou)
+    end
     love.physics.setMeter(32)
-    map = sti("maps/defense.lua")
+    game.map = sti("maps/defense.lua")
 	
     game.mapSize = {x = 640, y = 384}
     game.imgHeart = love.graphics.newImage("img/celeriac.png")
@@ -19,7 +28,7 @@ function game:enter()
     local originDirection = {-1,0}
     local currentField = {}
     for y=1,12 do
-        local props = map:getTileProperties("grid", 1, y)
+        local props = game.map:getTileProperties("grid", 1, y)
         if props.path then
             local calcPath = {}
 
@@ -27,17 +36,14 @@ function game:enter()
             currentField = { x = 1, y = y }
             
             
-            calcPath = utils:createPath(originDirection, currentField, calcPath)
+            calcPath = utils:createPath(originDirection, currentField, calcPath, game.map)
             table.insert(game.paths, calcPath)
         end
     end    
 
     game.creepsManager = CreepManager()
-    game.towerManager = TowerManager()
     
     game.lifePoints = 3
-    game.money = 50
-    game.stage = 1
     game.wave = 1
     game.nextWaveTimer = 0
     
@@ -57,7 +63,9 @@ function game:enter()
 end
 
 function game:leave()
-    game.music:stop()
+    if game.music then
+        game.music:stop()
+    end
 end
 
 function game:waveInit()
@@ -87,7 +95,7 @@ function game:update(dt)
     end
 
     lovebird.update()
-    map:update(dt)
+    game.map:update(dt)
 
     game.creepsManager:update(dt, self)
     game.towerManager:update(dt, self)
@@ -121,7 +129,7 @@ function game:update(dt)
         if x > 0 and y > 0 and x < game.mapSize.x and y < game.mapSize.y then
             game.buildMode.tileX, game.buildMode.tileY = utils:convertPositionToTile(x, y)
             game.buildMode.posX, game.buildMode.posY = utils:convertTileToPosition(game.buildMode.tileX, game.buildMode.tileY)
-            local props = map:getTileProperties("grid", game.buildMode.tileX , game.buildMode.tileY)
+            local props = game.map:getTileProperties("grid", game.buildMode.tileX , game.buildMode.tileY)
             if not props.path and not game.towerManager:getTowerAtTile(game.buildMode.tileX, game.buildMode.tileY) then
                 game.buildMode.buildAllowed = true
             end
@@ -149,7 +157,7 @@ function game:draw()
 
     game.camera:attach()
 
-    map:draw(game.camera.screen_x - game.camera.x,game.camera.screen_y - game.camera.y)
+    game.map:draw(game.camera.screen_x - game.camera.x,game.camera.screen_y - game.camera.y)
     game.creepsManager:draw()
     game.towerManager:draw()
 

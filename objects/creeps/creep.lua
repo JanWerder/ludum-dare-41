@@ -151,5 +151,5 @@ function Creep:setSpeedMultiplier(multiplier)
 	self.speedMultiplier = multiplier
 
 	Timer.during(3, function() self.speedMultiplier = multiplier end)
-	Timer.after(3, function() self.speedMultiplier = 1 end)	
+	Timer.after(3.1, function() self.speedMultiplier = 1 end)	
 end

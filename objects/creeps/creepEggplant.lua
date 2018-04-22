@@ -9,7 +9,7 @@ CreepEggplant = Class{
 		--- Creep Customizing --- 
 		-- damage Var's
 		self:setLife(10)
-		self:setHeadMoney(4)
+		self:setHeadMoney(5)
 		self:setSpeed(40)
 		self:setWidth(32)
 		self:setHeight(32)

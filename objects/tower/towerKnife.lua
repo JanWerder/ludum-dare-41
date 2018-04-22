@@ -7,7 +7,7 @@ TowerKnife = Class{
 		--- Tower Customizing --- 
 		-- damage Var's
 		self:setRange(TowerKnife.range)
-		self:setDamage(1)
+		self:setDamage(0.4)
 		self:setShootCount(60)
 		
 		-- general stuff
@@ -18,7 +18,6 @@ TowerKnife = Class{
 		
 		self.knife = love.graphics.newImage("img/knifestand-Sheet.png")
 		self.knifeX, self.knifeY = nil
-		self.knifeSpeed = 50
 		self.target = nil
 		self.knife = love.graphics.newImage("img/knife_projectile.png")		
 		self.knifeSpeed = 300
@@ -27,7 +26,7 @@ TowerKnife = Class{
 	imageStill = love.graphics.newImage("img/Knifestand-still.png"),
 	shootsound = love.audio.newSource("sound/knife_throw.mp3", "static"),
 	price = 20,
-	range = 250
+	range = 80
 }	
 
 function TowerKnife:shoot(creeps)

@@ -36,7 +36,7 @@ function Projectile:update(dt)
 		self.target:decreaseLife(self.damage)
 		self.hasHit = true
 		if self.originName == "Oliveoil" then
-			self.target:setSpeedMultiplier(0.5)
+			self.target:setSpeedMultiplier(0.3)
 		end		
 	else
 		-- calc flight

@@ -44,6 +44,7 @@ game.stages = require 'objects.stages'
 gameAttack = {}
 gameAttack.stages = require 'objects.stagesAttack'
 gameOver = {}
+loveyou = {}
 
 
 --Include the states 
@@ -51,6 +52,7 @@ require 'states.game'
 require 'states.gameAttack'
 require 'states.menu'
 require 'states.gameOver'
+require 'states.loveyou'
 
 
 --Include game-object Manager
@@ -64,7 +66,7 @@ function love.load()
 
     lovebird.update()
     Gamestate.registerEvents()
-    Gamestate.switch(game)  
+    Gamestate.switch(game)
     --Gamestate.switch(gameAttack)    
 end
 
