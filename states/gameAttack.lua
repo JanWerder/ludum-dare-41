@@ -96,20 +96,11 @@ function gameAttack:update(dt)
         Gamestate.switch(game)
     end
 
-    if utils:tableLength(gameAttack.creepsManager.creeps) < 1 then
-        local noMoreCreepsToSpawn = true
-        for _,spawnBox in pairs(gameAttack.spawnBoxes) do
-            if spawnBox:isStageStarted() == false or utils:tableLength(spawnBox.spawns) > 1 then
-                noMoreCreepsToSpawn = false
-            else
-                break
-            end
-        end
-        if noMoreCreepsToSpawn then
-            gameAttack.camera:fade(1, {0, 0, 0, 255})
-            Timer.after(1, function() Gamestate.switch(gameOver) end)
-        end
-    end
+	-- GameOver setzen
+	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 then
+		gameAttack.camera:fade(1, {0, 0, 0, 255})
+        Timer.after(1, function() Gamestate.switch(gameOver) end)
+	end
 
     Moan.update(dt)
 
