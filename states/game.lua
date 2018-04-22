@@ -44,13 +44,6 @@ function game:enter()
     
     game.spawnBoxes = {}
 
-    for i,path in pairs(game.paths) do
-        table.insert(game.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
-        game.spawnBoxes[utils:tableLength(game.spawnBoxes)]:readSpawnConfig(game.stage, game.wave)
-    end
-
-    game.creepsManager:startWave()
-
     game.buttonStates = {}
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
@@ -61,11 +54,26 @@ function game:enter()
     game.areYouReadyEnabled = false
     game.music:setVolume(0)
     game.music:play()
-    print("wtf")
+    game:waveInit()
 end
 
 function game:leave()
     game.music:stop()
+end
+
+function game:waveInit()
+	game.soundAreYouReady:play()
+	game.nextWaveTimer = 6
+	game.aniCountdown:gotoFrame(5)
+end
+
+function game:waveStart()
+	--generate Spawnboxes
+	for i,path in pairs(game.paths) do
+		table.insert(game.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
+		game.spawnBoxes[utils:tableLength(game.spawnBoxes)]:readSpawnConfig(game.stage, game.wave)
+	end
+	game.nextWaveTimer = 0
 end
 
 function game:update(dt)
@@ -82,9 +90,27 @@ function game:update(dt)
 
     game.creepsManager:update(dt, self)
 
-    for _,spawnBox in pairs(game.spawnBoxes) do
-        spawnBox:update(dt, self)
+	-- Check SpawnBoxes
+    for k,spawnBox in pairs(game.spawnBoxes) do
+		if utils:tableLength(spawnBox.spawns) > 0 then
+			spawnBox:update(dt, self)
+		else
+			table.remove(game.spawnBoxes, k)
+		end
+	end	
+	
+	-- Check Wave & Wins
+	if utils:tableLength(game.spawnBoxes) <= 0 and utils:tableLength(game.creepsManager.creeps) <= 0 and utils:tableLength(game.creepsManager.deadCreeps) > 0 then
+		game.mscWavewin:play() 
+		game.wave = game.wave + 1
+        if game.stages[game.stage][game.wave] then
+			game:waveStart()
+        else
+            --Switch to other gamemode TODO
+        end
 	end
+	
+	
     game.towerManager:update(dt, self)
 
     if game.buildMode then
@@ -99,23 +125,7 @@ function game:update(dt)
                 game.buildMode.buildAllowed = true
             end
         end
-    end   
-
-    --Wave is over
-    if not game.creepsManager.waveConfig and utils:tableLength(game.creepsManager.creepsToSpawn) == 0 and utils:tableLength(game.creepsManager.creeps) == 0 then
-        game.wave = game.wave + 1
-        if game.stages[game.stage][game.wave] then
-            --game.creepsManager:startWave(game.stages[game.stage][game.wave])
-            game.nextWaveTimer = 6
-            game.aniCountdown:gotoFrame(5)  
-            game.mscWavewin:play()        
-            if game.areYouReadyEnabled then
-                game.soundAreYouReady:play()
-            end
-        else
-            --Switch to other gamemode TODO
-        end
-    end
+    end 
 
     game.aniCountdown:update(dt)
     Timer.update(dt)
@@ -123,8 +133,8 @@ function game:update(dt)
     if game.nextWaveTimer > 0 then
         game.nextWaveTimer = game.nextWaveTimer - dt
     elseif game.nextWaveTimer < 0 then
-        game.nextWaveTimer = 0
         game.mscBoom:play()
+		game:waveStart()
     end
 
     game.camera:update(dt)
@@ -169,6 +179,13 @@ function game:draw()
             tower:drawRange()
         end
     end
+	
+    for _,spawnBox in pairs(game.spawnBoxes) do
+		if utils:tableLength(spawnBox.spawns) > 0 then
+			spawnBox:draw()
+		end
+	end
+	
     game:towerMenu()
     suit.draw()
 
