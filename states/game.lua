@@ -113,18 +113,18 @@ end
 function game:towerMenu()
     
     
-    love.graphics.draw(game.moneyBackground,640, 0)
+    love.graphics.draw(game.moneyBackground, game.mapSize.x, 0)
     local colorBlack = {normal = {bg = {0,0,0}, fg = {0,0,0}}}
     local bgRed, bgGreen, bgBlue = 115,102,102
     suit.layout:push()
-        suit.layout:reset(640,2)
+        suit.layout:reset(game.mapSize.x,2)
         suit.layout:row(14,8)
         suit.ImageButton(game.imgBasil, {}, suit.layout:col(12,8))
         suit.Label(game.money, {align = "center", color=colorBlack}, suit.layout:col(32,16))
         game.buttonStates = {}    
     suit.layout:pop()
 
-    suit.layout:reset(640,32)
+    suit.layout:reset(game.mapSize.x,32)
 
     love.graphics.push("all")
     if TowerKnife.price > game.money then
