@@ -30,6 +30,7 @@ function game:enter()
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
+    game.music:setVolume(0.2)
     game.music:play()
 end
 
