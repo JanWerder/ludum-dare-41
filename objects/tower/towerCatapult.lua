@@ -22,7 +22,7 @@ TowerCatapult = Class{
 	menuImage = love.graphics.newImage("img/catapult_stillx64.png"),
 	imageStill = love.graphics.newImage("img/catapult_still.png"),
 	shootsound = love.audio.newSource("sound/catapult.mp3", "static"),
-	price = 20,
+	price = 25,
 	range = 150
 }	
 
