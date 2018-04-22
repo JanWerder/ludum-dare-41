@@ -63,17 +63,23 @@ function gameAttack:enter()
     for _,tower in pairs(towerAttack[gameAttack.stage]) do
         gameAttack.towerManager:addTower(self, tower[2], tower[3], tower[1])
     end
+	gameAttack:stageInit()
 end
 
 function gameAttack:leave()
     gameAttack.music:stop()
 end
 
-function gameAttack:waveStart()
+function gameAttack:stageInit()
 	--generate Spawnboxes
 	for i,path in pairs(gameAttack.paths) do
 		table.insert(gameAttack.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
+	end
+end
 
+function gameAttack:waveStart()
+	for _,spawnBox in pairs(gameAttack.spawnBoxes) do
+		spawnBox:startStage()
 	end
 end
 
