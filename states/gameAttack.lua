@@ -64,7 +64,7 @@ function gameAttack:waveStart()
 	--generate Spawnboxes
 	for i,path in pairs(gameAttack.paths) do
 		table.insert(gameAttack.spawnBoxes, SpawnBox(path[1].x, path[1].y, i))
-		gameAttack.spawnBoxes[utils:tableLength(gameAttack.spawnBoxes)]:readSpawnConfig(gameAttack.stage, gameAttack.wave)
+
 	end
 end
 
@@ -91,7 +91,7 @@ function gameAttack:update(dt)
     for k,spawnBox in pairs(gameAttack.spawnBoxes) do
 		if utils:tableLength(spawnBox.spawns) > 0 then
 			spawnBox:update(dt, self)
-		else
+		elseif utils:tableLength(spawnBox.spawns) <= 0 and spawnBox:isStageStarted() then
 			table.remove(gameAttack.spawnBoxes, k)
 		end
 	end	
@@ -111,16 +111,12 @@ function gameAttack:update(dt)
     if gameAttack.spawnMode then
         local x = gameAttack.camera.mx
         local y = gameAttack.camera.my
-        gameAttack.spawnMode.spawnAllowed = false
-		if x < gameAttack.mapSize.x and y < gameAttack.mapSize.y then
-            gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY = utils:convertPositionToTile(x, y)
-            gameAttack.spawnMode.posX, gameAttack.spawnMode.posY = utils:convertTileToPosition(gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY)
-            local props = map:getTileProperties("grid", gameAttack.spawnMode.tileX , gameAttack.spawnMode.tileY)
-			
-            if not props.path and not gameAttack.towerManager:getTowerAtTile(gameAttack.spawnMode.tileX, gameAttack.spawnMode.tileY) then
-                gameAttack.spawnMode.spawnAllowed = true
-            end
-        end
+        gameAttack.spawnMode.spawnBoxIndex = nil
+		for k,spawnBox in pairs(gameAttack.spawnBoxes) do
+			if spawnBox:isPointInBox(x,y) then
+				gameAttack.spawnMode.spawnBoxIndex = k
+			end
+		end
 	end
 
     Timer.update(dt)
@@ -153,18 +149,12 @@ function gameAttack:draw()
             tower:drawRange()
         end
     end
-    gameAttack:creepMenu()
 	
-    -- spawning boxes
-
-    for _,path in pairs(gameAttack.paths) do
-        -- gameAttack.spawnBoxes = {{x = 100, y = 100, width = 132, height = 132}} -- ins customizing!
-        love.graphics.push("all")
-        local x,y = utils:convertTileToPosition(path[1].x, path[1].y)
-        love.graphics.setColor(70,70,70,200)
-	    love.graphics.rectangle("fill", x, y-16, 64, 64)
-	    love.graphics.pop()
-    end
+    for _,spawnBox in pairs(gameAttack.spawnBoxes) do
+		spawnBox:draw()
+	end
+	
+    gameAttack:creepMenu()
     
     suit.draw()
 
@@ -238,14 +228,12 @@ function gameAttack:mousereleased(mx,my,button)
     if button == 1 then
         for k,v in pairs(gameAttack.spawnStates) do
             if gameAttack.spawnStates[k][2].hovered and gameAttack.money >= gameAttack.spawnStates[k][3].price then
-                gameAttack.spawnMode = {towerName = gameAttack.spawnStates[k][1], image = gameAttack.spawnStates[k][3].imageStill, range = gameAttack.spawnStates[k][3].range}
+                gameAttack.spawnMode = {creepName = gameAttack.spawnStates[k][1], image = gameAttack.spawnStates[k][3].imageStill, range = gameAttack.spawnStates[k][3].range}
                 break
             end
         end
-        if gameAttack.spawnMode and gameAttack.spawnMode.spawnAllowed then
-			--TODO Creep merken
-			print("neuer Creep!")
-			
+        if gameAttack.spawnMode and gameAttack.spawnMode.spawnBoxIndex ~= nil then
+			gameAttack.spawnBoxes[gameAttack.spawnMode.spawnBoxIndex]:addSpawn(gameAttack.spawnMode.creepName,1)
             gameAttack.spawnMode = nil
         end
     elseif button == 2 then
@@ -259,11 +247,11 @@ function gameAttack:speak(boss, index)
     end
 end
 
-function game:keyreleased(key, code)
+function gameAttack:keyreleased(key, code)
     if key == "e" and love.keyboard.isDown("lctrl") then
-        game.areYouReadyEnabled = true
+        gameAttack:waveStart()
     end
     if key == "d" and love.keyboard.isDown("lctrl") then
-        game.areYouReadyEnabled = false
+        gameAttack:waveStart()
     end
 end
