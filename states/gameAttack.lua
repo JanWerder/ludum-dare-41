@@ -91,7 +91,7 @@ function gameAttack:update(dt)
     end
 
 	-- GameOver setzen
-	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 and gameAttack.lifePoints < 1 then
+	if utils:tableLength(gameAttack.spawnBoxes) <= 0 and utils:tableLength(gameAttack.creepsManager.creeps) <= 0 and gameAttack.lifePoints >= 1 then
 		gameAttack.camera:fade(1, {0, 0, 0, 255})
         Timer.after(1, function() Gamestate.switch(gameOver) end)
 	end
@@ -193,6 +193,16 @@ function gameAttack:draw()
     gameAttack:creepMenu()
     
     suit.draw()
+
+    if gameAttack.spawnMode then
+        local creepImg = CreepTomato.menuImage
+        if gameAttack.spawnMode.creepName == "carrot" then
+            creepImg = CreepCarrot.menuImage
+        elseif gameAttack.spawnMode.creepName == "eggplant" then
+            creepImg = CreepEggplant.menuImage
+        end
+        love.graphics.draw(creepImg, gameAttack.camera.mx, gameAttack.camera.my, 0, 0.5,0.5)
+    end
 
     gameAttack.camera:detach()
     gameAttack.camera:draw()
