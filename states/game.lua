@@ -2,6 +2,7 @@ function game:init()
     game.stage = 1
     game.money = 80
     game.towerManager = TowerManager()
+    game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
 	game.soundAreYouReady:play()
 end
 
@@ -56,7 +57,6 @@ function game:enter()
     game.music = love.audio.newSource("sound/template_soundtrack.mp3")
     game.mscBoom = love.audio.newSource("sound/boom.mp3")
     game.mscWavewin = love.audio.newSource("sound/wavewin.mp3")
-    game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
     game.music:setVolume(0.2)
     game.music:play()
     game:waveInit()
