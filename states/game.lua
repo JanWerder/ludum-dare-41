@@ -39,6 +39,7 @@ function game:enter()
     game.wave = 1
 	
     game.creepsManager:startWave(game.stages[game.stage][game.wave])
+
     game.buttonStates = {}
     game.buildMode = nil
     game.moneyBackground = love.graphics.newImage("img/money_bg.png")
@@ -79,6 +80,16 @@ function game:update(dt)
             end
         end
     end   
+
+    --Wave is over
+    if not game.creepsManager.waveConfig and utils:tableLength(game.creepsManager.creepsToSpawn) == 0 and utils:tableLength(game.creepsManager.creeps) == 0 then
+        game.wave = game.wave + 1
+        if game.stages[game.stage][game.wave] then
+            game.creepsManager:startWave(game.stages[game.stage][game.wave])
+        else
+            --Switch to other gamemode TODO
+        end
+    end
 
     Timer.update(dt)
 

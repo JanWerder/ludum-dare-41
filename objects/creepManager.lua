@@ -54,7 +54,7 @@ end
 
 function CreepManager:startWave(wave)
 	self.waveIndex = 0
-	self.waveTime = self.waveIndexTime
+	self.waveTime = 5
 	self.waveConfig = wave
 	self.singleCreepTime = self.singleCreepDelay
 	self.waveIndexTime = 10
