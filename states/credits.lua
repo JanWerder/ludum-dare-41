@@ -20,6 +20,7 @@ function credits:draw()
 	suit.Label("", {align = "left"}, suit.layout:row())	
 	suit.Label("And to Adam_N for hi squish", {align = "left"}, suit.layout:row())	
 	suit.Label("Check them out", {align = "left"}, suit.layout:row())
+	suit.Label("", {align = "left"}, suit.layout:row())	
 	-- Start Button
 	if suit.Button("Got it!", suit.layout:row(350,40)).hit then
 		credits:start()
