@@ -86,7 +86,7 @@ function game:update(dt)
         Timer.after(1, function() Gamestate.switch(gameOver) end)
     end
 
-    lovebird.update()
+    --lovebird.update()
     game.map:update(dt)
 
     game.creepsManager:update(dt, self)

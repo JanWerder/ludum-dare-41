@@ -1,4 +1,4 @@
-require "objects/Creeps/Creep"
+require "objects/creeps/creep"
 
 CreepNigella = Class{
 	__includes = Creep;

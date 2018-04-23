@@ -113,7 +113,7 @@ function gameAttack:update(dt)
 
     suit.updateMouse(gameAttack.camera.mx, gameAttack.camera.my)
 
-    lovebird.update()
+    --lovebird.update()
     gameAttack.map:update(dt)
 
     gameAttack.creepsManager:update(dt, self)

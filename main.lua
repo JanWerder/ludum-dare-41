@@ -1,24 +1,23 @@
 --Gamestate & Timer
 Gamestate = require "libs.hump.gamestate"
-Timer = require "libs.hump.timer"
 
 inspect = require "libs.inspect.inspect"
 
 --Web-Debug (http://localhost:8000/)
-lovebird = require "libs.lovebird.lovebird"
+--lovebird = require "libs.lovebird.lovebird"
 
 --Helper Library
 lume = require "libs.lume.lume"
 Class = require "libs.hump.class"
 Vector = require "libs.hump.vector"
-Timer = require "libs.hump.Timer"
+Timer = require "libs.hump.timer"
 mlib = require "libs.mlib.mlib"
 
 --Hot-Swapping
-lurker = require "libs.lurker.lurker"
+--lurker = require "libs.lurker.lurker"
 
 --Camera
-Camera = require 'libs.STALKER-X.camera'
+Camera = require 'libs.stalker-x.Camera'
 
 --Animation
 Anim8 = require 'libs.anim8.anim8'
@@ -27,13 +26,13 @@ Anim8 = require 'libs.anim8.anim8'
 Bump = require 'libs.bump.bump'
 
 --GUI
-suit = require 'libs.suit'
+suit = require 'libs.SUIT'
 
 --Tiled
 sti = require 'libs.sti'
 
 --VN Library
-Moan = require "libs.moan.moan"
+Moan = require "libs.moan.Moan"
 
 utils = require 'utils' 
 
@@ -66,14 +65,14 @@ function love.load()
     Moan.font = love.graphics.newFont("font/JinxedWizards.ttf", 32)
     Moan.typeSound = love.audio.newSource("sound/typeSound.wav", "static")
 
-    lovebird.update()
+    --lovebird.update()
     Gamestate.registerEvents()
     Gamestate.switch(menu)  
 end
 
 function love:update(dt)
-    lovebird.update()
-    lurker.update()
+    --lovebird.update()
+    --lurker.update()
 end
 
 
