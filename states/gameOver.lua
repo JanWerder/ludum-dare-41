@@ -13,7 +13,8 @@ function gameOver:update()
     suit.layout:row()
 	if suit.Button("Retry", suit.layout:row()).hit then
 		game:init()
-		gameAttack:init()
+        gameAttack:init()
+        gameAttack.stage = 0
 		Gamestate.switch(game) 
     end
     suit.layout:row()
