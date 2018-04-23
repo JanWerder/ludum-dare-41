@@ -16,8 +16,11 @@ function credits:draw()
 	suit.layout:reset(120,286)
 	suit.Label("Thank you for playing this game.", {align = "left"}, suit.layout:row(400,20))
 	suit.Label("", {align = "left"}, suit.layout:row())
-	suit.Label("Tributes go to ... for publishing such awesome music", {align = "left"}, suit.layout:row())	
+	suit.Label("Tributes go to Three Irma & Louise for publishing such awesome music", {align = "left"}, suit.layout:row())	
+	suit.Label("", {align = "left"}, suit.layout:row())	
+	suit.Label("And to Adam_N for hi squish", {align = "left"}, suit.layout:row())	
 	suit.Label("Check them out", {align = "left"}, suit.layout:row())
+	suit.Label("", {align = "left"}, suit.layout:row())	
 	-- Start Button
 	if suit.Button("Got it!", suit.layout:row(350,40)).hit then
 		credits:start()
