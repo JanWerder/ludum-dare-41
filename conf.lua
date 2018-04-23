@@ -41,7 +41,7 @@ function love.conf(t)
     t.modules.thread = true             -- Enable the thread module (boolean)
 t.releases = {
     title = "Conquer a chef's heart",              -- The project title (string)
-    package = "Conquer a chef's heart",            -- The project command and package name (string)
+    package = "Conquer-a-chefs-heart",            -- The project command and package name (string)
     loveVersion = '0.10.2',        -- The project LÖVE version.
     version = '1.0',            -- The project version
     author = 'us',             -- Your name (string)
