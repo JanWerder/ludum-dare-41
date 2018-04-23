@@ -5,6 +5,7 @@ function game:init()
     game.soundAreYouReady = love.audio.newSource("sound/are_you_ready_easteregg.mp3", "static")
     game.soundAreYouReady:play()
     music = love.audio.newSource("sound/template_soundtrack.mp3")
+    music:setLooping(true)
     music:setVolume(0.2)
     music:play()
 end

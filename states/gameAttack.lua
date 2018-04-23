@@ -1,5 +1,6 @@
 function gameAttack:init()
     gameAttack.stage = 1
+    Moan.lastTimeSpace = 0
     -- gameAttack.money = 80
 end
 
@@ -98,10 +99,15 @@ function gameAttack:update(dt)
 
     Moan.update(dt)
 
+    Moan.lastTimeSpace = Moan.lastTimeSpace+dt
+    if Moan.lastTimeSpace > 5 then
+        Moan.timerStarted = false
+        Moan.lastTimeSpace = 0
+    end
     if Moan.printedText == Moan.currentMessage or Moan.paused == true then
         if not Moan.timerStarted then
             Moan.timerStarted = true
-            Timer.after(3, function() Moan.keyreleased("space") Moan.timerStarted = false end)
+            Timer.after(3, function() Moan.keyreleased("space") Moan.timerStarted = false Moan.lastTimeSpace = 0 end)
         end
     end
 
@@ -129,8 +135,6 @@ function gameAttack:update(dt)
         if gameAttack.stages[gameAttack.stage][gameAttack.wave] then
 			gameAttack.nextWaveTimer = 6
 			gameAttack.aniCountdown:gotoFrame(5)
-        else
-			Gamestate.switch(gameAttack)
         end
 	end	
 
@@ -361,4 +365,5 @@ end
 function gameAttack:leave()
     Moan.clearMessages()
     Timer.clear()
+    Moan.timerStarted = false
 end
