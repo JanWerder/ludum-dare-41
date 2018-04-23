@@ -1,6 +1,5 @@
 function loveyou:enter()
     Timer.clear()
-    game:init()
     loveyou.imgBackground = love.graphics.newImage("img/loveu.png")
 end
 
