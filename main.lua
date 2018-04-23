@@ -45,6 +45,7 @@ gameAttack = {}
 gameAttack.stages = require 'objects.stagesAttack'
 gameOver = {}
 loveyou = {}
+credits = {}
 
 
 --Include the states 
@@ -53,6 +54,7 @@ require 'states.gameAttack'
 require 'states.menu'
 require 'states.gameOver'
 require 'states.loveyou'
+require 'states.credits'
 
 
 --Include game-object Manager
