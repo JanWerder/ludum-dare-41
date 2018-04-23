@@ -39,4 +39,17 @@ function love.conf(t)
     t.modules.video = true              -- Enable the video module (boolean)
     t.modules.window = true             -- Enable the window module (boolean)
     t.modules.thread = true             -- Enable the thread module (boolean)
+t.releases = {
+    title = "Conquer a chef's heart",              -- The project title (string)
+    package = "ludum-dare-41",            -- The project command and package name (string)
+    loveVersion = '0.10.2',        -- The project LÖVE version.
+    version = '1.0',            -- The project version
+    author = 'us',             -- Your name (string)
+    email = 'please@dont.com',              -- Your email (string)
+    description = 'Ludum Dare 41 Entry',        -- The project description (string)
+    homepage = 'nope.com',           -- The project homepage (string)
+    identifier = 'thisisspecialforme',         -- The project Uniform Type Identifier (string)
+    excludeFileList = {},     -- File patterns to exclude. (string list)
+    releaseDirectory = nil,   -- Where to store the project releases (string)
+  }
 end
