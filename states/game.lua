@@ -113,7 +113,12 @@ function game:update(dt)
             if gameAttack.stage ~= nil then
                 gameAttack.stage = gameAttack.stage + 1
             end
-			Gamestate.switch(gameAttack)
+            if game.lifePoints < 1 then
+                game.camera:fade(1, {0, 0, 0, 255})
+                Timer.after(1, function() Gamestate.switch(gameOver) end)
+            else
+                Gamestate.switch(gameAttack)
+            end
         end
 	end
 	
