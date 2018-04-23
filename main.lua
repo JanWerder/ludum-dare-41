@@ -45,6 +45,7 @@ gameAttack = {}
 gameAttack.stages = require 'objects.stagesAttack'
 gameOver = {}
 loveyou = {}
+credits = {}
 
 
 --Include the states 
@@ -53,6 +54,7 @@ require 'states.gameAttack'
 require 'states.menu'
 require 'states.gameOver'
 require 'states.loveyou'
+require 'states.credits'
 
 
 --Include game-object Manager
@@ -86,17 +88,5 @@ end
 
 function love.keypressed(key)
     suit.keypressed(key)
-    if key == "g" then
-        Gamestate.switch(gameOver) 
-    end
-    
-    if key == "a" then
-        Gamestate.switch(gameAttack) 
-    end
-
-    if key == "s" then
-        Gamestate.switch(game) 
-    end
-
     Moan.keyreleased(key)
 end

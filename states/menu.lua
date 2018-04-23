@@ -29,11 +29,20 @@ function menu:draw()
 	if suit.Button("Yes, I do!", suit.layout:row(350,40)).hit then
 		menu:start()
 	end
+
+	suit.layout:reset(740,555)
+	if suit.Button("credits", suit.layout:row(50,30)).hit then
+		menu:credits()
+	end
     suit.draw()
 end
 
 function menu:start()
 	Gamestate.switch(game)
+end
+
+function menu:credits()
+	Gamestate.switch(credits)
 end
 
 function menu:keyreleased(key, code)
