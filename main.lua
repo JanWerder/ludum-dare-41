@@ -86,17 +86,5 @@ end
 
 function love.keypressed(key)
     suit.keypressed(key)
-    if key == "g" then
-        Gamestate.switch(gameOver) 
-    end
-    
-    if key == "a" then
-        Gamestate.switch(gameAttack) 
-    end
-
-    if key == "s" then
-        Gamestate.switch(game) 
-    end
-
     Moan.keyreleased(key)
 end
